@@ -95,6 +95,53 @@ function istWeekdaysBetween(start: string, end: string): string[] {
   return dates;
 }
 
+export const SUMMARY_RE_SYNC_WINDOW_DAYS = 30;
+
+function istDatesRollingBack(reference = new Date(), calendarDays: number): string[] {
+  const dates: string[] = [];
+  const cursor = new Date(reference);
+  for (let i = 0; i < calendarDays; i++) {
+    const iso = cursor.toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' });
+    if (!isWeekendIst(iso)) {
+      dates.push(iso);
+    }
+    cursor.setDate(cursor.getDate() - 1);
+  }
+  return dates.reverse();
+}
+
+/** Re-sync summary (and tabs) for the last N IST calendar days — updates cohort outcomes as cases resolve. */
+export async function syncAsteraDashboardRollingWindow(
+  windowDays = SUMMARY_RE_SYNC_WINDOW_DAYS,
+  options?: { skipFormatting?: boolean }
+): Promise<void> {
+  const dates = istDatesRollingBack(new Date(), windowDays);
+  console.log(`\n📊 Astera dashboard rolling re-sync (${dates.length} IST weekdays in last ${windowDays} days)...`);
+
+  const sheetOptions = { skipFormatting: true, skipPublish: true };
+  const failures: string[] = [];
+  for (const date of dates) {
+    try {
+      await syncAsteraDashboardToSheets(date, sheetOptions);
+      await sleep(3000);
+    } catch (error) {
+      failures.push(`${date}: ${error}`);
+      console.error(`❌ Rolling sync failed for ${date}:`, error);
+    }
+  }
+
+  if (dates.length > 0) {
+    await publishVisibleDashboardMonth(dates[dates.length - 1]);
+    if (!options?.skipFormatting) {
+      await formatAsteraDashboardMonth(dates[dates.length - 1]);
+    }
+  }
+
+  if (failures.length > 0) {
+    throw new Error(failures.join('\n'));
+  }
+}
+
 export async function syncAsteraDashboardToSheets(
   reportDate?: string,
   options?: { skipFormatting?: boolean; skipPublish?: boolean }
@@ -102,12 +149,16 @@ export async function syncAsteraDashboardToSheets(
   const date = reportDate ?? (await getPriorIstWorkingReportDate());
   console.log(`\n📊 Astera dashboard sync for ${date}...`);
 
-  const [summaryRows, assigneeRows, scanRows, tatRows] = await Promise.all([
+  const [summaryRows, assigneeRows, cohortScanRows, calendarScanRows, tatRows] = await Promise.all([
     runBqAlertQuery<DailySummaryRow>(ASTERA_BQ_SQL_FILES.dailySummaryMetrics, {
       report_date: date,
       org_id: ASTERA_RADIOLOGY_ORG_ID,
     }),
     runBqAlertQuery<AssigneeRow>(ASTERA_BQ_SQL_FILES.assigneeViewMetrics, {
+      report_date: date,
+      org_id: ASTERA_RADIOLOGY_ORG_ID,
+    }),
+    runBqAlertQuery<ScanValueRow>(ASTERA_BQ_SQL_FILES.summaryCohortScanValue, {
       report_date: date,
       org_id: ASTERA_RADIOLOGY_ORG_ID,
     }),
@@ -126,8 +177,10 @@ export async function syncAsteraDashboardToSheets(
     throw new Error(`No daily summary row for ${date}`);
   }
 
-  const denialValue = sumScanValues(scanRows, ['denial', 'denied_by_risa']);
-  const totalValue = sumScanValues(scanRows, ['auth_by_risa', 'nar', 'denial', 'denied_by_risa']);
+  // Summary $: creation cohort + current status. Assignee $: calendar-day outcomes (unchanged).
+  const denialValue = sumScanValues(cohortScanRows, ['denial', 'denied_by_risa']);
+  const totalValue = sumScanValues(cohortScanRows, ['auth_by_risa', 'nar', 'denial', 'denied_by_risa']);
+  const scanRows = calendarScanRows;
   const casesAdded = Number(summary.cases_added ?? 0);
 
   if (!shouldStoreDashboardDate(casesAdded, date)) {
@@ -240,6 +293,11 @@ async function main(): Promise<void> {
       throw new Error('Usage: backfill YYYY-MM-DD [YYYY-MM-DD]');
     }
     await backfillAsteraDashboard(start, end);
+    return;
+  }
+  if (dateArg === 'rolling') {
+    const days = Number(process.argv[3] ?? SUMMARY_RE_SYNC_WINDOW_DAYS);
+    await syncAsteraDashboardRollingWindow(days);
     return;
   }
   await syncAsteraDashboardToSheets(dateArg);

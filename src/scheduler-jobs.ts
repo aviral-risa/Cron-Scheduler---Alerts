@@ -24,7 +24,7 @@ import {
   markJobCompletedToday,
   type ScheduledJobSpec,
 } from './scheduler-job-state';
-import { syncAsteraDashboardToSheets } from './alerts/bq/astera-dashboard-sync';
+import { syncAsteraDashboardRollingWindow } from './alerts/bq/astera-dashboard-sync';
 import { syncOrderData, syncOrgData } from './services/sync';
 import { syncQueueDataForAllFacilities } from './services/sync/queueSync';
 import { enforceRetentionPolicy } from './services/sheets-retention';
@@ -152,7 +152,7 @@ async function runAsteraAlertJob(name: string, fn: () => Promise<void>): Promise
 async function runAsteraDashboardSync(): Promise<void> {
   console.log(`\n⏰ Astera dashboard Sheets sync (${getCurrentISTTime()} IST)`);
   try {
-    await syncAsteraDashboardToSheets();
+    await syncAsteraDashboardRollingWindow();
     console.log('✓ Astera dashboard sync completed\n');
   } catch (error) {
     console.error('❌ Astera dashboard Sheets sync failed:', error);

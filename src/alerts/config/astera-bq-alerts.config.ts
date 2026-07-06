@@ -41,6 +41,7 @@ export const ASTERA_BQ_SQL_FILES = {
   wipOverOneDay: 'astera-wip-over-one-day-v1.sql',
   yesterdayAssignedUnworked: 'astera-yesterday-assigned-unworked-v1.sql',
   dailySummaryMetrics: 'astera-daily-summary-metrics-v1.sql',
+  summaryCohortScanValue: 'astera-summary-cohort-scan-value-v1.sql',
   assigneeViewMetrics: 'astera-assignee-view-metrics-v1.sql',
   scanValueRows: 'astera-scan-value-rows-v1.sql',
   assigneeTat: 'astera-assignee-tat-v1.sql',

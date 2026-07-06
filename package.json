@@ -43,6 +43,7 @@
     "alert:astera:dashboard-sync": "tsx src/alerts/bq/astera-dashboard-sync.ts",
     "alert:astera:dashboard-prune": "tsx src/alerts/bq/astera-dashboard-sync.ts prune",
     "alert:astera:dashboard-backfill": "tsx src/alerts/bq/astera-dashboard-sync.ts backfill",
+    "alert:astera:dashboard-rolling": "tsx src/alerts/bq/astera-dashboard-sync.ts rolling",
     "test:algolia": "tsx algolia_integration_test/scripts/test-algolia-raw.ts",
     "test:algolia:setup": "tsx algolia_integration_test/scripts/setup-test-sheet.ts",
     "test:algolia:compare": "tsx algolia_integration_test/scripts/compare-sources.ts",

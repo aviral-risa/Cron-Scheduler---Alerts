@@ -1,0 +1,96 @@
+# One-off or periodic Astera dashboard Sheets backfill (summary cohort model).
+#
+# Required secrets: DASHBOARD_ENV_FILE, GCP_SA_KEY (same as account-mgmt-cron.yml)
+#
+# Manual: Actions → Astera Dashboard Backfill → Run workflow
+
+name: Astera Dashboard Backfill
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'rolling = last N IST calendar days; range = explicit start/end dates'
+        required: true
+        type: choice
+        options:
+          - rolling
+          - range
+        default: rolling
+      rolling_days:
+        description: 'Days back for rolling mode (default 30)'
+        required: false
+        type: string
+        default: '30'
+      start_date:
+        description: 'Range start YYYY-MM-DD (range mode only)'
+        required: false
+        type: string
+      end_date:
+        description: 'Range end YYYY-MM-DD (range mode; defaults to start_date)'
+        required: false
+        type: string
+
+concurrency:
+  group: astera-dashboard-backfill
+  cancel-in-progress: false
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Configure environment
+        env:
+          DASHBOARD_ENV_FILE: ${{ secrets.DASHBOARD_ENV_FILE }}
+        run: |
+          if [ -z "$DASHBOARD_ENV_FILE" ]; then
+            echo "::error::Missing secret DASHBOARD_ENV_FILE"
+            exit 1
+          fi
+          printf '%s' "$DASHBOARD_ENV_FILE" > .env
+
+      - name: Configure GCP credentials
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+        run: |
+          if [ -z "$GCP_SA_KEY" ]; then
+            echo "::error::Missing secret GCP_SA_KEY"
+            exit 1
+          fi
+          printf '%s' "$GCP_SA_KEY" > gcp-sa.json
+          echo "GOOGLE_APPLICATION_CREDENTIALS=${{ github.workspace }}/gcp-sa.json" >> "$GITHUB_ENV"
+
+      - name: Run dashboard backfill
+        env:
+          NODE_ENV: production
+        run: |
+          if [ "${{ github.event.inputs.mode }}" = "range" ]; then
+            START="${{ github.event.inputs.start_date }}"
+            END="${{ github.event.inputs.end_date }}"
+            if [ -z "$START" ]; then
+              echo "::error::start_date required for range mode"
+              exit 1
+            fi
+            if [ -z "$END" ]; then
+              END="$START"
+            fi
+            npx tsx src/alerts/bq/astera-dashboard-sync.ts backfill "$START" "$END"
+          else
+            DAYS="${{ github.event.inputs.rolling_days }}"
+            DAYS="${DAYS:-30}"
+            npx tsx src/alerts/bq/astera-dashboard-sync.ts rolling "$DAYS"
+          fi
