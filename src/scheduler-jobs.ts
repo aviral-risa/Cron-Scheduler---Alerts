@@ -185,7 +185,7 @@ async function runTrackedAuthmatePending(spec: ScheduledJobSpec): Promise<void> 
     return;
   }
   if (!shouldRunAuthmatePendingAlert()) {
-    console.log('ℹ️ Skipping AuthMate-Pending alert — prior EST day was a weekend');
+    console.log('ℹ️ Skipping AuthMate-Pending alert — today is an EST weekend');
     await markJobCompletedToday(spec.id);
     return;
   }

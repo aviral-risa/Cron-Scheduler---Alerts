@@ -71,9 +71,12 @@ export function getAuthmateReportDate(reference = new Date()): string {
   return getPriorEstBusinessReportDate(reference);
 }
 
-/** Skip alert when EST yesterday was a weekend (no required weekday note). */
+/**
+ * Run on EST working days (Mon–Fri). Do not skip Mondays after a weekend.
+ * Weekend/holiday followups are excluded inside the BQ missed-notes query.
+ */
 export function shouldRunAuthmatePendingAlert(reference = new Date()): boolean {
-  const estYesterday = addDaysYmd(formatDateInZone(reference, EST), -1);
-  const weekday = weekdayFromYmd(estYesterday, EST);
+  const todayEst = formatDateInZone(reference, EST);
+  const weekday = weekdayFromYmd(todayEst, EST);
   return weekday !== 0 && weekday !== 6;
 }
