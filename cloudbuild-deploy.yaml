@@ -1,0 +1,46 @@
+# Cloud Build configuration for deploying MedOncAnalytics API to Cloud Run
+steps:
+  # Step 1: Build Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - 'us-central1-docker.pkg.dev/$PROJECT_ID/medonc-analytics/api:$SHORT_SHA'
+      - '-t'
+      - 'us-central1-docker.pkg.dev/$PROJECT_ID/medonc-analytics/api:latest'
+      - '.'
+
+  # Step 2: Push Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - '--all-tags'
+      - 'us-central1-docker.pkg.dev/$PROJECT_ID/medonc-analytics/api'
+
+  # Step 3: Deploy to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'medonc-analytics-api'
+      - '--image=us-central1-docker.pkg.dev/$PROJECT_ID/medonc-analytics/api:$SHORT_SHA'
+      - '--region=us-central1'
+      - '--platform=managed'
+      - '--allow-unauthenticated'
+      - '--set-env-vars=NODE_ENV=production'
+      - '--set-secrets=VITE_GOOGLE_SHEETS_ID=medonc-sheets-id:latest,VITE_GOOGLE_SERVICE_ACCOUNT_EMAIL=medonc-sa-email:latest,VITE_GOOGLE_PRIVATE_KEY=medonc-sa-key:latest'
+      - '--memory=1Gi'
+      - '--cpu=1'
+      - '--min-instances=0'
+      - '--max-instances=10'
+      - '--timeout=300'
+
+images:
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/medonc-analytics/api:$SHORT_SHA'
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/medonc-analytics/api:latest'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+
+timeout: '1200s'

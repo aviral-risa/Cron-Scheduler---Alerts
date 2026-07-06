@@ -1,0 +1,96 @@
+# GitHub Actions — scheduled cron jobs (IST via 15-minute dispatcher)
+#
+# Required repository secrets (Settings → Secrets and variables → Actions):
+#
+#   DASHBOARD_ENV_FILE  — full contents of your local .env (multiline)
+#   GCP_SA_KEY          — service account JSON with BigQuery, Sheets, Firestore access
+#
+# Optional:
+#   SLACK_BOT_TOKEN, etc. are included inside DASHBOARD_ENV_FILE if already in .env
+#
+# Manual test: Actions → Account Management Cron → Run workflow → optional job_id
+#
+# Until GitHub Actions is verified, keep the local scheduler running:
+#   npm run scheduler
+
+name: Account Management Cron
+
+on:
+  schedule:
+    # Every 15 minutes; dispatcher picks IST jobs due in the current window
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+    inputs:
+      job_id:
+        description: 'Optional job id (e.g. astera-authmate-pending). Leave empty to dispatch due jobs.'
+        required: false
+        type: string
+
+concurrency:
+  group: account-mgmt-cron
+  cancel-in-progress: false
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    defaults:
+      run:
+        working-directory: .
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Install system dependencies (canvas)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            build-essential \
+            libcairo2-dev \
+            libpango1.0-dev \
+            libjpeg-dev \
+            libgif-dev \
+            librsvg2-dev
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Configure environment
+        env:
+          DASHBOARD_ENV_FILE: ${{ secrets.DASHBOARD_ENV_FILE }}
+        run: |
+          if [ -z "$DASHBOARD_ENV_FILE" ]; then
+            echo "::error::Missing secret DASHBOARD_ENV_FILE"
+            exit 1
+          fi
+          printf '%s' "$DASHBOARD_ENV_FILE" > .env
+
+      - name: Configure GCP credentials
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+        run: |
+          if [ -z "$GCP_SA_KEY" ]; then
+            echo "::error::Missing secret GCP_SA_KEY (needed for BigQuery + Firestore job state)"
+            exit 1
+          fi
+          printf '%s' "$GCP_SA_KEY" > gcp-sa.json
+          echo "GOOGLE_APPLICATION_CREDENTIALS=${{ github.workspace }}/gcp-sa.json" >> "$GITHUB_ENV"
+
+      - name: Run cron dispatch
+        env:
+          GITHUB_ACTIONS: 'true'
+          SCHEDULER_STATE_BACKEND: firestore
+          NODE_ENV: production
+        run: |
+          if [ -n "${{ github.event.inputs.job_id }}" ]; then
+            npx tsx scripts/github-cron-dispatch.ts "${{ github.event.inputs.job_id }}"
+          else
+            npx tsx scripts/github-cron-dispatch.ts
+          fi

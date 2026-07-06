@@ -1,0 +1,673 @@
+{
+  "metadata": {
+    "date": "2026-01-18",
+    "facility": "NYCBS",
+    "facilityId": "HhwIHO4npKhrxyylkC33",
+    "generatedAt": "2026-01-18T21:22:49.207Z"
+  },
+  "samples": {
+    "1am": {
+      "hour": 1,
+      "totalOrders": 360,
+      "sampleOrders": [
+        {
+          "objectID": "ebe063c5-0448-4515-8e92-087572aef5bd",
+          "_highlightResult": {
+            "assigned_to": {
+              "value": "i2kq2DqPnCe6otzBscWFSge5kd72",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "assigned_to_name": {
+              "value": "Risa Agent",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "auth_status": {
+              "value": "oral_drug",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "location": {
+              "value": "*MED/ONC - Fresh Meadows - 6118 190th St",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "practitioner_name": {
+              "value": "Efat Azizi, MD",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "regimen_name": {
+              "value": "*Capecitabine (Xeloda)1000mg/m2 PO BID D1-15 + Oxaliplatin 130mg/m2 D1 Q21 days x 3 cycles (CapeOX)",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "patient_id": {
+              "value": "8744025",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "bo_status": {
+              "value": "Not Applicable",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "auth_on_file_status": {
+              "value": "completed",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "ev_bv_primary": {
+              "value": "completed",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "last_name": {
+              "value": "PARRA",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "first_name": {
+              "value": "ORLANDO",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          },
+          "id": "ebe063c5-0448-4515-8e92-087572aef5bd",
+          "created_at": 1768701067,
+          "created_at_iso": "2026-01-18 01:51:07.700222+00:00",
+          "date_of_work": 1768701340,
+          "date_of_work_iso": "2026-01-18T01:55:40.162150+00:00",
+          "indexed_at": 1768703401,
+          "indexed_at_iso": "2026-01-18T02:30:01.651392Z",
+          "assigned_to": "i2kq2DqPnCe6otzBscWFSge5kd72",
+          "assigned_to_name": "Risa Agent",
+          "auth_status": "oral_drug",
+          "primary_member_id": "135135419",
+          "primary_payer_name": "Healthfirst Medicare",
+          "primary_active": "Active Coverage",
+          "primary_status": "completed",
+          "service_type": "78",
+          "location": "*MED/ONC - Fresh Meadows - 6118 190th St",
+          "order_id": "ebe063c5-0448-4515-8e92-087572aef5bd",
+          "practitioner_name": "Efat Azizi, MD",
+          "regimen_name": "*Capecitabine (Xeloda)1000mg/m2 PO BID D1-15 + Oxaliplatin 130mg/m2 D1 Q21 days x 3 cycles (CapeOX)",
+          "date_of_service": 1770163200,
+          "date_of_service_iso": "02/04/2026",
+          "org_id": "HhwIHO4npKhrxyylkC33",
+          "patient_id": "8744025",
+          "financial_review": "new",
+          "updated_at": "2026-01-18T02:29:58.380070+00:00",
+          "master_auth_status": "oral_drug",
+          "regimen_type": "multi_agent",
+          "bo_status": "Not Applicable",
+          "order_creation": "completed",
+          "document_upload_status": "not_initiated",
+          "auth_on_file_updated_at": "2026-01-18T02:30:01.505697+00:00",
+          "auth_on_file_status": "completed",
+          "ev_write_back_status": "not_initiated",
+          "mark_as_completed": false,
+          "medical_order_status": "order_completed_by_agent",
+          "ev_bv_primary": "completed",
+          "patient_fhir_identifier": "PD--06C3XRN9MDY2EZM874MA.GH--Cz38227634--2",
+          "date_of_birth": "1948-03-27",
+          "last_name": "PARRA",
+          "first_name": "ORLANDO",
+          "alert_badges": [
+            "Drug Added"
+          ],
+          "alerts": [
+            "The following data has changed that might impact prior auth:Capecitabine oral (Xeloda) Added"
+          ]
+        },
+        {
+          "objectID": "c8aefa2f-9cd7-4d68-964a-1aecb6e0c0da",
+          "_highlightResult": {
+            "assigned_to": {
+              "value": "i2kq2DqPnCe6otzBscWFSge5kd72",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "assigned_to_name": {
+              "value": "Risa Agent",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "auth_status": {
+              "value": "oral_drug",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "location": {
+              "value": "*MED/ONC - New Hyde Park - 1 Delaware Drive",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "practitioner_name": {
+              "value": "Yelda Nouri MD",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "regimen_name": {
+              "value": "*Kisqali (Ribociclib) 400mg PO QD D1-21 Q28 days x 12 cycles (Adjuvant)",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "patient_id": {
+              "value": "8371533",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "bo_status": {
+              "value": "Not Applicable",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "auth_on_file_status": {
+              "value": "completed",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "ev_bv_primary": {
+              "value": "completed",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "last_name": {
+              "value": "IRONSIDE",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "first_name": {
+              "value": "GABRIELA",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          },
+          "id": "c8aefa2f-9cd7-4d68-964a-1aecb6e0c0da",
+          "created_at": 1768701067,
+          "created_at_iso": "2026-01-18 01:51:07.488382+00:00",
+          "date_of_work": 1768701373,
+          "date_of_work_iso": "2026-01-18T01:56:13.711493+00:00",
+          "indexed_at": 1768701954,
+          "indexed_at_iso": "2026-01-18T02:05:54.663325Z",
+          "assigned_to": "i2kq2DqPnCe6otzBscWFSge5kd72",
+          "assigned_to_name": "Risa Agent",
+          "auth_status": "oral_drug",
+          "primary_member_id": "74518763600",
+          "primary_payer_name": "Fidelis Care",
+          "primary_active": "active coverage",
+          "primary_status": "completed",
+          "service_type": "78",
+          "location": "*MED/ONC - New Hyde Park - 1 Delaware Drive",
+          "order_id": "c8aefa2f-9cd7-4d68-964a-1aecb6e0c0da",
+          "practitioner_name": "Yelda Nouri MD",
+          "regimen_name": "*Kisqali (Ribociclib) 400mg PO QD D1-21 Q28 days x 12 cycles (Adjuvant)",
+          "date_of_service": 1770768000,
+          "date_of_service_iso": "02/11/2026",
+          "org_id": "HhwIHO4npKhrxyylkC33",
+          "patient_id": "8371533",
+          "order_creation": "completed",
+          "nar_check_status": "completed",
+          "regimen_type": "multi_agent",
+          "bo_status": "Not Applicable",
+          "auth_on_file_status": "completed",
+          "auth_on_file_updated_at": "2026-01-18T02:05:54.553356+00:00",
+          "ev_bv_primary": "completed",
+          "mark_as_completed": false,
+          "master_auth_status": "oral_drug",
+          "document_upload_status": "not_initiated",
+          "financial_review": "new",
+          "medical_order_status": "order_completed_by_agent",
+          "ev_write_back_status": "not_initiated",
+          "updated_at": "2026-01-18T02:05:51.289932+00:00",
+          "patient_fhir_identifier": "PD--067VZ7W4QYBFHQ1WA0SX.GH--Cz38227634--2",
+          "date_of_birth": "1974-07-31",
+          "last_name": "IRONSIDE",
+          "first_name": "GABRIELA",
+          "alert_badges": [],
+          "alerts": []
+        },
+        {
+          "objectID": "a78cdc90-1dc1-4a3c-94a9-283cb3a053b9",
+          "_highlightResult": {
+            "assigned_to": {
+              "value": "unassigned",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "assigned_to_name": {
+              "value": "unassigned",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "auth_status": {
+              "value": "patient_owned_drug",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "location": {
+              "value": "*MED/ONC - Middletown - 419 E Main St",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "practitioner_name": {
+              "value": "Varun Modi, MD",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "regimen_name": {
+              "value": "Keytruda (Pembrolizumab) 200mg Q21 days x 8 cycles",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "patient_id": {
+              "value": "8283966",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "bo_status": {
+              "value": "POD - Verify",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "ev_bv_primary": {
+              "value": "completed",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "auth_on_file_status": {
+              "value": "completed",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "last_name": {
+              "value": "PIPARO",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "first_name": {
+              "value": "LENA",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          },
+          "id": "a78cdc90-1dc1-4a3c-94a9-283cb3a053b9",
+          "created_at": 1768701067,
+          "created_at_iso": "2026-01-18 01:51:07.375336+00:00",
+          "indexed_at": 1768703859,
+          "indexed_at_iso": "2026-01-18T02:37:39.119028Z",
+          "assigned_to": "unassigned",
+          "assigned_to_name": "unassigned",
+          "auth_status": "patient_owned_drug",
+          "primary_member_id": "101809615900",
+          "primary_payer_name": "Aetna Medicare",
+          "primary_active": "Active Coverage",
+          "primary_status": "completed",
+          "service_type": "78",
+          "location": "*MED/ONC - Middletown - 419 E Main St",
+          "order_id": "a78cdc90-1dc1-4a3c-94a9-283cb3a053b9",
+          "practitioner_name": "Varun Modi, MD",
+          "regimen_name": "Keytruda (Pembrolizumab) 200mg Q21 days x 8 cycles",
+          "date_of_service": 1770595200,
+          "date_of_service_iso": "02/09/2026",
+          "org_id": "HhwIHO4npKhrxyylkC33",
+          "patient_id": "8283966",
+          "bo_status": "POD - Verify",
+          "financial_review": "new",
+          "medical_order_status": "yet_to_start_work_on_order",
+          "ev_bv_primary": "completed",
+          "master_auth_status": "new",
+          "auth_on_file_updated_at": "2026-01-18T02:37:38.985486+00:00",
+          "auth_on_file_status": "completed",
+          "document_upload_status": "not_initiated",
+          "nar_check_status": "completed",
+          "regimen_type": "multi_agent",
+          "ev_write_back_status": "not_initiated",
+          "mark_as_completed": false,
+          "order_creation": "completed",
+          "patient_fhir_identifier": "PD--067F2J77NHMZ9S14AP71.GH--Cz38227634--2",
+          "date_of_birth": "1947-12-21",
+          "last_name": "PIPARO",
+          "first_name": "LENA",
+          "alert_badges": [],
+          "alerts": []
+        }
+      ]
+    },
+    "2am": {
+      "hour": 2,
+      "totalOrders": 286,
+      "sampleOrders": [
+        {
+          "objectID": "f326e70e-3f89-4d78-b779-ef02f354a845",
+          "_highlightResult": {
+            "assigned_to": {
+              "value": "unassigned",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "assigned_to_name": {
+              "value": "unassigned",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "auth_status": {
+              "value": "auth_required",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "location": {
+              "value": "*MED/ONC - New Hyde Park - 1 Delaware Drive",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "practitioner_name": {
+              "value": "Triantafillos Fillos, MD",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "regimen_name": {
+              "value": "5-FU 400mg/m2 IVP + 5-FU 2400mg/m2 CI over 46hrs + Leucovorin 400mg/m2 + Oxaliplatin 85mg/m2 Q14 days x 8 cycles (mFOLFOX6)",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "patient_id": {
+              "value": "8523268",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "ev_bv_primary": {
+              "value": "completed",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "auth_on_file_status": {
+              "value": "completed",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "bo_status": {
+              "value": "AuthMate",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "last_name": {
+              "value": "RODGERS",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "first_name": {
+              "value": "SINEAD",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          },
+          "id": "f326e70e-3f89-4d78-b779-ef02f354a845",
+          "created_at": 1768704540,
+          "created_at_iso": "2026-01-18 02:49:00.865003+00:00",
+          "indexed_at": 1768705147,
+          "indexed_at_iso": "2026-01-18T02:59:07.231984Z",
+          "assigned_to": "unassigned",
+          "assigned_to_name": "unassigned",
+          "auth_status": "auth_required",
+          "primary_member_id": "EP34817M",
+          "primary_payer_name": "Healthfirst Medicaid",
+          "primary_active": "Active Coverage",
+          "primary_status": "completed",
+          "service_type": "78",
+          "location": "*MED/ONC - New Hyde Park - 1 Delaware Drive",
+          "order_id": "f326e70e-3f89-4d78-b779-ef02f354a845",
+          "practitioner_name": "Triantafillos Fillos, MD",
+          "regimen_name": "5-FU 400mg/m2 IVP + 5-FU 2400mg/m2 CI over 46hrs + Leucovorin 400mg/m2 + Oxaliplatin 85mg/m2 Q14 days x 8 cycles (mFOLFOX6)",
+          "date_of_service": 1770163200,
+          "date_of_service_iso": "02/04/2026",
+          "org_id": "HhwIHO4npKhrxyylkC33",
+          "patient_id": "8523268",
+          "nar_check_status": "completed",
+          "ev_write_back_status": "not_initiated",
+          "document_upload_status": "not_initiated",
+          "ev_bv_primary": "completed",
+          "auth_on_file_updated_at": "2026-01-18T02:54:40.918619+00:00",
+          "auth_on_file_error_type": "refresh_error",
+          "auth_on_file_status": "completed",
+          "auth_on_file_error_message": "Error refreshing auth data: No auth_entries available for identifier: f326e70e-3f89-4d78-b779-ef02f354a845. Cannot proceed with NAR and post-processing.",
+          "medical_order_status": "yet_to_start_work_on_order",
+          "order_creation": "completed",
+          "mark_as_completed": false,
+          "health_first_nar_rpa_status": "Error",
+          "master_auth_status": "new",
+          "regimen_type": "multi_agent",
+          "bo_status": "AuthMate",
+          "financial_review": "new",
+          "patient_fhir_identifier": "PD--0695GAXJHC9VJ4CS5FZF.GH--Cz38227634--2",
+          "date_of_birth": "1970-11-20",
+          "last_name": "RODGERS",
+          "first_name": "SINEAD",
+          "alert_badges": [],
+          "alerts": []
+        },
+        {
+          "objectID": "92c5cb85-595d-46a3-b797-8a2830d638a6",
+          "_highlightResult": {
+            "assigned_to": {
+              "value": "unassigned",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "assigned_to_name": {
+              "value": "unassigned",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "auth_status": {
+              "value": "no_auth_required",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "location": {
+              "value": "*MED/ONC - Port Jefferson - 1500-1 Route 112",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "practitioner_name": {
+              "value": "Evan Diamond, MD",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "regimen_name": {
+              "value": "Venofer 200mg IV x 5 doses",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "patient_id": {
+              "value": "4056786",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "bo_status": {
+              "value": "Financial",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "ev_bv_primary": {
+              "value": "completed",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "auth_on_file_status": {
+              "value": "completed",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "last_name": {
+              "value": "ARNOLDT",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "first_name": {
+              "value": "HOPE",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          },
+          "id": "92c5cb85-595d-46a3-b797-8a2830d638a6",
+          "created_at": 1768704540,
+          "created_at_iso": "2026-01-18 02:49:00.560423+00:00",
+          "indexed_at": 1768705085,
+          "indexed_at_iso": "2026-01-18T02:58:05.485326Z",
+          "assigned_to": "unassigned",
+          "assigned_to_name": "unassigned",
+          "auth_status": "no_auth_required",
+          "primary_member_id": "W264400507",
+          "primary_payer_name": "Aetna",
+          "primary_active": "Active Coverage",
+          "primary_status": "completed",
+          "service_type": "78",
+          "location": "*MED/ONC - Port Jefferson - 1500-1 Route 112",
+          "order_id": "92c5cb85-595d-46a3-b797-8a2830d638a6",
+          "practitioner_name": "Evan Diamond, MD",
+          "regimen_name": "Venofer 200mg IV x 5 doses",
+          "date_of_service": 1771113600,
+          "date_of_service_iso": "02/15/2026",
+          "org_id": "HhwIHO4npKhrxyylkC33",
+          "patient_id": "4056786",
+          "order_creation": "completed",
+          "document_upload_status": "not_initiated",
+          "mark_as_completed": false,
+          "bo_status": "Financial",
+          "master_auth_status": "new",
+          "ev_write_back_status": "not_initiated",
+          "ev_bv_primary": "completed",
+          "regimen_type": "single_agent",
+          "auth_on_file_error_type": "refresh_error",
+          "auth_on_file_status": "completed",
+          "auth_on_file_error_message": "Error refreshing auth data: No auth_entries available for identifier: 92c5cb85-595d-46a3-b797-8a2830d638a6. Cannot proceed with NAR and post-processing.",
+          "auth_on_file_updated_at": "2026-01-18T02:54:14.964518+00:00",
+          "nar_check_status": "completed",
+          "financial_review": "new",
+          "medical_order_status": "yet_to_start_work_on_order",
+          "patient_fhir_identifier": "PD--11211428390757486--1.GH--Cz38227634--2",
+          "date_of_birth": "1977-08-22",
+          "last_name": "ARNOLDT",
+          "first_name": "HOPE",
+          "alert_badges": [],
+          "alerts": []
+        },
+        {
+          "objectID": "6afd1f91-bf1e-4e3c-bd1e-e48d9ac78b62",
+          "_highlightResult": {
+            "assigned_to": {
+              "value": "unassigned",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "assigned_to_name": {
+              "value": "unassigned",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "auth_status": {
+              "value": "auth_required",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "location": {
+              "value": "*MED/ONC - Central Park",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "practitioner_name": {
+              "value": "William Grace MD",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "regimen_name": {
+              "value": "Carboplatin AUC5 + Taxol 175mg/m2 + Avastin 7.5mg/kg Q21 days w/PEG G-CSF x 5 cycles (ICON-7)",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "patient_id": {
+              "value": "8539009",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "ev_bv_primary": {
+              "value": "completed",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "auth_on_file_status": {
+              "value": "completed",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "bo_status": {
+              "value": "AuthMate",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "last_name": {
+              "value": "COTTER",
+              "matchLevel": "none",
+              "matchedWords": []
+            },
+            "first_name": {
+              "value": "MARIE",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          },
+          "id": "6afd1f91-bf1e-4e3c-bd1e-e48d9ac78b62",
+          "created_at": 1768704540,
+          "created_at_iso": "2026-01-18 02:49:00.458956+00:00",
+          "indexed_at": 1768705656,
+          "indexed_at_iso": "2026-01-18T03:07:36.956970Z",
+          "assigned_to": "unassigned",
+          "assigned_to_name": "unassigned",
+          "auth_status": "auth_required",
+          "primary_member_id": "133112187",
+          "primary_payer_name": "Health First Medicare D SNP",
+          "primary_active": "Active Coverage",
+          "primary_status": "completed",
+          "service_type": "78",
+          "location": "*MED/ONC - Central Park",
+          "order_id": "6afd1f91-bf1e-4e3c-bd1e-e48d9ac78b62",
+          "practitioner_name": "William Grace MD",
+          "regimen_name": "Carboplatin AUC5 + Taxol 175mg/m2 + Avastin 7.5mg/kg Q21 days w/PEG G-CSF x 5 cycles (ICON-7)",
+          "date_of_service": 1770940800,
+          "date_of_service_iso": "02/13/2026",
+          "org_id": "HhwIHO4npKhrxyylkC33",
+          "patient_id": "8539009",
+          "order_creation": "completed",
+          "master_auth_status": "new",
+          "ev_bv_secondary": "ev_type_not_supported",
+          "ev_bv_primary": "completed",
+          "financial_review": "new",
+          "document_upload_status": "not_initiated",
+          "auth_on_file_error_type": "refresh_error",
+          "auth_on_file_status": "completed",
+          "auth_on_file_updated_at": "2026-01-18T03:03:12.630182+00:00",
+          "auth_on_file_error_message": "Error refreshing auth data: No auth_entries available for identifier: 6afd1f91-bf1e-4e3c-bd1e-e48d9ac78b62. Cannot proceed with NAR and post-processing.",
+          "ev_write_back_status": "not_initiated",
+          "mark_as_completed": false,
+          "bo_status": "AuthMate",
+          "medical_order_status": "yet_to_start_work_on_order",
+          "regimen_type": "multi_agent",
+          "patient_fhir_identifier": "PD--069FSV6B509Q72WC4P7B.GH--Cz38227634--2",
+          "date_of_birth": "1952-05-24",
+          "last_name": "COTTER",
+          "first_name": "MARIE",
+          "alert_badges": [],
+          "alerts": []
+        }
+      ]
+    },
+    "3am": {
+      "hour": 3,
+      "totalOrders": 0,
+      "sampleOrders": []
+    }
+  }
+}

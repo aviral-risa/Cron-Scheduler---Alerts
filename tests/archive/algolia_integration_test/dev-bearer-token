@@ -1,0 +1,6 @@
+postman request POST 'https://authentication.risalabs.ai/api/v1/user-auth/token' \
+  --header 'Content-Type: application/json' \
+  --body '{
+    "username": "risa_front_end_user",
+    "password": "e4Itc/E[df~z"
+  }'

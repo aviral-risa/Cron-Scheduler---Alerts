@@ -1,0 +1,27 @@
+# Cloud Cron API for Cloud Run (triggered by Google Cloud Scheduler)
+FROM node:20
+
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libcairo2-dev \
+    libpango1.0-dev \
+    libjpeg-dev \
+    libgif-dev \
+    librsvg2-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY package*.json ./
+RUN npm ci
+
+COPY . .
+
+EXPOSE 8080
+
+ENV PORT=8080
+ENV NODE_ENV=production
+ENV SCHEDULER_CLOUD_MODE=true
+ENV SCHEDULER_STATE_BACKEND=firestore
+
+CMD ["npx", "tsx", "src/server/cron-api.ts"]

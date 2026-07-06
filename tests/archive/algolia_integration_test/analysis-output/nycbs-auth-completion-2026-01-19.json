@@ -1,0 +1,728 @@
+{
+  "metadata": {
+    "generatedAt": "2026-01-18T21:07:01.199Z",
+    "organization": "NYCBS",
+    "facilityId": "HhwIHO4npKhrxyylkC33",
+    "dateRange": {
+      "start": "2026-01-15",
+      "end": "2026-01-18"
+    },
+    "totalDaysAnalyzed": 4
+  },
+  "summary": {
+    "totalOrdersCreated": 5000,
+    "totalCompletedAuth": 4901,
+    "overallCompletionRate": 98.02
+  },
+  "dailyAnalysis": [
+    {
+      "date": "2026-01-15",
+      "totalOrdersCreated": 1295,
+      "totalCompletedAuth": 1273,
+      "completionRate": 98.3011583011583,
+      "hourlyBreakdown": [
+        {
+          "hour": 7,
+          "hourLabel": "7am",
+          "completedByThisHour": 119,
+          "percentageByThisHour": 9.347996857816183,
+          "newCompletionsThisHour": 119
+        },
+        {
+          "hour": 8,
+          "hourLabel": "8am",
+          "completedByThisHour": 123,
+          "percentageByThisHour": 9.662215239591516,
+          "newCompletionsThisHour": 4
+        },
+        {
+          "hour": 9,
+          "hourLabel": "9am",
+          "completedByThisHour": 125,
+          "percentageByThisHour": 9.819324430479183,
+          "newCompletionsThisHour": 2
+        },
+        {
+          "hour": 10,
+          "hourLabel": "10am",
+          "completedByThisHour": 126,
+          "percentageByThisHour": 9.897879025923016,
+          "newCompletionsThisHour": 1
+        },
+        {
+          "hour": 11,
+          "hourLabel": "11am",
+          "completedByThisHour": 127,
+          "percentageByThisHour": 9.97643362136685,
+          "newCompletionsThisHour": 1
+        },
+        {
+          "hour": 12,
+          "hourLabel": "12pm",
+          "completedByThisHour": 130,
+          "percentageByThisHour": 10.212097407698352,
+          "newCompletionsThisHour": 3
+        },
+        {
+          "hour": 13,
+          "hourLabel": "1pm",
+          "completedByThisHour": 133,
+          "percentageByThisHour": 10.44776119402985,
+          "newCompletionsThisHour": 3
+        },
+        {
+          "hour": 14,
+          "hourLabel": "2pm",
+          "completedByThisHour": 134,
+          "percentageByThisHour": 10.526315789473683,
+          "newCompletionsThisHour": 1
+        },
+        {
+          "hour": 15,
+          "hourLabel": "3pm",
+          "completedByThisHour": 136,
+          "percentageByThisHour": 10.683424980361352,
+          "newCompletionsThisHour": 2
+        },
+        {
+          "hour": 16,
+          "hourLabel": "4pm",
+          "completedByThisHour": 136,
+          "percentageByThisHour": 10.683424980361352,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 17,
+          "hourLabel": "5pm",
+          "completedByThisHour": 136,
+          "percentageByThisHour": 10.683424980361352,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 18,
+          "hourLabel": "6pm",
+          "completedByThisHour": 136,
+          "percentageByThisHour": 10.683424980361352,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 19,
+          "hourLabel": "7pm",
+          "completedByThisHour": 136,
+          "percentageByThisHour": 10.683424980361352,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 20,
+          "hourLabel": "8pm",
+          "completedByThisHour": 136,
+          "percentageByThisHour": 10.683424980361352,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 21,
+          "hourLabel": "9pm",
+          "completedByThisHour": 136,
+          "percentageByThisHour": 10.683424980361352,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 22,
+          "hourLabel": "10pm",
+          "completedByThisHour": 136,
+          "percentageByThisHour": 10.683424980361352,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 23,
+          "hourLabel": "11pm",
+          "completedByThisHour": 136,
+          "percentageByThisHour": 10.683424980361352,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 0,
+          "hourLabel": "12am",
+          "completedByThisHour": 193,
+          "percentageByThisHour": 15.161036920659859,
+          "newCompletionsThisHour": 57
+        },
+        {
+          "hour": 1,
+          "hourLabel": "1am",
+          "completedByThisHour": 413,
+          "percentageByThisHour": 32.44304791830322,
+          "newCompletionsThisHour": 220
+        },
+        {
+          "hour": 2,
+          "hourLabel": "2am",
+          "completedByThisHour": 569,
+          "percentageByThisHour": 44.69756480754124,
+          "newCompletionsThisHour": 156
+        },
+        {
+          "hour": 3,
+          "hourLabel": "3am",
+          "completedByThisHour": 796,
+          "percentageByThisHour": 62.529457973291436,
+          "newCompletionsThisHour": 227
+        },
+        {
+          "hour": 4,
+          "hourLabel": "4am",
+          "completedByThisHour": 986,
+          "percentageByThisHour": 77.4548311076198,
+          "newCompletionsThisHour": 190
+        },
+        {
+          "hour": 5,
+          "hourLabel": "5am",
+          "completedByThisHour": 1164,
+          "percentageByThisHour": 91.43754909662215,
+          "newCompletionsThisHour": 178
+        },
+        {
+          "hour": 6,
+          "hourLabel": "6am",
+          "completedByThisHour": 1273,
+          "percentageByThisHour": 100,
+          "newCompletionsThisHour": 109
+        }
+      ],
+      "missingTimestamps": 0
+    },
+    {
+      "date": "2026-01-16",
+      "totalOrdersCreated": 1260,
+      "totalCompletedAuth": 1242,
+      "completionRate": 98.57142857142858,
+      "hourlyBreakdown": [
+        {
+          "hour": 7,
+          "hourLabel": "7am",
+          "completedByThisHour": 7,
+          "percentageByThisHour": 0.5636070853462157,
+          "newCompletionsThisHour": 7
+        },
+        {
+          "hour": 8,
+          "hourLabel": "8am",
+          "completedByThisHour": 8,
+          "percentageByThisHour": 0.644122383252818,
+          "newCompletionsThisHour": 1
+        },
+        {
+          "hour": 9,
+          "hourLabel": "9am",
+          "completedByThisHour": 9,
+          "percentageByThisHour": 0.7246376811594203,
+          "newCompletionsThisHour": 1
+        },
+        {
+          "hour": 10,
+          "hourLabel": "10am",
+          "completedByThisHour": 10,
+          "percentageByThisHour": 0.8051529790660225,
+          "newCompletionsThisHour": 1
+        },
+        {
+          "hour": 11,
+          "hourLabel": "11am",
+          "completedByThisHour": 10,
+          "percentageByThisHour": 0.8051529790660225,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 12,
+          "hourLabel": "12pm",
+          "completedByThisHour": 11,
+          "percentageByThisHour": 0.8856682769726247,
+          "newCompletionsThisHour": 1
+        },
+        {
+          "hour": 13,
+          "hourLabel": "1pm",
+          "completedByThisHour": 11,
+          "percentageByThisHour": 0.8856682769726247,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 14,
+          "hourLabel": "2pm",
+          "completedByThisHour": 11,
+          "percentageByThisHour": 0.8856682769726247,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 15,
+          "hourLabel": "3pm",
+          "completedByThisHour": 12,
+          "percentageByThisHour": 0.966183574879227,
+          "newCompletionsThisHour": 1
+        },
+        {
+          "hour": 16,
+          "hourLabel": "4pm",
+          "completedByThisHour": 13,
+          "percentageByThisHour": 1.0466988727858293,
+          "newCompletionsThisHour": 1
+        },
+        {
+          "hour": 17,
+          "hourLabel": "5pm",
+          "completedByThisHour": 13,
+          "percentageByThisHour": 1.0466988727858293,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 18,
+          "hourLabel": "6pm",
+          "completedByThisHour": 13,
+          "percentageByThisHour": 1.0466988727858293,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 19,
+          "hourLabel": "7pm",
+          "completedByThisHour": 13,
+          "percentageByThisHour": 1.0466988727858293,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 20,
+          "hourLabel": "8pm",
+          "completedByThisHour": 13,
+          "percentageByThisHour": 1.0466988727858293,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 21,
+          "hourLabel": "9pm",
+          "completedByThisHour": 13,
+          "percentageByThisHour": 1.0466988727858293,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 22,
+          "hourLabel": "10pm",
+          "completedByThisHour": 13,
+          "percentageByThisHour": 1.0466988727858293,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 23,
+          "hourLabel": "11pm",
+          "completedByThisHour": 13,
+          "percentageByThisHour": 1.0466988727858293,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 0,
+          "hourLabel": "12am",
+          "completedByThisHour": 77,
+          "percentageByThisHour": 6.199677938808374,
+          "newCompletionsThisHour": 64
+        },
+        {
+          "hour": 1,
+          "hourLabel": "1am",
+          "completedByThisHour": 324,
+          "percentageByThisHour": 26.08695652173913,
+          "newCompletionsThisHour": 247
+        },
+        {
+          "hour": 2,
+          "hourLabel": "2am",
+          "completedByThisHour": 538,
+          "percentageByThisHour": 43.31723027375201,
+          "newCompletionsThisHour": 214
+        },
+        {
+          "hour": 3,
+          "hourLabel": "3am",
+          "completedByThisHour": 748,
+          "percentageByThisHour": 60.22544283413849,
+          "newCompletionsThisHour": 210
+        },
+        {
+          "hour": 4,
+          "hourLabel": "4am",
+          "completedByThisHour": 932,
+          "percentageByThisHour": 75.0402576489533,
+          "newCompletionsThisHour": 184
+        },
+        {
+          "hour": 5,
+          "hourLabel": "5am",
+          "completedByThisHour": 1107,
+          "percentageByThisHour": 89.13043478260869,
+          "newCompletionsThisHour": 175
+        },
+        {
+          "hour": 6,
+          "hourLabel": "6am",
+          "completedByThisHour": 1242,
+          "percentageByThisHour": 100,
+          "newCompletionsThisHour": 135
+        }
+      ],
+      "missingTimestamps": 0
+    },
+    {
+      "date": "2026-01-17",
+      "totalOrdersCreated": 1216,
+      "totalCompletedAuth": 1188,
+      "completionRate": 97.69736842105263,
+      "hourlyBreakdown": [
+        {
+          "hour": 7,
+          "hourLabel": "7am",
+          "completedByThisHour": 2,
+          "percentageByThisHour": 0.16835016835016833,
+          "newCompletionsThisHour": 2
+        },
+        {
+          "hour": 8,
+          "hourLabel": "8am",
+          "completedByThisHour": 2,
+          "percentageByThisHour": 0.16835016835016833,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 9,
+          "hourLabel": "9am",
+          "completedByThisHour": 2,
+          "percentageByThisHour": 0.16835016835016833,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 10,
+          "hourLabel": "10am",
+          "completedByThisHour": 2,
+          "percentageByThisHour": 0.16835016835016833,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 11,
+          "hourLabel": "11am",
+          "completedByThisHour": 2,
+          "percentageByThisHour": 0.16835016835016833,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 12,
+          "hourLabel": "12pm",
+          "completedByThisHour": 2,
+          "percentageByThisHour": 0.16835016835016833,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 13,
+          "hourLabel": "1pm",
+          "completedByThisHour": 2,
+          "percentageByThisHour": 0.16835016835016833,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 14,
+          "hourLabel": "2pm",
+          "completedByThisHour": 2,
+          "percentageByThisHour": 0.16835016835016833,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 15,
+          "hourLabel": "3pm",
+          "completedByThisHour": 2,
+          "percentageByThisHour": 0.16835016835016833,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 16,
+          "hourLabel": "4pm",
+          "completedByThisHour": 2,
+          "percentageByThisHour": 0.16835016835016833,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 17,
+          "hourLabel": "5pm",
+          "completedByThisHour": 2,
+          "percentageByThisHour": 0.16835016835016833,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 18,
+          "hourLabel": "6pm",
+          "completedByThisHour": 2,
+          "percentageByThisHour": 0.16835016835016833,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 19,
+          "hourLabel": "7pm",
+          "completedByThisHour": 2,
+          "percentageByThisHour": 0.16835016835016833,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 20,
+          "hourLabel": "8pm",
+          "completedByThisHour": 2,
+          "percentageByThisHour": 0.16835016835016833,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 21,
+          "hourLabel": "9pm",
+          "completedByThisHour": 2,
+          "percentageByThisHour": 0.16835016835016833,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 22,
+          "hourLabel": "10pm",
+          "completedByThisHour": 2,
+          "percentageByThisHour": 0.16835016835016833,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 23,
+          "hourLabel": "11pm",
+          "completedByThisHour": 2,
+          "percentageByThisHour": 0.16835016835016833,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 0,
+          "hourLabel": "12am",
+          "completedByThisHour": 89,
+          "percentageByThisHour": 7.491582491582492,
+          "newCompletionsThisHour": 87
+        },
+        {
+          "hour": 1,
+          "hourLabel": "1am",
+          "completedByThisHour": 364,
+          "percentageByThisHour": 30.63973063973064,
+          "newCompletionsThisHour": 275
+        },
+        {
+          "hour": 2,
+          "hourLabel": "2am",
+          "completedByThisHour": 613,
+          "percentageByThisHour": 51.5993265993266,
+          "newCompletionsThisHour": 249
+        },
+        {
+          "hour": 3,
+          "hourLabel": "3am",
+          "completedByThisHour": 736,
+          "percentageByThisHour": 61.95286195286195,
+          "newCompletionsThisHour": 123
+        },
+        {
+          "hour": 4,
+          "hourLabel": "4am",
+          "completedByThisHour": 931,
+          "percentageByThisHour": 78.36700336700336,
+          "newCompletionsThisHour": 195
+        },
+        {
+          "hour": 5,
+          "hourLabel": "5am",
+          "completedByThisHour": 1136,
+          "percentageByThisHour": 95.62289562289563,
+          "newCompletionsThisHour": 205
+        },
+        {
+          "hour": 6,
+          "hourLabel": "6am",
+          "completedByThisHour": 1188,
+          "percentageByThisHour": 100,
+          "newCompletionsThisHour": 52
+        }
+      ],
+      "missingTimestamps": 0
+    },
+    {
+      "date": "2026-01-18",
+      "totalOrdersCreated": 1229,
+      "totalCompletedAuth": 1198,
+      "completionRate": 97.47762408462164,
+      "hourlyBreakdown": [
+        {
+          "hour": 7,
+          "hourLabel": "7am",
+          "completedByThisHour": 1,
+          "percentageByThisHour": 0.08347245409015025,
+          "newCompletionsThisHour": 1
+        },
+        {
+          "hour": 8,
+          "hourLabel": "8am",
+          "completedByThisHour": 1,
+          "percentageByThisHour": 0.08347245409015025,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 9,
+          "hourLabel": "9am",
+          "completedByThisHour": 1,
+          "percentageByThisHour": 0.08347245409015025,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 10,
+          "hourLabel": "10am",
+          "completedByThisHour": 1,
+          "percentageByThisHour": 0.08347245409015025,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 11,
+          "hourLabel": "11am",
+          "completedByThisHour": 1,
+          "percentageByThisHour": 0.08347245409015025,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 12,
+          "hourLabel": "12pm",
+          "completedByThisHour": 1,
+          "percentageByThisHour": 0.08347245409015025,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 13,
+          "hourLabel": "1pm",
+          "completedByThisHour": 1,
+          "percentageByThisHour": 0.08347245409015025,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 14,
+          "hourLabel": "2pm",
+          "completedByThisHour": 1,
+          "percentageByThisHour": 0.08347245409015025,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 15,
+          "hourLabel": "3pm",
+          "completedByThisHour": 1,
+          "percentageByThisHour": 0.08347245409015025,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 16,
+          "hourLabel": "4pm",
+          "completedByThisHour": 1,
+          "percentageByThisHour": 0.08347245409015025,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 17,
+          "hourLabel": "5pm",
+          "completedByThisHour": 1,
+          "percentageByThisHour": 0.08347245409015025,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 18,
+          "hourLabel": "6pm",
+          "completedByThisHour": 1,
+          "percentageByThisHour": 0.08347245409015025,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 19,
+          "hourLabel": "7pm",
+          "completedByThisHour": 1,
+          "percentageByThisHour": 0.08347245409015025,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 20,
+          "hourLabel": "8pm",
+          "completedByThisHour": 1,
+          "percentageByThisHour": 0.08347245409015025,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 21,
+          "hourLabel": "9pm",
+          "completedByThisHour": 1,
+          "percentageByThisHour": 0.08347245409015025,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 22,
+          "hourLabel": "10pm",
+          "completedByThisHour": 1,
+          "percentageByThisHour": 0.08347245409015025,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 23,
+          "hourLabel": "11pm",
+          "completedByThisHour": 1,
+          "percentageByThisHour": 0.08347245409015025,
+          "newCompletionsThisHour": 0
+        },
+        {
+          "hour": 0,
+          "hourLabel": "12am",
+          "completedByThisHour": 60,
+          "percentageByThisHour": 5.008347245409015,
+          "newCompletionsThisHour": 59
+        },
+        {
+          "hour": 1,
+          "hourLabel": "1am",
+          "completedByThisHour": 404,
+          "percentageByThisHour": 33.7228714524207,
+          "newCompletionsThisHour": 344
+        },
+        {
+          "hour": 2,
+          "hourLabel": "2am",
+          "completedByThisHour": 618,
+          "percentageByThisHour": 51.58597662771286,
+          "newCompletionsThisHour": 214
+        },
+        {
+          "hour": 3,
+          "hourLabel": "3am",
+          "completedByThisHour": 750,
+          "percentageByThisHour": 62.604340567612695,
+          "newCompletionsThisHour": 132
+        },
+        {
+          "hour": 4,
+          "hourLabel": "4am",
+          "completedByThisHour": 1003,
+          "percentageByThisHour": 83.7228714524207,
+          "newCompletionsThisHour": 253
+        },
+        {
+          "hour": 5,
+          "hourLabel": "5am",
+          "completedByThisHour": 1181,
+          "percentageByThisHour": 98.58096828046745,
+          "newCompletionsThisHour": 178
+        },
+        {
+          "hour": 6,
+          "hourLabel": "6am",
+          "completedByThisHour": 1198,
+          "percentageByThisHour": 100,
+          "newCompletionsThisHour": 17
+        }
+      ],
+      "missingTimestamps": 0
+    }
+  ],
+  "warnings": []
+}

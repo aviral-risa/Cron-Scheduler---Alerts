@@ -1,0 +1,11 @@
+postman request POST 'https://apis.risalabs.ai/pa-order-creation/medical/utility/algolia-search' \
+  --header 'Content-Type: application/json' \
+  --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NjgwMzAyODAsInN1YiI6InJpc2FfZnJvbnRfZW5kX3VzZXIifQ.x2teUybb_h4r82SMZUHiUdZHukvStbbasPMoBqeotEg' \
+  --body '{
+    "org_id": "HhwIHO4npKhrxyylkC33",
+    "hits_per_page": 2000,
+    "page": 0,
+    "created_at_start": "2026-01-10",
+    "created_at_end": "2026-01-10"
+}' \
+  --auth-bearer-token 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NjgwMzAyODAsInN1YiI6InJpc2FfZnJvbnRfZW5kX3VzZXIifQ.x2teUybb_h4r82SMZUHiUdZHukvStbbasPMoBqeotEg'

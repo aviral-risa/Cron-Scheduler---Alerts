@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "rapids-platform"
+  },
+  "targets": {
+    "rapids-platform": {
+      "hosting": {
+        "medonc-analytics": [
+          "medonc-analytics-dashboard"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,6558 @@
+{
+  "metadata": {
+    "analysisDate": "2026-01-09",
+    "totalOrders": 3412,
+    "totalFacilities": 4,
+    "facilityBreakdown": [
+      {
+        "name": "NYCBS",
+        "id": "HhwIHO4npKhrxyylkC33",
+        "orderCount": 1359
+      },
+      {
+        "name": "MBPCC",
+        "id": "3GKbZtgpPru1vJGCkxwR",
+        "orderCount": 1313
+      },
+      {
+        "name": "CHC/CHCU",
+        "id": "4BlQ4SsqAVTDgFKApKZr",
+        "orderCount": 475
+      },
+      {
+        "name": "UCBC/CBC",
+        "id": "W14MolgUu7OYvX4CFQJn",
+        "orderCount": 265
+      }
+    ]
+  },
+  "summary": {
+    "totalUniqueKeys": 105,
+    "alwaysPresentKeys": 64,
+    "usuallyPresentKeys": 31,
+    "sometimesPresentKeys": 10
+  },
+  "keys": [
+    {
+      "key": "objectID",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "ee6d81e5-100f-45e0-821a-6a4c1cb099a7",
+        "ed125f94-df67-4b1f-8f47-0d08c52f818e",
+        "7d379744-11d9-4400-b021-b0a33dcebfca",
+        "65036581-3f4b-4b9a-b45e-06720007385c",
+        "539b08a1-671d-43cc-8e4f-7ed9358af494",
+        "2c662b03-697f-4a54-b00f-69137f356ce0",
+        "16e05c2a-034f-4e86-b0fe-976a5b82a72b",
+        "d8f603c2-ec30-4414-8e8e-bc5edd2efaa9",
+        "d385ed0e-dc67-4b07-991b-0e927c7c9b0a",
+        "a2202121-d077-4374-8b06-8914fe92b39e",
+        "98d4e440-edb1-4082-8a53-649785530ac2",
+        "89844967-4c05-4a26-bc32-26ef65489ca5",
+        "788fd943-dc36-4da6-8b9f-6221be5b0d62",
+        "49e33969-f646-4331-b2b7-4304fb0535d9",
+        "45cc0f11-dc06-4636-a101-5dbf8fc8e82e",
+        "36bd7974-f97e-4e3c-976b-879f10447760",
+        "07faee5f-5cc0-4181-be46-9ab855f5f93a",
+        "e7721ddb-b161-43ad-908f-624ed1992831",
+        "b7098f6d-6a43-4c71-86d6-3fdb7d93482c",
+        "874612ad-1364-4ea0-a448-9fac82483229"
+      ],
+      "uniqueValueCount": 1000,
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0,
+      "description": "Algolia unique identifier for the document"
+    },
+    {
+      "key": "_highlightResult",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "object"
+      ],
+      "sampleValues": [
+        {
+          "assigned_to": {
+            "value": "i2kq2DqPnCe6otzBscWFSge5kd72",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "assigned_to_name": {
+            "value": "Risa Agent",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "auth_status": {
+            "value": "urology",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "value": "U - BKLYN - 11th FL - 175 Remsen Street",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "practitioner_name": {
+            "value": "Edward Zoltan, MD",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "regimen_name": {
+            "value": "UROLOGY: TESTOPEL- Testosterone Pellet Implant x 1",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "patient_id": {
+            "value": "6864372",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "bo_status": {
+            "value": "Not Applicable",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "auth_on_file_status": {
+            "value": "completed",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "ev_bv_primary": {
+            "value": "completed",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "last_name": {
+            "value": "MOROZOW",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "first_name": {
+            "value": "CHONON",
+            "matchLevel": "none",
+            "matchedWords": []
+          }
+        },
+        {
+          "assigned_to": {
+            "value": "unassigned",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "assigned_to_name": {
+            "value": "unassigned",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "auth_status": {
+            "value": "auth_required",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "value": "*MED/ONC - East Islip - 136 E Main St",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "practitioner_name": {
+            "value": "Maxine Epstein, PA",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "regimen_name": {
+            "value": "Venofer 200mg IV x 5 doses",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "patient_id": {
+            "value": "6885477",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "bo_status": {
+            "value": "AuthMate",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "auth_on_file_status": {
+            "value": "completed",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "ev_bv_primary": {
+            "value": "completed",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "last_name": {
+            "value": "AMAYA",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "first_name": {
+            "value": "SONIA",
+            "matchLevel": "none",
+            "matchedWords": []
+          }
+        },
+        {
+          "assigned_to": {
+            "value": "5yclyafYgYaZXdAVqXSnrbdzRXK2",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "assigned_to_name": {
+            "value": "Ankita",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "auth_status": {
+            "value": "no_auth_required",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "value": "*MED/ONC - New Hyde Park - 1 Delaware Drive",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "practitioner_name": {
+            "value": "Jahan Aghalar MD",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "regimen_name": {
+            "value": "5-FU 400mg/m2 IVP + 5-FU 2400mg/m2 CI over 46hrs + Leucovorin 400mg/m2 + Camptosar 180mg/m2 Q14 days x 6 cycles (FOLFIRI)",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "patient_id": {
+            "value": "7789552",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "bo_status": {
+            "value": "Authorized",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "auth_on_file_status": {
+            "value": "completed",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "ev_bv_primary": {
+            "value": "completed",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "last_name": {
+            "value": "BOSAK",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "first_name": {
+            "value": "GLENN",
+            "matchLevel": "none",
+            "matchedWords": []
+          }
+        },
+        {
+          "assigned_to": {
+            "value": "tnco9I2B6YNmLdBJefIOIeFYSmZ2",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "assigned_to_name": {
+            "value": "sivaparvathy",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "auth_status": {
+            "value": "no_auth_required",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "value": "*MED/ONC - East Islip - 136 E Main St",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "practitioner_name": {
+            "value": "Gerry Rubin MD",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "regimen_name": {
+            "value": "Venofer 200mg IV x 5 doses",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "patient_id": {
+            "value": "6873608",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "ev_bv_primary": {
+            "value": "completed",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "auth_on_file_status": {
+            "value": "completed",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "bo_status": {
+            "value": "Authorized",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "last_name": {
+            "value": "MAJID",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "first_name": {
+            "value": "ABIDA",
+            "matchLevel": "none",
+            "matchedWords": []
+          }
+        },
+        {
+          "assigned_to": {
+            "value": "unassigned",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "assigned_to_name": {
+            "value": "unassigned",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "auth_status": {
+            "value": "no_auth_required",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "value": "*MED/ONC -ACP - Manhattan - 215 E. 95th St",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "practitioner_name": {
+            "value": "Visaharan Sivasubramaniam, MD",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "regimen_name": {
+            "value": "Aranesp 100mcg ESRD SQ q3w",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "patient_id": {
+            "value": "7759484",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "ev_bv_primary": {
+            "value": "completed",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "bo_status": {
+            "value": "Authorized",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "auth_on_file_status": {
+            "value": "completed",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "last_name": {
+            "value": "STOCKS",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "first_name": {
+            "value": "ZINA",
+            "matchLevel": "none",
+            "matchedWords": []
+          }
+        },
+        {
+          "assigned_to": {
+            "value": "tnco9I2B6YNmLdBJefIOIeFYSmZ2",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "assigned_to_name": {
+            "value": "sivaparvathy",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "auth_status": {
+            "value": "no_auth_required",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "value": "*MED/ONC - Patchogue - 365 E. Main St",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "practitioner_name": {
+            "value": "Sanjeev Jain, MD",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "regimen_name": {
+            "value": "Venofer 200mg IV x 5 doses",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "patient_id": {
+            "value": "7026191",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "ev_bv_primary": {
+            "value": "completed",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "bo_status": {
+            "value": "Authorized",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "auth_on_file_status": {
+            "value": "completed",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "last_name": {
+            "value": "HODNE",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "first_name": {
+            "value": "ANNE",
+            "matchLevel": "none",
+            "matchedWords": []
+          }
+        },
+        {
+          "assigned_to": {
+            "value": "tnco9I2B6YNmLdBJefIOIeFYSmZ2",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "assigned_to_name": {
+            "value": "sivaparvathy",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "auth_status": {
+            "value": "no_auth_required",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "value": "*MED/ONC - Setauket - 347",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "practitioner_name": {
+            "value": "Noshir DaCosta MD",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "regimen_name": {
+            "value": "Venofer 200mg IV x 3 doses",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "patient_id": {
+            "value": "7776527",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "ev_bv_primary": {
+            "value": "completed",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "auth_on_file_status": {
+            "value": "completed",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "bo_status": {
+            "value": "Authorized",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "last_name": {
+            "value": "GRAZIANO",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "first_name": {
+            "value": "CYNDI",
+            "matchLevel": "none",
+            "matchedWords": []
+          }
+        },
+        {
+          "assigned_to": {
+            "value": "G6wVvk3K55esRxsOsiuuxF8Hgne2",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "assigned_to_name": {
+            "value": "Chandra Lekha",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "auth_status": {
+            "value": "no_auth_required",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "value": "*MED/ONC - Patchogue - 365 E. Main St",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "practitioner_name": {
+            "value": "Karan Josan, MD",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "regimen_name": {
+            "value": "Venofer 200mg IV x 5 doses QOD",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "patient_id": {
+            "value": "4028313",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "ev_bv_primary": {
+            "value": "completed",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "bo_status": {
+            "value": "Authorized",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "auth_on_file_status": {
+            "value": "completed",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "last_name": {
+            "value": "FAHAD",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "first_name": {
+            "value": "MARIUM",
+            "matchLevel": "none",
+            "matchedWords": []
+          }
+        },
+        {
+          "assigned_to": {
+            "value": "G6wVvk3K55esRxsOsiuuxF8Hgne2",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "assigned_to_name": {
+            "value": "Chandra Lekha",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "auth_status": {
+            "value": "auth_on_file",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "value": "*MED/ONC - Lake Ronkonkoma - 501 Hawkins Ave",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "practitioner_name": {
+            "value": "Regina Jablonski MD",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "regimen_name": {
+            "value": "INJ: Testosterone 200mg IM",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "patient_id": {
+            "value": "4066462",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "auth_on_file_status": {
+            "value": "completed",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "bo_status": {
+            "value": "Authorized",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "ev_bv_primary": {
+            "value": "completed",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "last_name": {
+            "value": "PARIK",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "first_name": {
+            "value": "MILAN",
+            "matchLevel": "none",
+            "matchedWords": []
+          }
+        },
+        {
+          "assigned_to": {
+            "value": "G6wVvk3K55esRxsOsiuuxF8Hgne2",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "assigned_to_name": {
+            "value": "Chandra Lekha",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "auth_status": {
+            "value": "no_auth_required",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "value": "*MED/ONC - Elmhurst - 88-06 55th Ave",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "practitioner_name": {
+            "value": "Yasser El-Hennawy, MD",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "regimen_name": {
+            "value": "Venofer 200mg IV x 5 doses QOD",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "patient_id": {
+            "value": "6859882",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "auth_on_file_status": {
+            "value": "completed",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "bo_status": {
+            "value": "Authorized",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "ev_bv_primary": {
+            "value": "completed",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "last_name": {
+            "value": "COLLETTA",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "first_name": {
+            "value": "NICOLE",
+            "matchLevel": "none",
+            "matchedWords": []
+          }
+        },
+        {
+          "assigned_to": {
+            "value": "JuXTWjOGukciaGNjySw0dYnTAOo2",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "assigned_to_name": {
+            "value": "Narasana",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "auth_status": {
+            "value": "no_auth_required",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "value": "*MED/ONC - Riverhead 750 Old Country",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "practitioner_name": {
+            "value": "Deepali Sharma, MD",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "regimen_name": {
+            "value": "Nulecit (Ferrlecit)125mg IV x 5 consecutive days",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "patient_id": {
+            "value": "4033163",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "ev_bv_primary": {
+            "value": "completed",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "bo_status": {
+            "value": "Authorized",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "auth_on_file_status": {
+            "value": "completed",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "last_name": {
+            "value": "TOLEDO",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "first_name": {
+            "value": "MAGALY",
+            "matchLevel": "none",
+            "matchedWords": []
+          }
+        },
+        {
+          "assigned_to": {
+            "value": "tnco9I2B6YNmLdBJefIOIeFYSmZ2",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "assigned_to_name": {
+            "value": "sivaparvathy",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "auth_status": {
+            "value": "no_auth_required",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "value": "RAD/ONC - MSK - 2236 Nostrand Ave",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "practitioner_name": {
+            "value": "Joseph Safdieh, MD",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "regimen_name": {
+            "value": "Xofigo 1.49 uCi/kg IVP q28 days x 6 Cycles",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "patient_id": {
+            "value": "2512160049",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "auth_on_file_status": {
+            "value": "completed",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "ev_bv_primary": {
+            "value": "completed",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "bo_status": {
+            "value": "Financial",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "last_name": {
+            "value": "Santiago",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "first_name": {
+            "value": "Benito",
+            "matchLevel": "none",
+            "matchedWords": []
+          }
+        },
+        {
+          "assigned_to": {
+            "value": "tnco9I2B6YNmLdBJefIOIeFYSmZ2",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "assigned_to_name": {
+            "value": "sivaparvathy",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "auth_status": {
+            "value": "auth_on_file",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "value": "*MED/ONC - Elmhurst - 88-06 55th Ave",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "practitioner_name": {
+            "value": "Jung-In Yang, MD",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "regimen_name": {
+            "value": "Bleomycin 30units IV D1,8,15 + Etoposide 100mg/m2 IV D1-5 + Cisplatin 20mg/m2 D1-5 Q21 days x 3 cycles (BEP)",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "patient_id": {
+            "value": "2512120046",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "ev_bv_primary": {
+            "value": "completed",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "bo_status": {
+            "value": "Authorized",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "auth_on_file_status": {
+            "value": "completed",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "last_name": {
+            "value": "Leon",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "first_name": {
+            "value": "Bernard",
+            "matchLevel": "none",
+            "matchedWords": []
+          }
+        },
+        {
+          "assigned_to": {
+            "value": "unassigned",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "assigned_to_name": {
+            "value": "unassigned",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "auth_status": {
+            "value": "patient_owned_drug",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "value": "*MED/ONC - ECCC 2330",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "practitioner_name": {
+            "value": "Avi Retter, MD",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "regimen_name": {
+            "value": "zzBB FASLODEX 500MG D1,15,29 f/b once monthly [NYCBS Pharm] {PET/CT Q3mos}",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "patient_id": {
+            "value": "4139078",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "bo_status": {
+            "value": "POD - Verify",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "auth_on_file_status": {
+            "value": "completed",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "ev_bv_primary": {
+            "value": "completed",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "last_name": {
+            "value": "SINISHTAJ",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "first_name": {
+            "value": "TERESA",
+            "matchLevel": "none",
+            "matchedWords": []
+          }
+        },
+        {
+          "assigned_to": {
+            "value": "G6wVvk3K55esRxsOsiuuxF8Hgne2",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "assigned_to_name": {
+            "value": "Chandra Lekha",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "auth_status": {
+            "value": "auth_on_file",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "value": "*MED/ONC - Babylon",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "practitioner_name": {
+            "value": "Sanjeev Jain, MD",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "regimen_name": {
+            "value": "Rituxan 1000mgs D1 (previously infused at another facility),15 Q168 days x 2 cycles",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "patient_id": {
+            "value": "6500052",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "bo_status": {
+            "value": "Authorized",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "auth_on_file_status": {
+            "value": "completed",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "ev_bv_primary": {
+            "value": "completed",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "last_name": {
+            "value": "BROWN",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "first_name": {
+            "value": "MONICA",
+            "matchLevel": "none",
+            "matchedWords": []
+          }
+        },
+        {
+          "assigned_to": {
+            "value": "unassigned",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "assigned_to_name": {
+            "value": "unassigned",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "auth_status": {
+            "value": "auth_required",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "value": "*MED/ONC - Setauket - 347",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "practitioner_name": {
+            "value": "Gerry Rubin MD",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "regimen_name": {
+            "value": "Prolia 60mgs q6m (26 weeks) x 4 cycles",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "patient_id": {
+            "value": "4040088",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "bo_status": {
+            "value": "AuthMate",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "auth_on_file_status": {
+            "value": "completed",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "ev_bv_primary": {
+            "value": "completed",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "last_name": {
+            "value": "DEMIR",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "first_name": {
+            "value": "SAFINAZ",
+            "matchLevel": "none",
+            "matchedWords": []
+          }
+        },
+        {
+          "assigned_to": {
+            "value": "UkrY1c212zQjMeJZItMNRCWqUlr2",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "assigned_to_name": {
+            "value": "Harshita",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "auth_status": {
+            "value": "auth_required",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "value": "*MED/ONC - Setauket - 347",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "practitioner_name": {
+            "value": "George Cyriac MD",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "regimen_name": {
+            "value": "Reblozyl (luspatercept-aamt)- 1mg/kg SQ q3w",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "patient_id": {
+            "value": "4028759",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "bo_status": {
+            "value": "AuthMate",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "auth_on_file_status": {
+            "value": "completed",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "ev_bv_primary": {
+            "value": "completed",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "last_name": {
+            "value": "MOTTA",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "first_name": {
+            "value": "LAURIE",
+            "matchLevel": "none",
+            "matchedWords": []
+          }
+        },
+        {
+          "assigned_to": {
+            "value": "iNrV9d82orWDA41dNC8aTwv8Bm92",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "assigned_to_name": {
+            "value": "Sandra",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "auth_status": {
+            "value": "no_auth_required",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "value": "*MED/ONC -ACP - Brooklyn - 101 Pennsylvania Ave",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "practitioner_name": {
+            "value": "Nyembezi Dhliwayo, MD",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "regimen_name": {
+            "value": "Venofer 200mg IV x 5 doses",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "patient_id": {
+            "value": "8786772",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "ev_bv_primary": {
+            "value": "completed",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "bo_status": {
+            "value": "Authorized",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "auth_on_file_status": {
+            "value": "completed",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "last_name": {
+            "value": "PEDRAZA CISNEROS",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "first_name": {
+            "value": "GEOVAN",
+            "matchLevel": "none",
+            "matchedWords": []
+          }
+        },
+        {
+          "assigned_to": {
+            "value": "G6wVvk3K55esRxsOsiuuxF8Hgne2",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "assigned_to_name": {
+            "value": "Chandra Lekha",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "auth_status": {
+            "value": "no_auth_required",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "value": "*MED/ONC - Babylon",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "practitioner_name": {
+            "value": "Amishi Desai MD",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "regimen_name": {
+            "value": "Venofer 200mg IV x 5 doses",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "patient_id": {
+            "value": "2512050555",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "bo_status": {
+            "value": "Authorized",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "auth_on_file_status": {
+            "value": "completed",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "ev_bv_primary": {
+            "value": "completed",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "last_name": {
+            "value": "ARGUETA",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "first_name": {
+            "value": "MARTHA",
+            "matchLevel": "none",
+            "matchedWords": []
+          }
+        },
+        {
+          "assigned_to": {
+            "value": "5yclyafYgYaZXdAVqXSnrbdzRXK2",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "assigned_to_name": {
+            "value": "Ankita",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "auth_status": {
+            "value": "auth_on_file",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "value": "*MED/ONC - New Hyde Park - 1 Delaware Drive",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "practitioner_name": {
+            "value": "Triantafillos Fillos, MD",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "regimen_name": {
+            "value": "5-FU 400mg/m2 IVP + 5-FU 2400mg/m2 CI over 46 hours + Leucovorin 400mg/m2 + Oxaliplatin 85mg/m2 Q14 days x 6 cycles (mFOLFOX6)",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "patient_id": {
+            "value": "2512080415",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "bo_status": {
+            "value": "Authorized",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "ev_bv_primary": {
+            "value": "completed",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "auth_on_file_status": {
+            "value": "completed",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "last_name": {
+            "value": "JANAL",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "first_name": {
+            "value": "KEITH",
+            "matchLevel": "none",
+            "matchedWords": []
+          }
+        }
+      ],
+      "uniqueValueCount": 1000,
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0,
+      "description": "Algolia search highlighting results"
+    },
+    {
+      "key": "_highlightResult.assigned_to",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "object"
+      ],
+      "sampleValues": [
+        {
+          "value": "i2kq2DqPnCe6otzBscWFSge5kd72",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "unassigned",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "5yclyafYgYaZXdAVqXSnrbdzRXK2",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "tnco9I2B6YNmLdBJefIOIeFYSmZ2",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "unassigned",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "tnco9I2B6YNmLdBJefIOIeFYSmZ2",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "tnco9I2B6YNmLdBJefIOIeFYSmZ2",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "G6wVvk3K55esRxsOsiuuxF8Hgne2",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "G6wVvk3K55esRxsOsiuuxF8Hgne2",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "G6wVvk3K55esRxsOsiuuxF8Hgne2",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "JuXTWjOGukciaGNjySw0dYnTAOo2",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "tnco9I2B6YNmLdBJefIOIeFYSmZ2",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "tnco9I2B6YNmLdBJefIOIeFYSmZ2",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "unassigned",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "G6wVvk3K55esRxsOsiuuxF8Hgne2",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "unassigned",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "UkrY1c212zQjMeJZItMNRCWqUlr2",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "iNrV9d82orWDA41dNC8aTwv8Bm92",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "G6wVvk3K55esRxsOsiuuxF8Hgne2",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "5yclyafYgYaZXdAVqXSnrbdzRXK2",
+          "matchLevel": "none",
+          "matchedWords": []
+        }
+      ],
+      "uniqueValueCount": 37,
+      "uniqueValues": [
+        {
+          "value": "i2kq2DqPnCe6otzBscWFSge5kd72",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "unassigned",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "5yclyafYgYaZXdAVqXSnrbdzRXK2",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "tnco9I2B6YNmLdBJefIOIeFYSmZ2",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "G6wVvk3K55esRxsOsiuuxF8Hgne2",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "JuXTWjOGukciaGNjySw0dYnTAOo2",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "UkrY1c212zQjMeJZItMNRCWqUlr2",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "iNrV9d82orWDA41dNC8aTwv8Bm92",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "8uH1EJpQiEgeXVrBIEo8XwNZjy02",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Z6OFZ6wnLkXQ5ho2niaNQJ2Knb23",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "RLTyJEM06kNHEkWbAGyIL6OMqMp1",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "LNiPUVjo7uRsJpLSzJYfb8Fl1bl2",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "PgcRXaMDSMMSVDR8fkf6oe6mgap1",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "elw2PjRhHEdfPuho5abnFsG2XDE3",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "BCW7Xs9qOfOp7nIwt9N5sAtW8hC2",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "cTALXwXEpvRUHhkbzu4yo90GuGf1",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "tlVmDTunQkP6D5NeEr5TffazH6z1",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "89FpZc3qgWXocysnPy3BaLTM3X93",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "3fEWzbdo6falKHudEy8xHLnjmTi1",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "0xErG33PBHXCETKjWgGOvuNYBg53",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "8hsS8LsgrBgzUoHQQ4CGOcwZG7u1",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "nuymRcS80qVW7UWkKTm0uJIROO43",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "HW7yyw551ZaENoA39TxGwzljjjQ2",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "rjokB3ikGve3SPKyURL7E2kPWKC2",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "l5rpK84F4ecSaM3mz1Kki4wRhwG3",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "MQsxwC2C7FZkxY3Oqky1ZyzLgRu1",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "cCbHJK9VEHM2oc3n7peXQjbsYIJ3",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "kq9JEfpkioc25czS2yh57rK1RgT2",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Ey9cvoKUyjXiOwwMwwqpPwtEZ1P2",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "zwjSNfDUOXb6Ufed1mXM3J3kZJn2",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Be7MuvsgTFVQwhaVj558xXWcvSC3",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "b4rht4JNIeXcypKChLf9napX8D53",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "pCbkYa0gVSWBgnHreZx1lEcVdSu2",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "GyKeU7Do2TaPF2gU6lRyKHQhVV03",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "whqI0ttm8WYU2QVVi7U3p12HoDA2",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "OnmvdX1EhfWqioGMGbL5XTsfLOG2",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "gZJqglV1SZWvdzVzrUC8XIDDI0L2",
+          "matchLevel": "none",
+          "matchedWords": []
+        }
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "_highlightResult.assigned_to.value",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "i2kq2DqPnCe6otzBscWFSge5kd72",
+        "unassigned",
+        "5yclyafYgYaZXdAVqXSnrbdzRXK2",
+        "tnco9I2B6YNmLdBJefIOIeFYSmZ2",
+        "G6wVvk3K55esRxsOsiuuxF8Hgne2",
+        "JuXTWjOGukciaGNjySw0dYnTAOo2",
+        "UkrY1c212zQjMeJZItMNRCWqUlr2",
+        "iNrV9d82orWDA41dNC8aTwv8Bm92",
+        "8uH1EJpQiEgeXVrBIEo8XwNZjy02",
+        "Z6OFZ6wnLkXQ5ho2niaNQJ2Knb23",
+        "RLTyJEM06kNHEkWbAGyIL6OMqMp1",
+        "LNiPUVjo7uRsJpLSzJYfb8Fl1bl2",
+        "PgcRXaMDSMMSVDR8fkf6oe6mgap1",
+        "elw2PjRhHEdfPuho5abnFsG2XDE3",
+        "BCW7Xs9qOfOp7nIwt9N5sAtW8hC2",
+        "cTALXwXEpvRUHhkbzu4yo90GuGf1",
+        "tlVmDTunQkP6D5NeEr5TffazH6z1",
+        "89FpZc3qgWXocysnPy3BaLTM3X93",
+        "3fEWzbdo6falKHudEy8xHLnjmTi1",
+        "0xErG33PBHXCETKjWgGOvuNYBg53"
+      ],
+      "uniqueValueCount": 37,
+      "uniqueValues": [
+        "i2kq2DqPnCe6otzBscWFSge5kd72",
+        "unassigned",
+        "5yclyafYgYaZXdAVqXSnrbdzRXK2",
+        "tnco9I2B6YNmLdBJefIOIeFYSmZ2",
+        "G6wVvk3K55esRxsOsiuuxF8Hgne2",
+        "JuXTWjOGukciaGNjySw0dYnTAOo2",
+        "UkrY1c212zQjMeJZItMNRCWqUlr2",
+        "iNrV9d82orWDA41dNC8aTwv8Bm92",
+        "8uH1EJpQiEgeXVrBIEo8XwNZjy02",
+        "Z6OFZ6wnLkXQ5ho2niaNQJ2Knb23",
+        "RLTyJEM06kNHEkWbAGyIL6OMqMp1",
+        "LNiPUVjo7uRsJpLSzJYfb8Fl1bl2",
+        "PgcRXaMDSMMSVDR8fkf6oe6mgap1",
+        "elw2PjRhHEdfPuho5abnFsG2XDE3",
+        "BCW7Xs9qOfOp7nIwt9N5sAtW8hC2",
+        "cTALXwXEpvRUHhkbzu4yo90GuGf1",
+        "tlVmDTunQkP6D5NeEr5TffazH6z1",
+        "89FpZc3qgWXocysnPy3BaLTM3X93",
+        "3fEWzbdo6falKHudEy8xHLnjmTi1",
+        "0xErG33PBHXCETKjWgGOvuNYBg53",
+        "8hsS8LsgrBgzUoHQQ4CGOcwZG7u1",
+        "nuymRcS80qVW7UWkKTm0uJIROO43",
+        "HW7yyw551ZaENoA39TxGwzljjjQ2",
+        "rjokB3ikGve3SPKyURL7E2kPWKC2",
+        "l5rpK84F4ecSaM3mz1Kki4wRhwG3",
+        "MQsxwC2C7FZkxY3Oqky1ZyzLgRu1",
+        "cCbHJK9VEHM2oc3n7peXQjbsYIJ3",
+        "kq9JEfpkioc25czS2yh57rK1RgT2",
+        "Ey9cvoKUyjXiOwwMwwqpPwtEZ1P2",
+        "zwjSNfDUOXb6Ufed1mXM3J3kZJn2",
+        "Be7MuvsgTFVQwhaVj558xXWcvSC3",
+        "b4rht4JNIeXcypKChLf9napX8D53",
+        "pCbkYa0gVSWBgnHreZx1lEcVdSu2",
+        "GyKeU7Do2TaPF2gU6lRyKHQhVV03",
+        "whqI0ttm8WYU2QVVi7U3p12HoDA2",
+        "OnmvdX1EhfWqioGMGbL5XTsfLOG2",
+        "gZJqglV1SZWvdzVzrUC8XIDDI0L2"
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "_highlightResult.assigned_to.matchLevel",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "none"
+      ],
+      "uniqueValueCount": 1,
+      "uniqueValues": [
+        "none"
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "_highlightResult.assigned_to.matchedWords",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "array"
+      ],
+      "sampleValues": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "uniqueValueCount": 1,
+      "uniqueValues": [
+        []
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "_highlightResult.assigned_to_name",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "object"
+      ],
+      "sampleValues": [
+        {
+          "value": "Risa Agent",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "unassigned",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Ankita",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "sivaparvathy",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "unassigned",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "sivaparvathy",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "sivaparvathy",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Chandra Lekha",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Chandra Lekha",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Chandra Lekha",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Narasana",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "sivaparvathy",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "sivaparvathy",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "unassigned",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Chandra Lekha",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "unassigned",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Harshita",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Sandra",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Chandra Lekha",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Ankita",
+          "matchLevel": "none",
+          "matchedWords": []
+        }
+      ],
+      "uniqueValueCount": 37,
+      "uniqueValues": [
+        {
+          "value": "Risa Agent",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "unassigned",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Ankita",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "sivaparvathy",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Chandra Lekha",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Narasana",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Harshita",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Sandra",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Ria",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Rohan",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Ramitha",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Karthik V",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Neethu",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Kayal",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Labanya",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Parvati Nair",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "GR6",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "ayman",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Shahdunissa",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Anu Sagar",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Shaheen",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Vaibhavi",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Nisarga",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Varsha",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Annmariya",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Puja",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "shreevani",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Leema",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Hari",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Vishal",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Nisha",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Jyothi",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Aswathi",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "imran",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Barathi",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Manoj Kumar",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Pavithra",
+          "matchLevel": "none",
+          "matchedWords": []
+        }
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "_highlightResult.assigned_to_name.value",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "Risa Agent",
+        "unassigned",
+        "Ankita",
+        "sivaparvathy",
+        "Chandra Lekha",
+        "Narasana",
+        "Harshita",
+        "Sandra",
+        "Ria",
+        "Rohan",
+        "Ramitha",
+        "Karthik V",
+        "Neethu",
+        "Kayal",
+        "Labanya",
+        "Parvati Nair",
+        "GR6",
+        "ayman",
+        "Shahdunissa",
+        "Anu Sagar"
+      ],
+      "uniqueValueCount": 37,
+      "uniqueValues": [
+        "Risa Agent",
+        "unassigned",
+        "Ankita",
+        "sivaparvathy",
+        "Chandra Lekha",
+        "Narasana",
+        "Harshita",
+        "Sandra",
+        "Ria",
+        "Rohan",
+        "Ramitha",
+        "Karthik V",
+        "Neethu",
+        "Kayal",
+        "Labanya",
+        "Parvati Nair",
+        "GR6",
+        "ayman",
+        "Shahdunissa",
+        "Anu Sagar",
+        "Shaheen",
+        "Vaibhavi",
+        "Nisarga",
+        "Varsha",
+        "Annmariya",
+        "Puja",
+        "shreevani",
+        "Leema",
+        "Hari",
+        "Vishal",
+        "Nisha",
+        "Jyothi",
+        "Aswathi",
+        "imran",
+        "Barathi",
+        "Manoj Kumar",
+        "Pavithra"
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "_highlightResult.assigned_to_name.matchLevel",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "none"
+      ],
+      "uniqueValueCount": 1,
+      "uniqueValues": [
+        "none"
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "_highlightResult.assigned_to_name.matchedWords",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "array"
+      ],
+      "sampleValues": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "uniqueValueCount": 1,
+      "uniqueValues": [
+        []
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "_highlightResult.location",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "object"
+      ],
+      "sampleValues": [
+        {
+          "value": "U - BKLYN - 11th FL - 175 Remsen Street",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "*MED/ONC - East Islip - 136 E Main St",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "*MED/ONC - New Hyde Park - 1 Delaware Drive",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "*MED/ONC - East Islip - 136 E Main St",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "*MED/ONC -ACP - Manhattan - 215 E. 95th St",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "*MED/ONC - Patchogue - 365 E. Main St",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "*MED/ONC - Setauket - 347",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "*MED/ONC - Patchogue - 365 E. Main St",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "*MED/ONC - Lake Ronkonkoma - 501 Hawkins Ave",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "*MED/ONC - Elmhurst - 88-06 55th Ave",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "*MED/ONC - Riverhead 750 Old Country",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "RAD/ONC - MSK - 2236 Nostrand Ave",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "*MED/ONC - Elmhurst - 88-06 55th Ave",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "*MED/ONC - ECCC 2330",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "*MED/ONC - Babylon",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "*MED/ONC - Setauket - 347",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "*MED/ONC - Setauket - 347",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "*MED/ONC -ACP - Brooklyn - 101 Pennsylvania Ave",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "*MED/ONC - Babylon",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "*MED/ONC - New Hyde Park - 1 Delaware Drive",
+          "matchLevel": "none",
+          "matchedWords": []
+        }
+      ],
+      "uniqueValueCount": 97,
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "_highlightResult.location.value",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "U - BKLYN - 11th FL - 175 Remsen Street",
+        "*MED/ONC - East Islip - 136 E Main St",
+        "*MED/ONC - New Hyde Park - 1 Delaware Drive",
+        "*MED/ONC -ACP - Manhattan - 215 E. 95th St",
+        "*MED/ONC - Patchogue - 365 E. Main St",
+        "*MED/ONC - Setauket - 347",
+        "*MED/ONC - Lake Ronkonkoma - 501 Hawkins Ave",
+        "*MED/ONC - Elmhurst - 88-06 55th Ave",
+        "*MED/ONC - Riverhead 750 Old Country",
+        "RAD/ONC - MSK - 2236 Nostrand Ave",
+        "*MED/ONC - ECCC 2330",
+        "*MED/ONC - Babylon",
+        "*MED/ONC -ACP - Brooklyn - 101 Pennsylvania Ave",
+        "*MED/ONC - MSK - 2236 Nostrand Ave",
+        "U - BKLYN - 2632 E 14th Street",
+        "*MED/ONC - Middletown - 419 E Main St",
+        "*MED/ONC - NYC - 157 E 32nd St",
+        "PCP - Bayshore - 1377 5th Ave",
+        "OBGYN - Bayshore - 375 E Main St",
+        "U - 2493 Richmond Rd - Staten Island"
+      ],
+      "uniqueValueCount": 97,
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "_highlightResult.location.matchLevel",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "none"
+      ],
+      "uniqueValueCount": 1,
+      "uniqueValues": [
+        "none"
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "_highlightResult.location.matchedWords",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "array"
+      ],
+      "sampleValues": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "uniqueValueCount": 1,
+      "uniqueValues": [
+        []
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "_highlightResult.practitioner_name",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "object"
+      ],
+      "sampleValues": [
+        {
+          "value": "Edward Zoltan, MD",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Maxine Epstein, PA",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Jahan Aghalar MD",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Gerry Rubin MD",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Visaharan Sivasubramaniam, MD",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Sanjeev Jain, MD",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Noshir DaCosta MD",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Karan Josan, MD",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Regina Jablonski MD",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Yasser El-Hennawy, MD",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Deepali Sharma, MD",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Joseph Safdieh, MD",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Jung-In Yang, MD",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Avi Retter, MD",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Sanjeev Jain, MD",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Gerry Rubin MD",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "George Cyriac MD",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Nyembezi Dhliwayo, MD",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Amishi Desai MD",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Triantafillos Fillos, MD",
+          "matchLevel": "none",
+          "matchedWords": []
+        }
+      ],
+      "uniqueValueCount": 298,
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "_highlightResult.practitioner_name.value",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "Edward Zoltan, MD",
+        "Maxine Epstein, PA",
+        "Jahan Aghalar MD",
+        "Gerry Rubin MD",
+        "Visaharan Sivasubramaniam, MD",
+        "Sanjeev Jain, MD",
+        "Noshir DaCosta MD",
+        "Karan Josan, MD",
+        "Regina Jablonski MD",
+        "Yasser El-Hennawy, MD",
+        "Deepali Sharma, MD",
+        "Joseph Safdieh, MD",
+        "Jung-In Yang, MD",
+        "Avi Retter, MD",
+        "George Cyriac MD",
+        "Nyembezi Dhliwayo, MD",
+        "Amishi Desai MD",
+        "Triantafillos Fillos, MD",
+        "StaceyAnn Rookwood NP",
+        "Ramsey Asmar, MD"
+      ],
+      "uniqueValueCount": 298,
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "_highlightResult.practitioner_name.matchLevel",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "none"
+      ],
+      "uniqueValueCount": 1,
+      "uniqueValues": [
+        "none"
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "_highlightResult.practitioner_name.matchedWords",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "array"
+      ],
+      "sampleValues": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "uniqueValueCount": 1,
+      "uniqueValues": [
+        []
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "_highlightResult.regimen_name",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "object"
+      ],
+      "sampleValues": [
+        {
+          "value": "UROLOGY: TESTOPEL- Testosterone Pellet Implant x 1",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Venofer 200mg IV x 5 doses",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "5-FU 400mg/m2 IVP + 5-FU 2400mg/m2 CI over 46hrs + Leucovorin 400mg/m2 + Camptosar 180mg/m2 Q14 days x 6 cycles (FOLFIRI)",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Venofer 200mg IV x 5 doses",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Aranesp 100mcg ESRD SQ q3w",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Venofer 200mg IV x 5 doses",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Venofer 200mg IV x 3 doses",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Venofer 200mg IV x 5 doses QOD",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "INJ: Testosterone 200mg IM",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Venofer 200mg IV x 5 doses QOD",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Nulecit (Ferrlecit)125mg IV x 5 consecutive days",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Xofigo 1.49 uCi/kg IVP q28 days x 6 Cycles",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Bleomycin 30units IV D1,8,15 + Etoposide 100mg/m2 IV D1-5 + Cisplatin 20mg/m2 D1-5 Q21 days x 3 cycles (BEP)",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "zzBB FASLODEX 500MG D1,15,29 f/b once monthly [NYCBS Pharm] {PET/CT Q3mos}",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Rituxan 1000mgs D1 (previously infused at another facility),15 Q168 days x 2 cycles",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Prolia 60mgs q6m (26 weeks) x 4 cycles",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Reblozyl (luspatercept-aamt)- 1mg/kg SQ q3w",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Venofer 200mg IV x 5 doses",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Venofer 200mg IV x 5 doses",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "5-FU 400mg/m2 IVP + 5-FU 2400mg/m2 CI over 46 hours + Leucovorin 400mg/m2 + Oxaliplatin 85mg/m2 Q14 days x 6 cycles (mFOLFOX6)",
+          "matchLevel": "none",
+          "matchedWords": []
+        }
+      ],
+      "uniqueValueCount": 1000,
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "_highlightResult.regimen_name.value",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "UROLOGY: TESTOPEL- Testosterone Pellet Implant x 1",
+        "Venofer 200mg IV x 5 doses",
+        "5-FU 400mg/m2 IVP + 5-FU 2400mg/m2 CI over 46hrs + Leucovorin 400mg/m2 + Camptosar 180mg/m2 Q14 days x 6 cycles (FOLFIRI)",
+        "Aranesp 100mcg ESRD SQ q3w",
+        "Venofer 200mg IV x 3 doses",
+        "Venofer 200mg IV x 5 doses QOD",
+        "INJ: Testosterone 200mg IM",
+        "Nulecit (Ferrlecit)125mg IV x 5 consecutive days",
+        "Xofigo 1.49 uCi/kg IVP q28 days x 6 Cycles",
+        "Bleomycin 30units IV D1,8,15 + Etoposide 100mg/m2 IV D1-5 + Cisplatin 20mg/m2 D1-5 Q21 days x 3 cycles (BEP)",
+        "zzBB FASLODEX 500MG D1,15,29 f/b once monthly [NYCBS Pharm] {PET/CT Q3mos}",
+        "Rituxan 1000mgs D1 (previously infused at another facility),15 Q168 days x 2 cycles",
+        "Prolia 60mgs q6m (26 weeks) x 4 cycles",
+        "Reblozyl (luspatercept-aamt)- 1mg/kg SQ q3w",
+        "5-FU 400mg/m2 IVP + 5-FU 2400mg/m2 CI over 46 hours + Leucovorin 400mg/m2 + Oxaliplatin 85mg/m2 Q14 days x 6 cycles (mFOLFOX6)",
+        "Taxotere 75mg/m2 + Carboplatin AUC6 + Herceptin 6mg/kg + Perjeta 420mg Q21 days x 6 cycles f/b Perjeta 420mg + Herceptin 6mg/kg Q21 days x 11(TCH-Perjeta f/b Herceptin-Perjeta Q21)",
+        "UROLOGY: Ud/Cysto Orderset",
+        "Cisplatin 40mg/m2 D1 Q7 days x 6 cycles w/XRT",
+        "Cytoxan 750mg/m2 IV D1 + Doxorubicin 50mg/m2 D8 + Vincristine 1.4mg/m2 D8 + Prednisone 100mg PO QD D1-5 + Rituxan 375mg/m2 D2 Q21 days x 6 cycles w/PEG G-CSF (RCHOP)",
+        "Cisplatin 75mg/m2 D1 + Gemcitabine 1000mg/m2 D1,8 + Keytruda (Pembrolizumab) 200mg D1 Q21 days x 4 cycles w/ PEG G-CSF f/b Keytruda 200mg Q21 days x 13 cycles"
+      ],
+      "uniqueValueCount": 1000,
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "_highlightResult.regimen_name.matchLevel",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "none"
+      ],
+      "uniqueValueCount": 1,
+      "uniqueValues": [
+        "none"
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "_highlightResult.regimen_name.matchedWords",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "array"
+      ],
+      "sampleValues": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "uniqueValueCount": 1,
+      "uniqueValues": [
+        []
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "_highlightResult.patient_id",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "object"
+      ],
+      "sampleValues": [
+        {
+          "value": "6864372",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "6885477",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "7789552",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "6873608",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "7759484",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "7026191",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "7776527",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "4028313",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "4066462",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "6859882",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "4033163",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "2512160049",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "2512120046",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "4139078",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "6500052",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "4040088",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "4028759",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "8786772",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "2512050555",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "2512080415",
+          "matchLevel": "none",
+          "matchedWords": []
+        }
+      ],
+      "uniqueValueCount": 1000,
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "_highlightResult.patient_id.value",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "6864372",
+        "6885477",
+        "7789552",
+        "6873608",
+        "7759484",
+        "7026191",
+        "7776527",
+        "4028313",
+        "4066462",
+        "6859882",
+        "4033163",
+        "2512160049",
+        "2512120046",
+        "4139078",
+        "6500052",
+        "4040088",
+        "4028759",
+        "8786772",
+        "2512050555",
+        "2512080415"
+      ],
+      "uniqueValueCount": 1000,
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "_highlightResult.patient_id.matchLevel",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "none"
+      ],
+      "uniqueValueCount": 1,
+      "uniqueValues": [
+        "none"
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "_highlightResult.patient_id.matchedWords",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "array"
+      ],
+      "sampleValues": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "uniqueValueCount": 1,
+      "uniqueValues": [
+        []
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "_highlightResult.ev_bv_primary",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "object"
+      ],
+      "sampleValues": [
+        {
+          "value": "completed",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "completed",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "completed",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "completed",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "completed",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "completed",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "completed",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "completed",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "completed",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "completed",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "completed",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "completed",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "completed",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "completed",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "completed",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "completed",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "completed",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "completed",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "completed",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "completed",
+          "matchLevel": "none",
+          "matchedWords": []
+        }
+      ],
+      "uniqueValueCount": 9,
+      "uniqueValues": [
+        {
+          "value": "completed",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "field_validation_error",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "in_progress",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "request_error",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "communication_error,_retrying",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "maxed_out",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "ev_type_not_supported",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "error",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "pinf",
+          "matchLevel": "none",
+          "matchedWords": []
+        }
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "_highlightResult.ev_bv_primary.value",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "completed",
+        "field_validation_error",
+        "in_progress",
+        "request_error",
+        "communication_error,_retrying",
+        "maxed_out",
+        "ev_type_not_supported",
+        "error",
+        "pinf"
+      ],
+      "uniqueValueCount": 9,
+      "uniqueValues": [
+        "completed",
+        "field_validation_error",
+        "in_progress",
+        "request_error",
+        "communication_error,_retrying",
+        "maxed_out",
+        "ev_type_not_supported",
+        "error",
+        "pinf"
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "_highlightResult.ev_bv_primary.matchLevel",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "none"
+      ],
+      "uniqueValueCount": 1,
+      "uniqueValues": [
+        "none"
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "_highlightResult.ev_bv_primary.matchedWords",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "array"
+      ],
+      "sampleValues": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "uniqueValueCount": 1,
+      "uniqueValues": [
+        []
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "_highlightResult.last_name",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "object"
+      ],
+      "sampleValues": [
+        {
+          "value": "MOROZOW",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "AMAYA",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "BOSAK",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "MAJID",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "STOCKS",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "HODNE",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "GRAZIANO",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "FAHAD",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "PARIK",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "COLLETTA",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "TOLEDO",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Santiago",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Leon",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "SINISHTAJ",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "BROWN",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "DEMIR",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "MOTTA",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "PEDRAZA CISNEROS",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "ARGUETA",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "JANAL",
+          "matchLevel": "none",
+          "matchedWords": []
+        }
+      ],
+      "uniqueValueCount": 1000,
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "_highlightResult.last_name.value",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "MOROZOW",
+        "AMAYA",
+        "BOSAK",
+        "MAJID",
+        "STOCKS",
+        "HODNE",
+        "GRAZIANO",
+        "FAHAD",
+        "PARIK",
+        "COLLETTA",
+        "TOLEDO",
+        "Santiago",
+        "Leon",
+        "SINISHTAJ",
+        "BROWN",
+        "DEMIR",
+        "MOTTA",
+        "PEDRAZA CISNEROS",
+        "ARGUETA",
+        "JANAL"
+      ],
+      "uniqueValueCount": 1000,
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 5
+    },
+    {
+      "key": "_highlightResult.last_name.matchLevel",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "none"
+      ],
+      "uniqueValueCount": 1,
+      "uniqueValues": [
+        "none"
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "_highlightResult.last_name.matchedWords",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "array"
+      ],
+      "sampleValues": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "uniqueValueCount": 1,
+      "uniqueValues": [
+        []
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "_highlightResult.first_name",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "object"
+      ],
+      "sampleValues": [
+        {
+          "value": "CHONON",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "SONIA",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "GLENN",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "ABIDA",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "ZINA",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "ANNE",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "CYNDI",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "MARIUM",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "MILAN",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "NICOLE",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "MAGALY",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Benito",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Bernard",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "TERESA",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "MONICA",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "SAFINAZ",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "LAURIE",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "GEOVAN",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "MARTHA",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "KEITH",
+          "matchLevel": "none",
+          "matchedWords": []
+        }
+      ],
+      "uniqueValueCount": 1000,
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "_highlightResult.first_name.value",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "CHONON",
+        "SONIA",
+        "GLENN",
+        "ABIDA",
+        "ZINA",
+        "ANNE",
+        "CYNDI",
+        "MARIUM",
+        "MILAN",
+        "NICOLE",
+        "MAGALY",
+        "Benito",
+        "Bernard",
+        "TERESA",
+        "MONICA",
+        "SAFINAZ",
+        "LAURIE",
+        "GEOVAN",
+        "MARTHA",
+        "KEITH"
+      ],
+      "uniqueValueCount": 1000,
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 5
+    },
+    {
+      "key": "_highlightResult.first_name.matchLevel",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "none"
+      ],
+      "uniqueValueCount": 1,
+      "uniqueValues": [
+        "none"
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "_highlightResult.first_name.matchedWords",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "array"
+      ],
+      "sampleValues": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "uniqueValueCount": 1,
+      "uniqueValues": [
+        []
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "id",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "ee6d81e5-100f-45e0-821a-6a4c1cb099a7",
+        "ed125f94-df67-4b1f-8f47-0d08c52f818e",
+        "7d379744-11d9-4400-b021-b0a33dcebfca",
+        "65036581-3f4b-4b9a-b45e-06720007385c",
+        "539b08a1-671d-43cc-8e4f-7ed9358af494",
+        "2c662b03-697f-4a54-b00f-69137f356ce0",
+        "16e05c2a-034f-4e86-b0fe-976a5b82a72b",
+        "d8f603c2-ec30-4414-8e8e-bc5edd2efaa9",
+        "d385ed0e-dc67-4b07-991b-0e927c7c9b0a",
+        "a2202121-d077-4374-8b06-8914fe92b39e",
+        "98d4e440-edb1-4082-8a53-649785530ac2",
+        "89844967-4c05-4a26-bc32-26ef65489ca5",
+        "788fd943-dc36-4da6-8b9f-6221be5b0d62",
+        "49e33969-f646-4331-b2b7-4304fb0535d9",
+        "45cc0f11-dc06-4636-a101-5dbf8fc8e82e",
+        "36bd7974-f97e-4e3c-976b-879f10447760",
+        "07faee5f-5cc0-4181-be46-9ab855f5f93a",
+        "e7721ddb-b161-43ad-908f-624ed1992831",
+        "b7098f6d-6a43-4c71-86d6-3fdb7d93482c",
+        "874612ad-1364-4ea0-a448-9fac82483229"
+      ],
+      "uniqueValueCount": 1000,
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0,
+      "description": "Order ID (same as order_id)"
+    },
+    {
+      "key": "created_at",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "number"
+      ],
+      "sampleValues": [
+        1767939819,
+        1767939818,
+        1767939817,
+        1767939816,
+        1767939815,
+        1767939152,
+        1767939151,
+        1767939150,
+        1767939149,
+        1767939148,
+        1767939147,
+        1767939146,
+        1767938483,
+        1767938482,
+        1767938481,
+        1767938480,
+        1767938479,
+        1767938478,
+        1767938477,
+        1767937476
+      ],
+      "uniqueValueCount": 525,
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0,
+      "description": "Unix timestamp when order was created"
+    },
+    {
+      "key": "created_at_iso",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "2026-01-09 06:23:39.109334+00:00",
+        "2026-01-09 06:23:39.324308+00:00",
+        "2026-01-09 06:23:39.738858+00:00",
+        "2026-01-09 06:23:39.222782+00:00",
+        "2026-01-09 06:23:39.533042+00:00",
+        "2026-01-09 06:23:39.427311+00:00",
+        "2026-01-09 06:23:39.642492+00:00",
+        "2026-01-09 06:23:38.276524+00:00",
+        "2026-01-09 06:23:38.689615+00:00",
+        "2026-01-09 06:23:38.997030+00:00",
+        "2026-01-09 06:23:38.487359+00:00",
+        "2026-01-09 06:23:38.179948+00:00",
+        "2026-01-09 06:23:38.079086+00:00",
+        "2026-01-09 06:23:38.787855+00:00",
+        "2026-01-09 06:23:38.897031+00:00",
+        "2026-01-09 06:23:38.586003+00:00",
+        "2026-01-09 06:23:38.385860+00:00",
+        "2026-01-09 06:23:37.177424+00:00",
+        "2026-01-09 06:23:37.807159+00:00",
+        "2026-01-09 06:23:37.950571+00:00"
+      ],
+      "uniqueValueCount": 1000,
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0,
+      "description": "ISO 8601 timestamp when order was created"
+    },
+    {
+      "key": "indexed_at",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "number"
+      ],
+      "sampleValues": [
+        1767942988,
+        1767942979,
+        1767970219,
+        1767963473,
+        1767940433,
+        1767963411,
+        1767963206,
+        1767970691,
+        1767961154,
+        1767970488,
+        1767973472,
+        1767985258,
+        1767981817,
+        1767940458,
+        1767964138,
+        1767942476,
+        1767970857,
+        1767955608,
+        1767971669,
+        1767971469
+      ],
+      "uniqueValueCount": 1000,
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0,
+      "description": "Unix timestamp when indexed in Algolia"
+    },
+    {
+      "key": "indexed_at_iso",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "2026-01-09T07:16:28.386999Z",
+        "2026-01-09T07:16:19.305066Z",
+        "2026-01-09T14:50:19.617004Z",
+        "2026-01-09T12:57:53.582648Z",
+        "2026-01-09T06:33:53.775391Z",
+        "2026-01-09T12:56:51.248623Z",
+        "2026-01-09T12:53:26.348945Z",
+        "2026-01-09T14:58:11.030817Z",
+        "2026-01-09T12:19:14.330882Z",
+        "2026-01-09T14:54:48.399580Z",
+        "2026-01-09T15:44:32.513041Z",
+        "2026-01-09T19:00:58.949505Z",
+        "2026-01-09T18:03:37.825899Z",
+        "2026-01-09T06:34:18.859951Z",
+        "2026-01-09T13:08:58.197535Z",
+        "2026-01-09T07:07:56.961702Z",
+        "2026-01-09T15:00:57.532699Z",
+        "2026-01-09T10:46:48.870990Z",
+        "2026-01-09T15:14:29.449950Z",
+        "2026-01-09T15:11:09.510609Z"
+      ],
+      "uniqueValueCount": 1000,
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0,
+      "description": "ISO 8601 timestamp when indexed in Algolia"
+    },
+    {
+      "key": "assigned_to",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "i2kq2DqPnCe6otzBscWFSge5kd72",
+        "unassigned",
+        "5yclyafYgYaZXdAVqXSnrbdzRXK2",
+        "tnco9I2B6YNmLdBJefIOIeFYSmZ2",
+        "G6wVvk3K55esRxsOsiuuxF8Hgne2",
+        "JuXTWjOGukciaGNjySw0dYnTAOo2",
+        "UkrY1c212zQjMeJZItMNRCWqUlr2",
+        "iNrV9d82orWDA41dNC8aTwv8Bm92",
+        "8uH1EJpQiEgeXVrBIEo8XwNZjy02",
+        "Z6OFZ6wnLkXQ5ho2niaNQJ2Knb23",
+        "RLTyJEM06kNHEkWbAGyIL6OMqMp1",
+        "LNiPUVjo7uRsJpLSzJYfb8Fl1bl2",
+        "PgcRXaMDSMMSVDR8fkf6oe6mgap1",
+        "elw2PjRhHEdfPuho5abnFsG2XDE3",
+        "BCW7Xs9qOfOp7nIwt9N5sAtW8hC2",
+        "cTALXwXEpvRUHhkbzu4yo90GuGf1",
+        "tlVmDTunQkP6D5NeEr5TffazH6z1",
+        "89FpZc3qgWXocysnPy3BaLTM3X93",
+        "3fEWzbdo6falKHudEy8xHLnjmTi1",
+        "0xErG33PBHXCETKjWgGOvuNYBg53"
+      ],
+      "uniqueValueCount": 37,
+      "uniqueValues": [
+        "i2kq2DqPnCe6otzBscWFSge5kd72",
+        "unassigned",
+        "5yclyafYgYaZXdAVqXSnrbdzRXK2",
+        "tnco9I2B6YNmLdBJefIOIeFYSmZ2",
+        "G6wVvk3K55esRxsOsiuuxF8Hgne2",
+        "JuXTWjOGukciaGNjySw0dYnTAOo2",
+        "UkrY1c212zQjMeJZItMNRCWqUlr2",
+        "iNrV9d82orWDA41dNC8aTwv8Bm92",
+        "8uH1EJpQiEgeXVrBIEo8XwNZjy02",
+        "Z6OFZ6wnLkXQ5ho2niaNQJ2Knb23",
+        "RLTyJEM06kNHEkWbAGyIL6OMqMp1",
+        "LNiPUVjo7uRsJpLSzJYfb8Fl1bl2",
+        "PgcRXaMDSMMSVDR8fkf6oe6mgap1",
+        "elw2PjRhHEdfPuho5abnFsG2XDE3",
+        "BCW7Xs9qOfOp7nIwt9N5sAtW8hC2",
+        "cTALXwXEpvRUHhkbzu4yo90GuGf1",
+        "tlVmDTunQkP6D5NeEr5TffazH6z1",
+        "89FpZc3qgWXocysnPy3BaLTM3X93",
+        "3fEWzbdo6falKHudEy8xHLnjmTi1",
+        "0xErG33PBHXCETKjWgGOvuNYBg53",
+        "8hsS8LsgrBgzUoHQQ4CGOcwZG7u1",
+        "nuymRcS80qVW7UWkKTm0uJIROO43",
+        "HW7yyw551ZaENoA39TxGwzljjjQ2",
+        "rjokB3ikGve3SPKyURL7E2kPWKC2",
+        "l5rpK84F4ecSaM3mz1Kki4wRhwG3",
+        "MQsxwC2C7FZkxY3Oqky1ZyzLgRu1",
+        "cCbHJK9VEHM2oc3n7peXQjbsYIJ3",
+        "kq9JEfpkioc25czS2yh57rK1RgT2",
+        "Ey9cvoKUyjXiOwwMwwqpPwtEZ1P2",
+        "zwjSNfDUOXb6Ufed1mXM3J3kZJn2",
+        "Be7MuvsgTFVQwhaVj558xXWcvSC3",
+        "b4rht4JNIeXcypKChLf9napX8D53",
+        "pCbkYa0gVSWBgnHreZx1lEcVdSu2",
+        "GyKeU7Do2TaPF2gU6lRyKHQhVV03",
+        "whqI0ttm8WYU2QVVi7U3p12HoDA2",
+        "OnmvdX1EhfWqioGMGbL5XTsfLOG2",
+        "gZJqglV1SZWvdzVzrUC8XIDDI0L2"
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0,
+      "description": "User ID of the person assigned to this order"
+    },
+    {
+      "key": "assigned_to_name",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "Risa Agent",
+        "unassigned",
+        "Ankita",
+        "sivaparvathy",
+        "Chandra Lekha",
+        "Narasana",
+        "Harshita",
+        "Sandra",
+        "Ria",
+        "Rohan",
+        "Ramitha",
+        "Karthik V",
+        "Neethu",
+        "Kayal",
+        "Labanya",
+        "Parvati Nair",
+        "GR6",
+        "ayman",
+        "Shahdunissa",
+        "Anu Sagar"
+      ],
+      "uniqueValueCount": 37,
+      "uniqueValues": [
+        "Risa Agent",
+        "unassigned",
+        "Ankita",
+        "sivaparvathy",
+        "Chandra Lekha",
+        "Narasana",
+        "Harshita",
+        "Sandra",
+        "Ria",
+        "Rohan",
+        "Ramitha",
+        "Karthik V",
+        "Neethu",
+        "Kayal",
+        "Labanya",
+        "Parvati Nair",
+        "GR6",
+        "ayman",
+        "Shahdunissa",
+        "Anu Sagar",
+        "Shaheen",
+        "Vaibhavi",
+        "Nisarga",
+        "Varsha",
+        "Annmariya",
+        "Puja",
+        "shreevani",
+        "Leema",
+        "Hari",
+        "Vishal",
+        "Nisha",
+        "Jyothi",
+        "Aswathi",
+        "imran",
+        "Barathi",
+        "Manoj Kumar",
+        "Pavithra"
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0,
+      "description": "Name of the person assigned to this order"
+    },
+    {
+      "key": "primary_member_id",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "74476973400",
+        "74116066800",
+        "74485855800",
+        "74331285300",
+        "74422041200",
+        "64118748600",
+        "74568700400",
+        "74649817400",
+        "74429252600",
+        "74219712800",
+        "74388433100",
+        "74171162800",
+        "74403535700",
+        "74085649800",
+        "74152786700",
+        "74026118800",
+        "74362323600",
+        "74508637400",
+        "74522850600",
+        "74634172900"
+      ],
+      "uniqueValueCount": 1000,
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 1,
+      "description": "Insurance member ID"
+    },
+    {
+      "key": "primary_payer_name",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "Fidelis Care",
+        "Fidelis Medicare Claims",
+        "Fidelis Care Ny (533)",
+        "Healthfirst Medicaid",
+        "HealthFirst Essentials NRN",
+        "HealthFirst Silver Leaf HMO",
+        "Healthfirst",
+        "Aetna",
+        "Aetna Medicare",
+        "Health First Medicare D SNP",
+        "Ambetter by Fidelis",
+        "Healthfirst Medicare",
+        "Healthfirst Medicaid (546)",
+        "",
+        "Aetna Inc (568)",
+        "Aetna PPO",
+        "Fidelis Care Medicare",
+        "NGS Inc Medicare Part B",
+        "Fidelis Care (2897)",
+        "People's Health"
+      ],
+      "uniqueValueCount": 124,
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 22,
+      "description": "Name of primary insurance payer"
+    },
+    {
+      "key": "primary_status",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "completed",
+        "field_validation_error",
+        "in_progress",
+        "request_error",
+        "communication_error,_retrying",
+        "ev_type_not_supported",
+        "error",
+        "pinf"
+      ],
+      "uniqueValueCount": 8,
+      "uniqueValues": [
+        "completed",
+        "field_validation_error",
+        "in_progress",
+        "request_error",
+        "communication_error,_retrying",
+        "ev_type_not_supported",
+        "error",
+        "pinf"
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0,
+      "description": "Primary workflow status"
+    },
+    {
+      "key": "service_type",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "78"
+      ],
+      "uniqueValueCount": 1,
+      "uniqueValues": [
+        "78"
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0,
+      "description": "Type of medical service"
+    },
+    {
+      "key": "location",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "U - BKLYN - 11th FL - 175 Remsen Street",
+        "*MED/ONC - East Islip - 136 E Main St",
+        "*MED/ONC - New Hyde Park - 1 Delaware Drive",
+        "*MED/ONC -ACP - Manhattan - 215 E. 95th St",
+        "*MED/ONC - Patchogue - 365 E. Main St",
+        "*MED/ONC - Setauket - 347",
+        "*MED/ONC - Lake Ronkonkoma - 501 Hawkins Ave",
+        "*MED/ONC - Elmhurst - 88-06 55th Ave",
+        "*MED/ONC - Riverhead 750 Old Country",
+        "RAD/ONC - MSK - 2236 Nostrand Ave",
+        "*MED/ONC - ECCC 2330",
+        "*MED/ONC - Babylon",
+        "*MED/ONC -ACP - Brooklyn - 101 Pennsylvania Ave",
+        "*MED/ONC - MSK - 2236 Nostrand Ave",
+        "U - BKLYN - 2632 E 14th Street",
+        "*MED/ONC - Middletown - 419 E Main St",
+        "*MED/ONC - NYC - 157 E 32nd St",
+        "PCP - Bayshore - 1377 5th Ave",
+        "OBGYN - Bayshore - 375 E Main St",
+        "U - 2493 Richmond Rd - Staten Island"
+      ],
+      "uniqueValueCount": 97,
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0,
+      "description": "Service location"
+    },
+    {
+      "key": "order_id",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "ee6d81e5-100f-45e0-821a-6a4c1cb099a7",
+        "ed125f94-df67-4b1f-8f47-0d08c52f818e",
+        "7d379744-11d9-4400-b021-b0a33dcebfca",
+        "65036581-3f4b-4b9a-b45e-06720007385c",
+        "539b08a1-671d-43cc-8e4f-7ed9358af494",
+        "2c662b03-697f-4a54-b00f-69137f356ce0",
+        "16e05c2a-034f-4e86-b0fe-976a5b82a72b",
+        "d8f603c2-ec30-4414-8e8e-bc5edd2efaa9",
+        "d385ed0e-dc67-4b07-991b-0e927c7c9b0a",
+        "a2202121-d077-4374-8b06-8914fe92b39e",
+        "98d4e440-edb1-4082-8a53-649785530ac2",
+        "89844967-4c05-4a26-bc32-26ef65489ca5",
+        "788fd943-dc36-4da6-8b9f-6221be5b0d62",
+        "49e33969-f646-4331-b2b7-4304fb0535d9",
+        "45cc0f11-dc06-4636-a101-5dbf8fc8e82e",
+        "36bd7974-f97e-4e3c-976b-879f10447760",
+        "07faee5f-5cc0-4181-be46-9ab855f5f93a",
+        "e7721ddb-b161-43ad-908f-624ed1992831",
+        "b7098f6d-6a43-4c71-86d6-3fdb7d93482c",
+        "874612ad-1364-4ea0-a448-9fac82483229"
+      ],
+      "uniqueValueCount": 1000,
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0,
+      "description": "Unique identifier for the medical order"
+    },
+    {
+      "key": "practitioner_name",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "Edward Zoltan, MD",
+        "Maxine Epstein, PA",
+        "Jahan Aghalar MD",
+        "Gerry Rubin MD",
+        "Visaharan Sivasubramaniam, MD",
+        "Sanjeev Jain, MD",
+        "Noshir DaCosta MD",
+        "Karan Josan, MD",
+        "Regina Jablonski MD",
+        "Yasser El-Hennawy, MD",
+        "Deepali Sharma, MD",
+        "Joseph Safdieh, MD",
+        "Jung-In Yang, MD",
+        "Avi Retter, MD",
+        "George Cyriac MD",
+        "Nyembezi Dhliwayo, MD",
+        "Amishi Desai MD",
+        "Triantafillos Fillos, MD",
+        "StaceyAnn Rookwood NP",
+        "Ramsey Asmar, MD"
+      ],
+      "uniqueValueCount": 298,
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0,
+      "description": "Name of the prescribing practitioner"
+    },
+    {
+      "key": "regimen_name",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "UROLOGY: TESTOPEL- Testosterone Pellet Implant x 1",
+        "Venofer 200mg IV x 5 doses",
+        "5-FU 400mg/m2 IVP + 5-FU 2400mg/m2 CI over 46hrs + Leucovorin 400mg/m2 + Camptosar 180mg/m2 Q14 days x 6 cycles (FOLFIRI)",
+        "Aranesp 100mcg ESRD SQ q3w",
+        "Venofer 200mg IV x 3 doses",
+        "Venofer 200mg IV x 5 doses QOD",
+        "INJ: Testosterone 200mg IM",
+        "Nulecit (Ferrlecit)125mg IV x 5 consecutive days",
+        "Xofigo 1.49 uCi/kg IVP q28 days x 6 Cycles",
+        "Bleomycin 30units IV D1,8,15 + Etoposide 100mg/m2 IV D1-5 + Cisplatin 20mg/m2 D1-5 Q21 days x 3 cycles (BEP)",
+        "zzBB FASLODEX 500MG D1,15,29 f/b once monthly [NYCBS Pharm] {PET/CT Q3mos}",
+        "Rituxan 1000mgs D1 (previously infused at another facility),15 Q168 days x 2 cycles",
+        "Prolia 60mgs q6m (26 weeks) x 4 cycles",
+        "Reblozyl (luspatercept-aamt)- 1mg/kg SQ q3w",
+        "5-FU 400mg/m2 IVP + 5-FU 2400mg/m2 CI over 46 hours + Leucovorin 400mg/m2 + Oxaliplatin 85mg/m2 Q14 days x 6 cycles (mFOLFOX6)",
+        "Taxotere 75mg/m2 + Carboplatin AUC6 + Herceptin 6mg/kg + Perjeta 420mg Q21 days x 6 cycles f/b Perjeta 420mg + Herceptin 6mg/kg Q21 days x 11(TCH-Perjeta f/b Herceptin-Perjeta Q21)",
+        "UROLOGY: Ud/Cysto Orderset",
+        "Cisplatin 40mg/m2 D1 Q7 days x 6 cycles w/XRT",
+        "Cytoxan 750mg/m2 IV D1 + Doxorubicin 50mg/m2 D8 + Vincristine 1.4mg/m2 D8 + Prednisone 100mg PO QD D1-5 + Rituxan 375mg/m2 D2 Q21 days x 6 cycles w/PEG G-CSF (RCHOP)",
+        "Cisplatin 75mg/m2 D1 + Gemcitabine 1000mg/m2 D1,8 + Keytruda (Pembrolizumab) 200mg D1 Q21 days x 4 cycles w/ PEG G-CSF f/b Keytruda 200mg Q21 days x 13 cycles"
+      ],
+      "uniqueValueCount": 1000,
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0,
+      "description": "Name of the treatment regimen"
+    },
+    {
+      "key": "date_of_service",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "number"
+      ],
+      "sampleValues": [
+        1770163200,
+        1770076800,
+        1769990400,
+        1770681600,
+        1769731200,
+        1770595200,
+        1770422400,
+        1770336000,
+        1770249600,
+        1769385600,
+        1769904000,
+        1769817600,
+        1769644800,
+        1769558400,
+        1769472000,
+        1770508800,
+        1769212800,
+        1769126400,
+        1769040000,
+        1768953600
+      ],
+      "uniqueValueCount": 28,
+      "uniqueValues": [
+        1770163200,
+        1770076800,
+        1769990400,
+        1770681600,
+        1769731200,
+        1770595200,
+        1770422400,
+        1770336000,
+        1770249600,
+        1769385600,
+        1769904000,
+        1769817600,
+        1769644800,
+        1769558400,
+        1769472000,
+        1770508800,
+        1769212800,
+        1769126400,
+        1769040000,
+        1768953600,
+        1768867200,
+        1768780800,
+        1768521600,
+        1768608000,
+        1768435200,
+        1768348800,
+        1769299200,
+        1768694400
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0,
+      "description": "Unix timestamp of service date"
+    },
+    {
+      "key": "date_of_service_iso",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "02/04/2026",
+        "02/03/2026",
+        "02/02/2026",
+        "02/10/2026",
+        "01/30/2026",
+        "02/09/2026",
+        "02/07/2026",
+        "02/06/2026",
+        "02/05/2026",
+        "01/26/2026",
+        "02/01/2026",
+        "01/31/2026",
+        "01/29/2026",
+        "01/28/2026",
+        "01/27/2026",
+        "02/08/2026",
+        "01/24/2026",
+        "01/23/2026",
+        "01/22/2026",
+        "01/21/2026"
+      ],
+      "uniqueValueCount": 28,
+      "uniqueValues": [
+        "02/04/2026",
+        "02/03/2026",
+        "02/02/2026",
+        "02/10/2026",
+        "01/30/2026",
+        "02/09/2026",
+        "02/07/2026",
+        "02/06/2026",
+        "02/05/2026",
+        "01/26/2026",
+        "02/01/2026",
+        "01/31/2026",
+        "01/29/2026",
+        "01/28/2026",
+        "01/27/2026",
+        "02/08/2026",
+        "01/24/2026",
+        "01/23/2026",
+        "01/22/2026",
+        "01/21/2026",
+        "01/20/2026",
+        "01/19/2026",
+        "01/16/2026",
+        "01/17/2026",
+        "01/15/2026",
+        "01/14/2026",
+        "01/25/2026",
+        "01/18/2026"
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0,
+      "description": "ISO 8601 date of service"
+    },
+    {
+      "key": "org_id",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "HhwIHO4npKhrxyylkC33",
+        "3GKbZtgpPru1vJGCkxwR",
+        "4BlQ4SsqAVTDgFKApKZr",
+        "W14MolgUu7OYvX4CFQJn"
+      ],
+      "uniqueValueCount": 4,
+      "uniqueValues": [
+        "HhwIHO4npKhrxyylkC33",
+        "3GKbZtgpPru1vJGCkxwR",
+        "4BlQ4SsqAVTDgFKApKZr",
+        "W14MolgUu7OYvX4CFQJn"
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0,
+      "description": "Organization/Facility ID"
+    },
+    {
+      "key": "patient_id",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "6864372",
+        "6885477",
+        "7789552",
+        "6873608",
+        "7759484",
+        "7026191",
+        "7776527",
+        "4028313",
+        "4066462",
+        "6859882",
+        "4033163",
+        "2512160049",
+        "2512120046",
+        "4139078",
+        "6500052",
+        "4040088",
+        "4028759",
+        "8786772",
+        "2512050555",
+        "2512080415"
+      ],
+      "uniqueValueCount": 1000,
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0,
+      "description": "Unique identifier for the patient"
+    },
+    {
+      "key": "ev_bv_primary",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "completed",
+        "field_validation_error",
+        "in_progress",
+        "request_error",
+        "communication_error,_retrying",
+        "maxed_out",
+        "ev_type_not_supported",
+        "error",
+        "pinf"
+      ],
+      "uniqueValueCount": 9,
+      "uniqueValues": [
+        "completed",
+        "field_validation_error",
+        "in_progress",
+        "request_error",
+        "communication_error,_retrying",
+        "maxed_out",
+        "ev_type_not_supported",
+        "error",
+        "pinf"
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0,
+      "description": "Primary EV/BV status"
+    },
+    {
+      "key": "patient_fhir_identifier",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "PD--01423674247294890--1.GH--Cz38227634--2",
+        "PD--08111671678914710--1.GH--Cz38227634--2",
+        "PD--05XZ82TCQZ9X66M3DT2H.GH--Cz38227634--2",
+        "PD--10551536803422380--1.GH--Cz38227634--2",
+        "PD--05WTGYY70DRVKH43FNMY.GH--Cz38227634--2",
+        "PD--05VD675764CND3JENVV0.GH--Cz38227634--2",
+        "PD--05XNA2XGV06YA5XNG2V5.GH--Cz38227634--2",
+        "PD--01125889960554183--1.GH--Cz38227634--2",
+        "PD--02115013961064179--1.GH--Cz38227634--2",
+        "PD--08301275238732459--1.GH--Cz38227634--2",
+        "PD--02474616436918460--1.GH--Cz38227634--2",
+        "PD--06DJEQNX4BYPFZF2CVBZ.GH--Cz38227634--2",
+        "PD--06DH5FCX3P6V75WF1P9F.GH--Cz38227634--2",
+        "PD--04443677988338472--1.GH--Cz38227634--2",
+        "PD--10345296220148505--1.GH--Cz38227634--2",
+        "PD--08540636565126766--1.GH--Cz38227634--2",
+        "PD--12451955973955327--1.GH--Cz38227634--2",
+        "PD--06CWY8FHJ1HKGZZNVE3T.GH--Cz38227634--2",
+        "PD--06DEZ97A864JTYTWHS27.GH--Cz38227634--2",
+        "PD--06DFXNPAA51DBBZBA3Q1.GH--Cz38227634--2"
+      ],
+      "uniqueValueCount": 1000,
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 5,
+      "description": "FHIR identifier for the patient"
+    },
+    {
+      "key": "date_of_birth",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "1970-08-03",
+        "1977-02-28",
+        "1964-05-11",
+        "1976-05-13",
+        "1962-12-17",
+        "1988-02-27",
+        "1995-04-17",
+        "1985-08-03",
+        "1972-07-23",
+        "1982-10-16",
+        "1986-10-27",
+        "1953-07-11",
+        "1971-04-07",
+        "1956-01-30",
+        "1977-02-01",
+        "1970-12-18",
+        "1962-03-08",
+        "1981-09-27",
+        "1986-08-10",
+        "1975-01-01"
+      ],
+      "uniqueValueCount": 1000,
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 5,
+      "description": "Patient date of birth"
+    },
+    {
+      "key": "last_name",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "MOROZOW",
+        "AMAYA",
+        "BOSAK",
+        "MAJID",
+        "STOCKS",
+        "HODNE",
+        "GRAZIANO",
+        "FAHAD",
+        "PARIK",
+        "COLLETTA",
+        "TOLEDO",
+        "Santiago",
+        "Leon",
+        "SINISHTAJ",
+        "BROWN",
+        "DEMIR",
+        "MOTTA",
+        "PEDRAZA CISNEROS",
+        "ARGUETA",
+        "JANAL"
+      ],
+      "uniqueValueCount": 1000,
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 5,
+      "description": "Patient last name"
+    },
+    {
+      "key": "first_name",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "CHONON",
+        "SONIA",
+        "GLENN",
+        "ABIDA",
+        "ZINA",
+        "ANNE",
+        "CYNDI",
+        "MARIUM",
+        "MILAN",
+        "NICOLE",
+        "MAGALY",
+        "Benito",
+        "Bernard",
+        "TERESA",
+        "MONICA",
+        "SAFINAZ",
+        "LAURIE",
+        "GEOVAN",
+        "MARTHA",
+        "KEITH"
+      ],
+      "uniqueValueCount": 1000,
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 5,
+      "description": "Patient first name"
+    },
+    {
+      "key": "alert_badges",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "array"
+      ],
+      "sampleValues": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [
+          "Insurance"
+        ],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [
+          "Insurance"
+        ],
+        [],
+        [
+          "Drug Added",
+          "Insurance"
+        ],
+        [],
+        [],
+        [
+          "Insurance"
+        ],
+        [],
+        [
+          "Drug Added"
+        ]
+      ],
+      "uniqueValueCount": 8,
+      "uniqueValues": [
+        [],
+        [
+          "Insurance"
+        ],
+        [
+          "Drug Added",
+          "Insurance"
+        ],
+        [
+          "Drug Added"
+        ],
+        [
+          "Dosage"
+        ],
+        [
+          "Dosage",
+          "Drug Added"
+        ],
+        [
+          "Dosage",
+          "Insurance"
+        ],
+        [
+          "Dosage",
+          "Drug Added",
+          "Insurance"
+        ]
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0,
+      "description": "Array of alert badge identifiers"
+    },
+    {
+      "key": "alerts",
+      "occurrences": 3412,
+      "percentPresent": 100,
+      "isAlwaysPresent": true,
+      "valueTypes": [
+        "array"
+      ],
+      "sampleValues": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [
+          "The following data has changed that might impact prior auth:New insurance added as Primary: Fidelis Care, Fidelis Care Ny (533) has been deleted"
+        ],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [
+          "The following data has changed that might impact prior auth:Primary Insurance Fidelis Care terminates before appointment date, Primary Insurance Fidelis Care is active due to termination date change"
+        ],
+        [],
+        [
+          "The following data has changed that might impact prior auth:Fidelis Care Ny (533) has been deleted, New insurance added as Primary: Fidelis Care, Ruxience (rituximab-pvvr) Added"
+        ],
+        [],
+        [],
+        [
+          "The following data has changed that might impact prior auth:New insurance added as Primary: Fidelis Care, Fidelis Care Ny (533) has been deleted"
+        ],
+        [],
+        [
+          "The following data has changed that might impact prior auth:Aloxi IVP Added, Fosaprepitant (Emend) Added"
+        ]
+      ],
+      "uniqueValueCount": 502,
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0,
+      "description": "Array of alert objects"
+    },
+    {
+      "key": "_highlightResult.bo_status",
+      "occurrences": 3406,
+      "percentPresent": 99.82415005861665,
+      "isAlwaysPresent": false,
+      "valueTypes": [
+        "object"
+      ],
+      "sampleValues": [
+        {
+          "value": "Not Applicable",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "AuthMate",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Authorized",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Authorized",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Authorized",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Authorized",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Authorized",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Authorized",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Authorized",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Authorized",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Authorized",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Financial",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Authorized",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "POD - Verify",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Authorized",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "AuthMate",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "AuthMate",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Authorized",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Authorized",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Authorized",
+          "matchLevel": "none",
+          "matchedWords": []
+        }
+      ],
+      "uniqueValueCount": 15,
+      "uniqueValues": [
+        {
+          "value": "Not Applicable",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "AuthMate",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Authorized",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Financial",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "POD - Verify",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Required",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Auth Issue (Onsite)",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Insurance Issue",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Denied",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "NYCBS Pharm Fill",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "AuthMate-Pending",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Authmate",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Authmate Approved",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Authmate Issue",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "Authmate Pending",
+          "matchLevel": "none",
+          "matchedWords": []
+        }
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "_highlightResult.bo_status.value",
+      "occurrences": 3406,
+      "percentPresent": 99.82415005861665,
+      "isAlwaysPresent": false,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "Not Applicable",
+        "AuthMate",
+        "Authorized",
+        "Financial",
+        "POD - Verify",
+        "Required",
+        "Auth Issue (Onsite)",
+        "Insurance Issue",
+        "Denied",
+        "NYCBS Pharm Fill",
+        "AuthMate-Pending",
+        "Authmate",
+        "Authmate Approved",
+        "Authmate Issue",
+        "Authmate Pending"
+      ],
+      "uniqueValueCount": 15,
+      "uniqueValues": [
+        "Not Applicable",
+        "AuthMate",
+        "Authorized",
+        "Financial",
+        "POD - Verify",
+        "Required",
+        "Auth Issue (Onsite)",
+        "Insurance Issue",
+        "Denied",
+        "NYCBS Pharm Fill",
+        "AuthMate-Pending",
+        "Authmate",
+        "Authmate Approved",
+        "Authmate Issue",
+        "Authmate Pending"
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "_highlightResult.bo_status.matchLevel",
+      "occurrences": 3406,
+      "percentPresent": 99.82415005861665,
+      "isAlwaysPresent": false,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "none"
+      ],
+      "uniqueValueCount": 1,
+      "uniqueValues": [
+        "none"
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "_highlightResult.bo_status.matchedWords",
+      "occurrences": 3406,
+      "percentPresent": 99.82415005861665,
+      "isAlwaysPresent": false,
+      "valueTypes": [
+        "array"
+      ],
+      "sampleValues": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "uniqueValueCount": 1,
+      "uniqueValues": [
+        []
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "document_upload_status",
+      "occurrences": 3406,
+      "percentPresent": 99.82415005861665,
+      "isAlwaysPresent": false,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "not_initiated",
+        "Success",
+        "",
+        "Error"
+      ],
+      "uniqueValueCount": 4,
+      "uniqueValues": [
+        "not_initiated",
+        "Success",
+        "",
+        "Error"
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 5,
+      "description": "Status of document uploads"
+    },
+    {
+      "key": "ev_write_back_status",
+      "occurrences": 3406,
+      "percentPresent": 99.82415005861665,
+      "isAlwaysPresent": false,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "not_initiated",
+        "Success",
+        "Error",
+        ""
+      ],
+      "uniqueValueCount": 4,
+      "uniqueValues": [
+        "not_initiated",
+        "Success",
+        "Error",
+        ""
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 3,
+      "description": "Eligibility Verification write-back status"
+    },
+    {
+      "key": "bo_status",
+      "occurrences": 3406,
+      "percentPresent": 99.82415005861665,
+      "isAlwaysPresent": false,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "Not Applicable",
+        "AuthMate",
+        "Authorized",
+        "Financial",
+        "POD - Verify",
+        "Required",
+        "Auth Issue (Onsite)",
+        "Insurance Issue",
+        "Denied",
+        "NYCBS Pharm Fill",
+        "AuthMate-Pending",
+        "Authmate",
+        "Authmate Approved",
+        "Authmate Issue",
+        "Authmate Pending"
+      ],
+      "uniqueValueCount": 15,
+      "uniqueValues": [
+        "Not Applicable",
+        "AuthMate",
+        "Authorized",
+        "Financial",
+        "POD - Verify",
+        "Required",
+        "Auth Issue (Onsite)",
+        "Insurance Issue",
+        "Denied",
+        "NYCBS Pharm Fill",
+        "AuthMate-Pending",
+        "Authmate",
+        "Authmate Approved",
+        "Authmate Issue",
+        "Authmate Pending"
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0,
+      "description": "Benefits/Benefits Office status"
+    },
+    {
+      "key": "master_auth_status",
+      "occurrences": 3404,
+      "percentPresent": 99.76553341148886,
+      "isAlwaysPresent": false,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "urology",
+        "new",
+        "no_auth_required",
+        "auth_on_file",
+        "auth_required",
+        "hold",
+        "pcp",
+        "",
+        "auth_by_risa",
+        "not_to_work_fedora",
+        "oral_drug",
+        "patient_owned_drug",
+        "query",
+        "not_applicable",
+        "not_to_work_stat",
+        "drug_removed",
+        "existing_denial",
+        "dos_changed",
+        "pending",
+        "worked_by_onshore_team"
+      ],
+      "uniqueValueCount": 24,
+      "uniqueValues": [
+        "urology",
+        "new",
+        "no_auth_required",
+        "auth_on_file",
+        "auth_required",
+        "hold",
+        "pcp",
+        "",
+        "auth_by_risa",
+        "not_to_work_fedora",
+        "oral_drug",
+        "patient_owned_drug",
+        "query",
+        "not_applicable",
+        "not_to_work_stat",
+        "drug_removed",
+        "existing_denial",
+        "dos_changed",
+        "pending",
+        "worked_by_onshore_team",
+        "on_study_patient",
+        "free_drug",
+        "not_to_work_pharmacy",
+        "worked_by_onsite"
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 8,
+      "description": "Primary authorization status of the order"
+    },
+    {
+      "key": "mark_as_completed",
+      "occurrences": 3403,
+      "percentPresent": 99.73622508792496,
+      "isAlwaysPresent": false,
+      "valueTypes": [
+        "boolean"
+      ],
+      "sampleValues": [
+        false,
+        true
+      ],
+      "uniqueValueCount": 2,
+      "uniqueValues": [
+        false,
+        true
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0,
+      "description": "Flag indicating if order is marked complete"
+    },
+    {
+      "key": "_highlightResult.auth_on_file_status",
+      "occurrences": 3402,
+      "percentPresent": 99.70691676436107,
+      "isAlwaysPresent": false,
+      "valueTypes": [
+        "object"
+      ],
+      "sampleValues": [
+        {
+          "value": "completed",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "completed",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "completed",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "completed",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "completed",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "completed",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "completed",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "completed",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "completed",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "completed",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "completed",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "completed",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "completed",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "completed",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "completed",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "completed",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "completed",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "completed",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "completed",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "completed",
+          "matchLevel": "none",
+          "matchedWords": []
+        }
+      ],
+      "uniqueValueCount": 4,
+      "uniqueValues": [
+        {
+          "value": "completed",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "error",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "initiated",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "in_progress",
+          "matchLevel": "none",
+          "matchedWords": []
+        }
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "_highlightResult.auth_on_file_status.value",
+      "occurrences": 3402,
+      "percentPresent": 99.70691676436107,
+      "isAlwaysPresent": false,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "completed",
+        "error",
+        "initiated",
+        "in_progress"
+      ],
+      "uniqueValueCount": 4,
+      "uniqueValues": [
+        "completed",
+        "error",
+        "initiated",
+        "in_progress"
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "_highlightResult.auth_on_file_status.matchLevel",
+      "occurrences": 3402,
+      "percentPresent": 99.70691676436107,
+      "isAlwaysPresent": false,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "none"
+      ],
+      "uniqueValueCount": 1,
+      "uniqueValues": [
+        "none"
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "_highlightResult.auth_on_file_status.matchedWords",
+      "occurrences": 3402,
+      "percentPresent": 99.70691676436107,
+      "isAlwaysPresent": false,
+      "valueTypes": [
+        "array"
+      ],
+      "sampleValues": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "uniqueValueCount": 1,
+      "uniqueValues": [
+        []
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "auth_on_file_status",
+      "occurrences": 3402,
+      "percentPresent": 99.70691676436107,
+      "isAlwaysPresent": false,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "completed",
+        "error",
+        "initiated",
+        "in_progress"
+      ],
+      "uniqueValueCount": 4,
+      "uniqueValues": [
+        "completed",
+        "error",
+        "initiated",
+        "in_progress"
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0,
+      "description": "Status of authorization on file"
+    },
+    {
+      "key": "auth_on_file_updated_at",
+      "occurrences": 3402,
+      "percentPresent": 99.70691676436107,
+      "isAlwaysPresent": false,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "2026-01-09T07:16:28.225772+00:00",
+        "2026-01-09T07:16:19.170695+00:00",
+        "2026-01-09T06:29:01.432714+00:00",
+        "2026-01-09T06:29:14.607167+00:00",
+        "2026-01-09T06:29:09.715242+00:00",
+        "2026-01-09T07:13:07.195560+00:00",
+        "2026-01-09T07:16:25.086059+00:00",
+        "2026-01-09T07:16:29.501684+00:00",
+        "2026-01-09T06:48:24.749719+00:00",
+        "2026-01-09T07:04:35.307312+00:00",
+        "2026-01-09T07:16:25.005140+00:00",
+        "2026-01-09T06:31:56.991433+00:00",
+        "2026-01-09T06:30:15.268313+00:00",
+        "2026-01-09T06:33:07.120044+00:00",
+        "2026-01-09T07:49:43.206548+00:00",
+        "2026-01-09T07:04:43.209009+00:00",
+        "2026-01-09T06:31:18.780368+00:00",
+        "2026-01-09T06:28:27.095934+00:00",
+        "2026-01-09T06:32:52.095064+00:00",
+        "2026-01-09T07:16:37.962514+00:00"
+      ],
+      "uniqueValueCount": 1000,
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0,
+      "description": "Last update timestamp for auth on file"
+    },
+    {
+      "key": "financial_review",
+      "occurrences": 3401,
+      "percentPresent": 99.67760844079719,
+      "isAlwaysPresent": false,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "new"
+      ],
+      "uniqueValueCount": 1,
+      "uniqueValues": [
+        "new"
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0,
+      "description": "Financial review status"
+    },
+    {
+      "key": "order_creation",
+      "occurrences": 3401,
+      "percentPresent": 99.67760844079719,
+      "isAlwaysPresent": false,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "completed"
+      ],
+      "uniqueValueCount": 1,
+      "uniqueValues": [
+        "completed"
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0,
+      "description": "Order creation status"
+    },
+    {
+      "key": "_highlightResult.auth_status",
+      "occurrences": 3168,
+      "percentPresent": 92.84876905041031,
+      "isAlwaysPresent": false,
+      "valueTypes": [
+        "object"
+      ],
+      "sampleValues": [
+        {
+          "value": "urology",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "auth_required",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "no_auth_required",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "no_auth_required",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "no_auth_required",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "no_auth_required",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "no_auth_required",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "no_auth_required",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "auth_on_file",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "no_auth_required",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "no_auth_required",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "no_auth_required",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "auth_on_file",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "patient_owned_drug",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "auth_on_file",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "auth_required",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "auth_required",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "no_auth_required",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "no_auth_required",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "auth_on_file",
+          "matchLevel": "none",
+          "matchedWords": []
+        }
+      ],
+      "uniqueValueCount": 24,
+      "uniqueValues": [
+        {
+          "value": "urology",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "auth_required",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "no_auth_required",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "auth_on_file",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "patient_owned_drug",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "hold",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "pcp",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "auth_by_risa",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "not_to_work_fedora",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "oral_drug",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "query",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "not_applicable",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "not_to_work_stat",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "drug_removed",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "existing_denial",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "dos_changed",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "gold_bag",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "pending",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "worked_by_onshore_team",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "on_study_patient",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "not_available",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "free_drug",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "not_to_work_pharmacy",
+          "matchLevel": "none",
+          "matchedWords": []
+        },
+        {
+          "value": "worked_by_onsite",
+          "matchLevel": "none",
+          "matchedWords": []
+        }
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "_highlightResult.auth_status.value",
+      "occurrences": 3168,
+      "percentPresent": 92.84876905041031,
+      "isAlwaysPresent": false,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "urology",
+        "auth_required",
+        "no_auth_required",
+        "auth_on_file",
+        "patient_owned_drug",
+        "hold",
+        "pcp",
+        "auth_by_risa",
+        "not_to_work_fedora",
+        "oral_drug",
+        "query",
+        "not_applicable",
+        "not_to_work_stat",
+        "drug_removed",
+        "existing_denial",
+        "dos_changed",
+        "gold_bag",
+        "pending",
+        "worked_by_onshore_team",
+        "on_study_patient"
+      ],
+      "uniqueValueCount": 24,
+      "uniqueValues": [
+        "urology",
+        "auth_required",
+        "no_auth_required",
+        "auth_on_file",
+        "patient_owned_drug",
+        "hold",
+        "pcp",
+        "auth_by_risa",
+        "not_to_work_fedora",
+        "oral_drug",
+        "query",
+        "not_applicable",
+        "not_to_work_stat",
+        "drug_removed",
+        "existing_denial",
+        "dos_changed",
+        "gold_bag",
+        "pending",
+        "worked_by_onshore_team",
+        "on_study_patient",
+        "not_available",
+        "free_drug",
+        "not_to_work_pharmacy",
+        "worked_by_onsite"
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "_highlightResult.auth_status.matchLevel",
+      "occurrences": 3168,
+      "percentPresent": 92.84876905041031,
+      "isAlwaysPresent": false,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "none"
+      ],
+      "uniqueValueCount": 1,
+      "uniqueValues": [
+        "none"
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "_highlightResult.auth_status.matchedWords",
+      "occurrences": 3168,
+      "percentPresent": 92.84876905041031,
+      "isAlwaysPresent": false,
+      "valueTypes": [
+        "array"
+      ],
+      "sampleValues": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "uniqueValueCount": 1,
+      "uniqueValues": [
+        []
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "auth_status",
+      "occurrences": 3168,
+      "percentPresent": 92.84876905041031,
+      "isAlwaysPresent": false,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "urology",
+        "auth_required",
+        "no_auth_required",
+        "auth_on_file",
+        "patient_owned_drug",
+        "hold",
+        "pcp",
+        "auth_by_risa",
+        "not_to_work_fedora",
+        "oral_drug",
+        "query",
+        "not_applicable",
+        "not_to_work_stat",
+        "drug_removed",
+        "existing_denial",
+        "dos_changed",
+        "gold_bag",
+        "pending",
+        "worked_by_onshore_team",
+        "on_study_patient"
+      ],
+      "uniqueValueCount": 24,
+      "uniqueValues": [
+        "urology",
+        "auth_required",
+        "no_auth_required",
+        "auth_on_file",
+        "patient_owned_drug",
+        "hold",
+        "pcp",
+        "auth_by_risa",
+        "not_to_work_fedora",
+        "oral_drug",
+        "query",
+        "not_applicable",
+        "not_to_work_stat",
+        "drug_removed",
+        "existing_denial",
+        "dos_changed",
+        "gold_bag",
+        "pending",
+        "worked_by_onshore_team",
+        "on_study_patient",
+        "not_available",
+        "free_drug",
+        "not_to_work_pharmacy",
+        "worked_by_onsite"
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0,
+      "description": "Current authorization status"
+    },
+    {
+      "key": "medical_order_status",
+      "occurrences": 3168,
+      "percentPresent": 92.84876905041031,
+      "isAlwaysPresent": false,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "order_completed_by_agent",
+        "yet_to_start_work_on_order",
+        "order_completed_by_human",
+        "order_in_progress"
+      ],
+      "uniqueValueCount": 4,
+      "uniqueValues": [
+        "order_completed_by_agent",
+        "yet_to_start_work_on_order",
+        "order_completed_by_human",
+        "order_in_progress"
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0,
+      "description": "Overall medical order status"
+    },
+    {
+      "key": "regimen_type",
+      "occurrences": 3152,
+      "percentPresent": 92.37983587338803,
+      "isAlwaysPresent": false,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "multi_agent",
+        "single_agent"
+      ],
+      "uniqueValueCount": 2,
+      "uniqueValues": [
+        "multi_agent",
+        "single_agent"
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0,
+      "description": "Type of treatment regimen"
+    },
+    {
+      "key": "primary_active",
+      "occurrences": 2829,
+      "percentPresent": 82.91324736225087,
+      "isAlwaysPresent": false,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "active coverage",
+        "-",
+        "Active Coverage",
+        "Inactive Coverage",
+        "Coverage Unknown",
+        "Coverage Exhausted",
+        "Inactive"
+      ],
+      "uniqueValueCount": 7,
+      "uniqueValues": [
+        "active coverage",
+        "-",
+        "Active Coverage",
+        "Inactive Coverage",
+        "Coverage Unknown",
+        "Coverage Exhausted",
+        "Inactive"
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0,
+      "description": "Whether primary insurance is active"
+    },
+    {
+      "key": "auth_on_file_error_type",
+      "occurrences": 1901,
+      "percentPresent": 55.715123094958976,
+      "isAlwaysPresent": false,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "refresh_error",
+        "visit_date_content_not_found",
+        "regimen_not_found"
+      ],
+      "uniqueValueCount": 3,
+      "uniqueValues": [
+        "refresh_error",
+        "visit_date_content_not_found",
+        "regimen_not_found"
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0,
+      "description": "Type of auth on file error"
+    },
+    {
+      "key": "auth_on_file_error_message",
+      "occurrences": 1901,
+      "percentPresent": 55.715123094958976,
+      "isAlwaysPresent": false,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "Error refreshing auth data: No auth_entries available for identifier: 7d379744-11d9-4400-b021-b0a33dcebfca. Cannot proceed with NAR and post-processing.",
+        "Error refreshing auth data: No auth_entries available for identifier: 65036581-3f4b-4b9a-b45e-06720007385c. Cannot proceed with NAR and post-processing.",
+        "Error refreshing auth data: No auth_entries available for identifier: 539b08a1-671d-43cc-8e4f-7ed9358af494. Cannot proceed with NAR and post-processing.",
+        "Error refreshing auth data: No auth_entries available for identifier: 2c662b03-697f-4a54-b00f-69137f356ce0. Cannot proceed with NAR and post-processing.",
+        "Error refreshing auth data: No auth_entries available for identifier: 45cc0f11-dc06-4636-a101-5dbf8fc8e82e. Cannot proceed with NAR and post-processing.",
+        "Error refreshing auth data: No auth_entries available for identifier: 36bd7974-f97e-4e3c-976b-879f10447760. Cannot proceed with NAR and post-processing.",
+        "Error refreshing auth data: No auth_entries available for identifier: e7721ddb-b161-43ad-908f-624ed1992831. Cannot proceed with NAR and post-processing.",
+        "Error refreshing auth data: No auth_entries available for identifier: b7098f6d-6a43-4c71-86d6-3fdb7d93482c. Cannot proceed with NAR and post-processing.",
+        "Error refreshing auth data: No auth_entries available for identifier: 69322fd0-ee38-4fdd-a680-875f040d05ba. Cannot proceed with NAR and post-processing.",
+        "Error refreshing auth data: No auth_entries available for identifier: 0e75b30a-514c-4d45-9755-f927b4a04c6c. Cannot proceed with NAR and post-processing.",
+        "Error refreshing auth data: No auth_entries available for identifier: f3e8dde3-824e-4e34-9522-a623eef70d57. Cannot proceed with NAR and post-processing.",
+        "Error refreshing auth data: No auth_entries available for identifier: 8e49c510-b6a1-4e35-abb4-3d90835749aa. Cannot proceed with NAR and post-processing.",
+        "Error refreshing auth data: No auth_entries available for identifier: 182da56e-1571-46dd-b105-029ae5713e66. Cannot proceed with NAR and post-processing.",
+        "Error refreshing auth data: No auth_entries available for identifier: 05f5d3cb-7347-452c-8651-257de2306135. Cannot proceed with NAR and post-processing.",
+        "Error refreshing auth data: No auth_entries available for identifier: ddef3fcc-495d-4b06-bcc7-36d450d2c9ec. Cannot proceed with NAR and post-processing.",
+        "Error refreshing auth data: No auth_entries available for identifier: 69ff0afd-8c43-4f09-be37-0f23122e00f5. Cannot proceed with NAR and post-processing.",
+        "No business office rows with content found for visit date '02/03/2026'. Filtered from 1 total rows. The visit date may not have any scheduled activities.",
+        "Error refreshing auth data: No auth_entries available for identifier: 04edce8f-ede7-4c33-9f11-7f1434a46f53. Cannot proceed with NAR and post-processing.",
+        "Error refreshing auth data: No auth_entries available for identifier: f451e4d6-399d-440b-9890-cccf5a58e766. Cannot proceed with NAR and post-processing.",
+        "Error refreshing auth data: No auth_entries available for identifier: eef3e70c-037f-4f98-9fef-82e9ffeacd5a. Cannot proceed with NAR and post-processing."
+      ],
+      "uniqueValueCount": 1000,
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0,
+      "description": "Error message for auth on file"
+    },
+    {
+      "key": "nar_check_status",
+      "occurrences": 1724,
+      "percentPresent": 50.52754982415005,
+      "isAlwaysPresent": false,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "completed"
+      ],
+      "uniqueValueCount": 1,
+      "uniqueValues": [
+        "completed"
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0,
+      "description": "NAR (Narcotic Authorization Request) check status"
+    },
+    {
+      "key": "date_of_work",
+      "occurrences": 1718,
+      "percentPresent": 50.35169988276671,
+      "isAlwaysPresent": false,
+      "valueTypes": [
+        "number"
+      ],
+      "sampleValues": [
+        1767940119,
+        1767969985,
+        1767963259,
+        1767963190,
+        1767963017,
+        1767970467,
+        1767960938,
+        1767970267,
+        1767973244,
+        1767985050,
+        1767981604,
+        1767963915,
+        1767960453,
+        1767955406,
+        1767971456,
+        1767971230,
+        1767955167,
+        1767963847,
+        1767940478,
+        1767964084
+      ],
+      "uniqueValueCount": 1000,
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0,
+      "description": "Unix timestamp for the date work was performed"
+    },
+    {
+      "key": "date_of_work_iso",
+      "occurrences": 1718,
+      "percentPresent": 50.35169988276671,
+      "isAlwaysPresent": false,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "2026-01-09T06:28:39.352682+00:00",
+        "2026-01-09T14:46:25.823311+00:00",
+        "2026-01-09T12:54:19.159182+00:00",
+        "2026-01-09T12:53:10.395663+00:00",
+        "2026-01-09T12:50:17.530881+00:00",
+        "2026-01-09T14:54:27.613194+00:00",
+        "2026-01-09T12:15:38.086530+00:00",
+        "2026-01-09T14:51:07.204866+00:00",
+        "2026-01-09T15:40:44.846640+00:00",
+        "2026-01-09T18:57:30.871960+00:00",
+        "2026-01-09T18:00:04.482730+00:00",
+        "2026-01-09T13:05:15.532705+00:00",
+        "2026-01-09T12:07:33.515120+00:00",
+        "2026-01-09T10:43:26.090608+00:00",
+        "2026-01-09T15:10:56.561886+00:00",
+        "2026-01-09T15:07:10.862255+00:00",
+        "2026-01-09T10:39:27.937973+00:00",
+        "2026-01-09T13:04:07.053908+00:00",
+        "2026-01-09T06:34:38.757018+00:00",
+        "2026-01-09T13:08:04.590159+00:00"
+      ],
+      "uniqueValueCount": 1000,
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0,
+      "description": "ISO 8601 date when work was performed"
+    },
+    {
+      "key": "updated_at",
+      "occurrences": 1716,
+      "percentPresent": 50.293083235638925,
+      "isAlwaysPresent": false,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "2026-01-09T07:16:25.095984+00:00",
+        "2026-01-09T14:50:16.186517+00:00",
+        "2026-01-09T12:57:50.211082+00:00",
+        "2026-01-09T12:56:47.914068+00:00",
+        "2026-01-09T12:53:22.888122+00:00",
+        "2026-01-09T14:58:07.667011+00:00",
+        "2026-01-09T12:19:10.858962+00:00",
+        "2026-01-09T14:54:45.040513+00:00",
+        "2026-01-09T15:44:30.220433+00:00",
+        "2026-01-09T19:00:55.551402+00:00",
+        "2026-01-09T18:03:34.387200+00:00",
+        "2026-01-09T13:08:54.752793+00:00",
+        "2026-01-09T12:11:46.339604+00:00",
+        "2026-01-09T10:46:45.513947+00:00",
+        "2026-01-09T15:14:26.088079+00:00",
+        "2026-01-09T15:11:06.080488+00:00",
+        "2026-01-09T10:42:39.575403+00:00",
+        "2026-01-09T13:08:17.277810+00:00",
+        "2026-01-09T08:23:01.024306+00:00",
+        "2026-01-09T13:11:13.845994+00:00"
+      ],
+      "uniqueValueCount": 1000,
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0,
+      "description": "Last update timestamp"
+    },
+    {
+      "key": "assigned_at",
+      "occurrences": 1585,
+      "percentPresent": 46.45369284876905,
+      "isAlwaysPresent": false,
+      "valueTypes": [
+        "number"
+      ],
+      "sampleValues": [
+        1767960355,
+        1767962146,
+        1767962555,
+        1767962502,
+        1767990656,
+        1767962192,
+        1767960557,
+        1767960325,
+        1767960268,
+        1767962388,
+        1767962435,
+        1767964604,
+        1767962609,
+        1767960453,
+        1767995938,
+        1767960394,
+        1767960516,
+        1767962240,
+        1767972931,
+        1767960717
+      ],
+      "uniqueValueCount": 148,
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0,
+      "description": "Unix timestamp when order was assigned"
+    },
+    {
+      "key": "assigned_at_iso",
+      "occurrences": 1585,
+      "percentPresent": 46.45369284876905,
+      "isAlwaysPresent": false,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "2026-01-09T12:05:55.216000+00:00",
+        "2026-01-09T12:35:46.772000+00:00",
+        "2026-01-09T12:42:35.693000+00:00",
+        "2026-01-09T12:41:42.163000+00:00",
+        "2026-01-09T20:30:56.117000+00:00",
+        "2026-01-09T12:36:32.456000+00:00",
+        "2026-01-09T12:09:17.708000+00:00",
+        "2026-01-09T12:05:25.337000+00:00",
+        "2026-01-09T12:04:28.873000+00:00",
+        "2026-01-09T12:39:48.178000+00:00",
+        "2026-01-09T12:40:35.850000+00:00",
+        "2026-01-09T13:16:44.411000+00:00",
+        "2026-01-09T12:43:29.847000+00:00",
+        "2026-01-09T12:07:33.756000+00:00",
+        "2026-01-09T21:58:58.814000+00:00",
+        "2026-01-09T12:06:34.358000+00:00",
+        "2026-01-09T12:08:36.800000+00:00",
+        "2026-01-09T12:37:20.338000+00:00",
+        "2026-01-09T15:35:31.327000+00:00",
+        "2026-01-09T12:11:57.663000+00:00"
+      ],
+      "uniqueValueCount": 149,
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0,
+      "description": "ISO 8601 timestamp when order was assigned"
+    },
+    {
+      "key": "ev_bv_secondary",
+      "occurrences": 1243,
+      "percentPresent": 36.43024618991794,
+      "isAlwaysPresent": false,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "ev_type_not_supported",
+        "completed",
+        "in_progress",
+        "pinf",
+        "request_error",
+        "field_validation_error",
+        "error",
+        "communication_error,_retrying"
+      ],
+      "uniqueValueCount": 8,
+      "uniqueValues": [
+        "ev_type_not_supported",
+        "completed",
+        "in_progress",
+        "pinf",
+        "request_error",
+        "field_validation_error",
+        "error",
+        "communication_error,_retrying"
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "ai_agent_type",
+      "occurrences": 1023,
+      "percentPresent": 29.98241500586166,
+      "isAlwaysPresent": false,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "human"
+      ],
+      "uniqueValueCount": 1,
+      "uniqueValues": [
+        "human"
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0,
+      "description": "Type of AI agent used (if any)"
+    },
+    {
+      "key": "health_first_nar_rpa_status",
+      "occurrences": 306,
+      "percentPresent": 8.968347010550996,
+      "isAlwaysPresent": false,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "Error",
+        "Success"
+      ],
+      "uniqueValueCount": 2,
+      "uniqueValues": [
+        "Error",
+        "Success"
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "ev_bv_tertiary",
+      "occurrences": 197,
+      "percentPresent": 5.773739742086752,
+      "isAlwaysPresent": false,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "ev_type_not_supported",
+        "request_error",
+        "completed",
+        "error",
+        "pinf",
+        "in_progress",
+        "field_validation_error"
+      ],
+      "uniqueValueCount": 7,
+      "uniqueValues": [
+        "ev_type_not_supported",
+        "request_error",
+        "completed",
+        "error",
+        "pinf",
+        "in_progress",
+        "field_validation_error"
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "date_of_hold_until",
+      "occurrences": 16,
+      "percentPresent": 0.4689331770222743,
+      "isAlwaysPresent": false,
+      "valueTypes": [
+        "number"
+      ],
+      "sampleValues": [
+        1768348800,
+        1768780800,
+        1769472000,
+        1768176000,
+        1768003200,
+        1768262400,
+        1769040000,
+        1767916800
+      ],
+      "uniqueValueCount": 8,
+      "uniqueValues": [
+        1768348800,
+        1768780800,
+        1769472000,
+        1768176000,
+        1768003200,
+        1768262400,
+        1769040000,
+        1767916800
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "date_of_hold_until_iso",
+      "occurrences": 16,
+      "percentPresent": 0.4689331770222743,
+      "isAlwaysPresent": false,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "2026-01-14T00:00:00.000000+00:00",
+        "2026-01-19T00:00:00.000000+00:00",
+        "2026-01-27T00:00:00.000000+00:00",
+        "2026-01-12T00:00:00.000000+00:00",
+        "2026-01-10T00:00:00.000000+00:00",
+        "2026-01-13T00:00:00.000000+00:00",
+        "2026-01-22T00:00:00.000000+00:00",
+        "2026-01-09T00:00:00.000000+00:00"
+      ],
+      "uniqueValueCount": 8,
+      "uniqueValues": [
+        "2026-01-14T00:00:00.000000+00:00",
+        "2026-01-19T00:00:00.000000+00:00",
+        "2026-01-27T00:00:00.000000+00:00",
+        "2026-01-12T00:00:00.000000+00:00",
+        "2026-01-10T00:00:00.000000+00:00",
+        "2026-01-13T00:00:00.000000+00:00",
+        "2026-01-22T00:00:00.000000+00:00",
+        "2026-01-09T00:00:00.000000+00:00"
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "submission",
+      "occurrences": 2,
+      "percentPresent": 0.058616647127784284,
+      "isAlwaysPresent": false,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "in_progress",
+        "completed"
+      ],
+      "uniqueValueCount": 2,
+      "uniqueValues": [
+        "in_progress",
+        "completed"
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    },
+    {
+      "key": "fax_submission_status",
+      "occurrences": 2,
+      "percentPresent": 0.058616647127784284,
+      "isAlwaysPresent": false,
+      "valueTypes": [
+        "string"
+      ],
+      "sampleValues": [
+        "in_progress",
+        "completed"
+      ],
+      "uniqueValueCount": 2,
+      "uniqueValues": [
+        "in_progress",
+        "completed"
+      ],
+      "nullCount": 0,
+      "undefinedCount": 0,
+      "emptyStringCount": 0
+    }
+  ]
+}

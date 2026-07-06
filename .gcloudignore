@@ -1,0 +1,32 @@
+# This file specifies files that are *not* uploaded to Google Cloud
+# using gcloud. It follows the same syntax as .gitignore.
+
+# Ignore node_modules - will be installed during build
+node_modules/
+
+# Ignore build outputs
+dist/
+dist-ssr/
+
+# Ignore local config
+.env.local
+.env.*.local
+*.local
+
+# Ignore editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Ignore git
+.git/
+.gitignore
+
+# Ignore test files
+*.test.ts
+*.spec.ts
+__tests__/
+algolia_integration_test/
+
+# Keep everything else, especially src/

@@ -1,0 +1,19 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "medical_pa_orders",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "assigned_to.facility_id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "timestamps.created_at",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

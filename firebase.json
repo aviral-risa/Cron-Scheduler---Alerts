@@ -1,0 +1,26 @@
+{
+  "hosting": {
+    "target": "medonc-analytics",
+    "public": "dist",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  },
+  "functions": {
+    "source": "dist/functions",
+    "runtime": "nodejs20",
+    "predeploy": ["npm run build:functions"]
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  }
+}
