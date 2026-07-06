@@ -123,7 +123,7 @@ const asteraDenialAlertsJob = cron.schedule(
   { timezone: 'Asia/Kolkata' }
 );
 const asteraDashboardSyncJob = cron.schedule(
-  '30 16 * * *',
+  '0 11 * * *',
   () => void dispatchAsteraJob('astera-dashboard-sync'),
   { timezone: 'Asia/Kolkata' }
 );

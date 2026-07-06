@@ -9,7 +9,7 @@
 #   SLACK_BOT_TOKEN, etc. are included inside DASHBOARD_ENV_FILE if already in .env
 #
 # Manual test: Actions → Account Management Cron → Run workflow → optional job_id
-#   e.g. astera-dashboard-sync (30-day rolling summary re-sync at 4:30 PM IST)
+#   e.g. astera-dashboard-sync (30-day rolling summary re-sync at 11:00 AM IST)
 #
 # One-off dashboard backfill: Actions → Astera Dashboard Backfill
 #

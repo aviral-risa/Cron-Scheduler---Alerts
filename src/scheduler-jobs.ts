@@ -209,7 +209,7 @@ async function runTrackedAuthmatePending(spec: ScheduledJobSpec): Promise<void> 
 export const ASTERA_JOB_SPECS: ScheduledJobSpec[] = [
   { id: 'astera-yesterday-unworked', hour: 15, minute: 30, label: 'Yesterday assigned unworked' },
   { id: 'astera-denial-internal', hour: 16, minute: 0, label: 'Denial list (internal)' },
-  { id: 'astera-dashboard-sync', hour: 16, minute: 30, label: 'Dashboard Sheets sync' },
+  { id: 'astera-dashboard-sync', hour: 11, minute: 0, label: 'Dashboard Sheets sync' },
   { id: 'astera-assigned-unworked', hour: 17, minute: 0, label: 'Assigned unworked (2+ days)' },
   { id: 'astera-query-return', hour: 17, minute: 15, label: 'Query return re-allotment' },
   { id: 'astera-wip-stale', hour: 22, minute: 0, label: 'WIP > 1 day' },

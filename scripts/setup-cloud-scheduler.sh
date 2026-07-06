@@ -77,7 +77,7 @@ declare -a JOBS=(
   "capacity-check|0 9 * * *|Sheet capacity monitoring"
   "astera-yesterday-unworked|30 15 * * *|Astera yesterday assigned unworked"
   "astera-denial-internal|0 16 * * *|Astera denial list (internal)"
-  "astera-dashboard-sync|30 16 * * *|Astera dashboard Sheets sync"
+  "astera-dashboard-sync|0 11 * * *|Astera dashboard Sheets sync (11 AM IST)"
   "astera-assigned-unworked|0 17 * * *|Astera assigned unworked 2+ days"
   "astera-query-return|15 17 * * *|Astera query return re-allotment"
   "slack-alerts|0 22 * * *|Daily Slack performance alerts"
