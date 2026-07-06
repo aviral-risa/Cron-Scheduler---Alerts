@@ -5,10 +5,9 @@ import type { KnownBlock } from '@slack/web-api';
 import { runBqAlertQuery } from '../utils/bq-query-loader';
 import {
   getAuthmateReportDate,
-  getPriorIstReportDate,
-  getTodayIstDate,
   shouldRunAuthmatePendingAlert,
 } from '../utils/report-dates';
+import { getPriorIstWorkingReportDate } from '../utils/astera-workday';
 import { SlackConfig } from '../config/slack.config';
 import {
   ASTERA_BQ_SQL_FILES,
@@ -210,7 +209,7 @@ async function postDenialTableAlert(options: {
 }
 
 export async function sendAsteraDenialInternalAlert(reportDate?: string): Promise<void> {
-  const date = reportDate ?? getPriorIstReportDate();
+  const date = reportDate ?? (await getPriorIstWorkingReportDate());
   console.log(`\n📤 Astera denial internal alert for ${date}...`);
 
   const rows = await runBqAlertQuery<DenialInternalRow>(ASTERA_BQ_SQL_FILES.denialInternal, {
@@ -231,7 +230,7 @@ export async function sendAsteraDenialInternalAlert(reportDate?: string): Promis
 }
 
 export async function sendAsteraDenialGroupAlert(reportDate?: string): Promise<void> {
-  const date = reportDate ?? getPriorIstReportDate();
+  const date = reportDate ?? (await getPriorIstWorkingReportDate());
   console.log(`\n📤 Astera denial group alert for ${date}...`);
 
   const rows = await runBqAlertQuery<DenialGroupRow>(ASTERA_BQ_SQL_FILES.denialGroup, {
@@ -257,29 +256,6 @@ export async function sendAsteraAuthmatePendingMissedNotesAlert(
 ): Promise<void> {
   const date = reportDate ?? getAuthmateReportDate();
   console.log(`\n📤 Astera AuthMate-Pending missed notes alert for ${date} (EST business day)...`);
-
-  const [allotmentRows] = await Promise.all([
-    runBqAlertQuery<{ allotted_cases_pct: number | null; cases_added: number }>(
-      ASTERA_BQ_SQL_FILES.dailySummaryMetrics,
-      { report_date: date, org_id: ASTERA_RADIOLOGY_ORG_ID }
-    ),
-  ]);
-  const allotment = allotmentRows[0];
-  const allottedPct = allotment?.allotted_cases_pct ?? 0;
-  const casesAdded = allotment?.cases_added ?? 0;
-  if (casesAdded === 0 || allottedPct === 0) {
-    const todayIst = getTodayIstDate();
-    if (date < todayIst) {
-      console.log(
-        `ℹ️ Skipping AuthMate-Pending alert — IST ${date} had ` +
-          `${casesAdded} cases added, ${allottedPct}% allotted (staff holiday / no allotment day)`
-      );
-      return;
-    }
-    console.log(
-      `ℹ️ IST ${date} shows ${allottedPct}% allotted so far (day in progress) — continuing alert`
-    );
-  }
 
   const rows = await runBqAlertQuery<AuthmatePendingRow>(
     ASTERA_BQ_SQL_FILES.authmatePendingMissedNotes,
@@ -341,7 +317,7 @@ export async function sendAllAsteraBqDailyAlerts(reportDate?: string): Promise<v
       console.error('❌ AuthMate-Pending missed notes alert failed:', error);
     }
   } else {
-    console.log('ℹ️ Skipping AuthMate-Pending alert — prior EST day was a weekend');
+    console.log('ℹ️ Skipping AuthMate-Pending alert — today is an EST weekend');
   }
 
   if (failures.length > 0) {

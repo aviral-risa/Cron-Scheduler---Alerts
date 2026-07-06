@@ -10,7 +10,7 @@ function formatDateInZone(date: Date, timeZone: string): string {
   }).format(date);
 }
 
-function addDaysYmd(ymd: string, delta: number): string {
+export function addDaysYmd(ymd: string, delta: number): string {
   const [year, month, day] = ymd.split('-').map(Number);
   const date = new Date(Date.UTC(year, month - 1, day));
   date.setUTCDate(date.getUTCDate() + delta);

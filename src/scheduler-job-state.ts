@@ -16,8 +16,11 @@ function getStateBackend(): StateBackend {
   if (configured === 'file') {
     return 'file';
   }
-  // GitHub Actions / Cloud Run: durable Firestore state
-  if (process.env.GITHUB_ACTIONS === 'true' || process.env.K_SERVICE || process.env.SCHEDULER_CLOUD_MODE === 'true') {
+  // GitHub Actions: file state + workflow cache (no Firestore permission needed)
+  if (process.env.GITHUB_ACTIONS === 'true') {
+    return 'file';
+  }
+  if (process.env.K_SERVICE || process.env.SCHEDULER_CLOUD_MODE === 'true') {
     return 'firestore';
   }
   return 'file';

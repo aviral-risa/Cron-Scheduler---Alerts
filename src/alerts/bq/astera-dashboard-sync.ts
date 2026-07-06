@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 dotenv.config({ override: true });
 import { runBqAlertQuery } from '../utils/bq-query-loader';
+import { getPriorIstWorkingReportDate } from '../utils/astera-workday';
 import { getPriorIstReportDate } from '../utils/report-dates';
 import {
   ASTERA_RADIOLOGY_ORG_ID,
@@ -98,7 +99,7 @@ export async function syncAsteraDashboardToSheets(
   reportDate?: string,
   options?: { skipFormatting?: boolean; skipPublish?: boolean }
 ): Promise<void> {
-  const date = reportDate ?? getPriorIstReportDate();
+  const date = reportDate ?? (await getPriorIstWorkingReportDate());
   console.log(`\n📊 Astera dashboard sync for ${date}...`);
 
   const [summaryRows, assigneeRows, scanRows, tatRows] = await Promise.all([

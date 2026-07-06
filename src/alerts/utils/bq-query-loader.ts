@@ -1,14 +1,19 @@
-import { readFileSync } from 'fs';
+import { existsSync, readFileSync } from 'fs';
 import { resolve } from 'path';
 import { queryBigQuery } from '../../services/bigquery';
 
-const SQL_ROOT = resolve(
-  process.cwd(),
-  '../MegaAnalytics/knowledge/03-sql-patterns'
-);
+const LOCAL_SQL_ROOT = resolve(process.cwd(), 'sql/bigquery');
+const LEGACY_SQL_ROOT = resolve(process.cwd(), '../MegaAnalytics/knowledge/03-sql-patterns');
+
+function resolveSqlRoot(): string {
+  if (existsSync(LOCAL_SQL_ROOT)) {
+    return LOCAL_SQL_ROOT;
+  }
+  return LEGACY_SQL_ROOT;
+}
 
 export function loadSqlFile(fileName: string): string {
-  const path = resolve(SQL_ROOT, fileName);
+  const path = resolve(resolveSqlRoot(), fileName);
   return readFileSync(path, 'utf8');
 }
 

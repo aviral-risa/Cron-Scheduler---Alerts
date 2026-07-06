@@ -4,6 +4,7 @@ import {
   getCurrentISTTime,
   isScheduledJobId,
   runScheduledJobById,
+  type ScheduledJobId,
 } from '../src/scheduler-jobs';
 import {
   getTodayIstDateKey,
@@ -11,6 +12,7 @@ import {
   markJobCompletedToday,
 } from '../src/scheduler-job-state';
 import { isIstCronDueNow } from './cron-ist-utils';
+import { shouldSkipAsteraJobForHoliday } from '../src/alerts/utils/astera-workday';
 
 function githubJobStateId(jobId: string): string {
   return jobId.startsWith('astera-') ? jobId : `gha-${jobId}`;
@@ -19,6 +21,10 @@ function githubJobStateId(jobId: string): string {
 async function runOneJob(jobId: string): Promise<void> {
   if (!isScheduledJobId(jobId)) {
     throw new Error(`Unknown job id: ${jobId}`);
+  }
+  if (await shouldSkipAsteraJobForHoliday(jobId)) {
+    await markJobCompletedToday(githubJobStateId(jobId));
+    return;
   }
   await runScheduledJobById(jobId);
   if (!jobId.startsWith('astera-')) {

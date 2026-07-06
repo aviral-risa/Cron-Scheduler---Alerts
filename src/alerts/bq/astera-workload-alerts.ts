@@ -3,7 +3,7 @@ dotenv.config({ override: true });
 import { WebClient } from '@slack/web-api';
 import type { KnownBlock } from '@slack/web-api';
 import { runBqAlertQuery } from '../utils/bq-query-loader';
-import { getPriorIstReportDate } from '../utils/report-dates';
+import { getPriorIstWorkingReportDate } from '../utils/astera-workday';
 import { SlackConfig } from '../config/slack.config';
 import {
   ASTERA_BQ_SQL_FILES,
@@ -96,7 +96,7 @@ interface QueryReturnReallotRow {
 export async function sendAsteraAssignedUnworkedStreakAlert(
   reportDate?: string
 ): Promise<void> {
-  const date = reportDate ?? getPriorIstReportDate();
+  const date = reportDate ?? (await getPriorIstWorkingReportDate());
   console.log(`\n📤 Astera assigned-unworked streak alert for ${date}...`);
 
   const rows = await runBqAlertQuery<AssignedUnworkedRow>(
@@ -133,7 +133,7 @@ export async function sendAsteraAssignedUnworkedStreakAlert(
 }
 
 export async function sendAsteraWipOverOneDayAlert(reportDate?: string): Promise<void> {
-  const date = reportDate ?? getPriorIstReportDate();
+  const date = reportDate ?? (await getPriorIstWorkingReportDate());
   console.log(`\n📤 Astera WIP >1 day alert for ${date}...`);
 
   const rows = await runBqAlertQuery<WipOverOneDayRow>(ASTERA_BQ_SQL_FILES.wipOverOneDay, {
@@ -171,7 +171,7 @@ export async function sendAsteraWipOverOneDayAlert(reportDate?: string): Promise
 export async function sendAsteraYesterdayAssignedUnworkedAlert(
   reportDate?: string
 ): Promise<void> {
-  const date = reportDate ?? getPriorIstReportDate();
+  const date = reportDate ?? (await getPriorIstWorkingReportDate());
   console.log(`\n📤 Astera yesterday-assigned unworked alert for ${date}...`);
 
   const rows = await runBqAlertQuery<YesterdayAssignedUnworkedRow>(
@@ -206,7 +206,7 @@ export async function sendAsteraYesterdayAssignedUnworkedAlert(
 }
 
 export async function sendAsteraQueryReturnReallotAlert(reportDate?: string): Promise<void> {
-  const date = reportDate ?? getPriorIstReportDate();
+  const date = reportDate ?? (await getPriorIstWorkingReportDate());
   console.log(`\n📤 Astera query-return re-allotment alert for ${date}...`);
 
   const rows = await runBqAlertQuery<QueryReturnReallotRow>(

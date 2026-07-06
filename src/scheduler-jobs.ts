@@ -16,6 +16,7 @@ import {
   sendAsteraQueryReturnReallotAlert,
 } from './alerts/bq/astera-workload-alerts';
 import { shouldRunAuthmatePendingAlert } from './alerts/utils/report-dates';
+import { shouldSkipAsteraJobForHoliday } from './alerts/utils/astera-workday';
 import {
   getTodayIstDateKey,
   hasJobCompletedToday,
@@ -166,6 +167,10 @@ async function runTrackedAsteraJob(spec: ScheduledJobSpec, fn: () => Promise<voi
     console.log(`ℹ️ Skipping ${spec.label} — already completed today (IST)`);
     return;
   }
+  if (await shouldSkipAsteraJobForHoliday(spec.id as ScheduledJobId)) {
+    await markJobCompletedToday(spec.id);
+    return;
+  }
   await runAsteraAlertJob(spec.label, fn);
   await markJobCompletedToday(spec.id);
 }
@@ -173,6 +178,10 @@ async function runTrackedAsteraJob(spec: ScheduledJobSpec, fn: () => Promise<voi
 async function runTrackedAsteraDashboardSync(spec: ScheduledJobSpec): Promise<void> {
   if (await hasJobCompletedToday(spec.id)) {
     console.log(`ℹ️ Skipping ${spec.label} — already completed today (IST)`);
+    return;
+  }
+  if (await shouldSkipAsteraJobForHoliday(spec.id as ScheduledJobId)) {
+    await markJobCompletedToday(spec.id);
     return;
   }
   await runAsteraDashboardSync();
@@ -186,6 +195,10 @@ async function runTrackedAuthmatePending(spec: ScheduledJobSpec): Promise<void> 
   }
   if (!shouldRunAuthmatePendingAlert()) {
     console.log('ℹ️ Skipping AuthMate-Pending alert — today is an EST weekend');
+    await markJobCompletedToday(spec.id);
+    return;
+  }
+  if (await shouldSkipAsteraJobForHoliday(spec.id as ScheduledJobId)) {
     await markJobCompletedToday(spec.id);
     return;
   }
