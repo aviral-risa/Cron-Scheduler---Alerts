@@ -55,7 +55,12 @@ export type CronSkipReason =
   | 'already_completed_today'
   | 'holiday_skip'
   | 'authmate_weekend_skip'
-  | 'catch_up_missed';
+  | 'catch_up_missed'
+  | 'job_failed';
+
+export function isManualCronRun(): boolean {
+  return process.env.MANUAL_CRON_RUN === 'true';
+}
 
 export async function sendCronSkipNotification(
   jobId: string,
@@ -69,9 +74,11 @@ export async function sendCronSkipNotification(
     catch_up_missed: extra?.scheduledTime
       ? `Missed scheduled window — running catch-up (was due ${extra.scheduledTime} IST${extra.catchUpFor ? `, for ${extra.catchUpFor}` : ''})`
       : 'Missed scheduled window — running catch-up',
+    job_failed: extra?.scheduledTime ?? 'Job threw an error during execution',
   };
 
-  const heading = reason === 'catch_up_missed' ? 'Cron catch-up' : 'Cron skip';
+  const heading =
+    reason === 'catch_up_missed' ? 'Cron catch-up' : reason === 'job_failed' ? 'Cron failure' : 'Cron skip';
   const text =
     `↷ *${heading}*: \`${jobId}\`\n` +
     `${reasonMessages[reason]}\n` +
@@ -85,6 +92,11 @@ export async function sendCronSkipNotification(
   } catch (error) {
     console.error(`Failed to send cron skip notification (${jobId}, ${reason}):`, error);
   }
+}
+
+export async function sendCronFailureNotification(jobId: string, error: unknown): Promise<void> {
+  const message = error instanceof Error ? error.message : String(error);
+  await sendCronSkipNotification(jobId, 'job_failed', { scheduledTime: message.slice(0, 500) });
 }
 
 function isWeekend(date: Date): boolean {
@@ -182,6 +194,7 @@ async function runAsteraAlertJob(name: string, fn: () => Promise<void>): Promise
   } catch (error) {
     console.error(`❌ Astera alert failed (${name}):`, error);
     await sendSlackNotification(`❌ *Astera ${name} failed* (${getCurrentISTTime()} IST)\n${error}`);
+    throw error;
   }
 }
 
@@ -195,13 +208,13 @@ async function runAsteraDashboardSync(): Promise<void> {
     await sendSlackNotification(
       `⚠️ *Astera Dashboard Sheets sync failed* (${getCurrentISTTime()} IST)\n${error}`
     );
+    throw error;
   }
 }
 
 async function runTrackedAsteraJob(spec: ScheduledJobSpec, fn: () => Promise<void>): Promise<void> {
-  if (await hasJobCompletedToday(spec.id)) {
+  if (!isManualCronRun() && (await hasJobCompletedToday(spec.id))) {
     console.log(`ℹ️ Skipping ${spec.label} — already completed today (IST)`);
-    await sendCronSkipNotification(spec.id, 'already_completed_today');
     return;
   }
   if (await shouldSkipAsteraJobForHoliday(spec.id as ScheduledJobId)) {
@@ -214,9 +227,8 @@ async function runTrackedAsteraJob(spec: ScheduledJobSpec, fn: () => Promise<voi
 }
 
 async function runTrackedAsteraDashboardSync(spec: ScheduledJobSpec): Promise<void> {
-  if (await hasJobCompletedToday(spec.id)) {
+  if (!isManualCronRun() && (await hasJobCompletedToday(spec.id))) {
     console.log(`ℹ️ Skipping ${spec.label} — already completed today (IST)`);
-    await sendCronSkipNotification(spec.id, 'already_completed_today');
     return;
   }
   if (await shouldSkipAsteraJobForHoliday(spec.id as ScheduledJobId)) {
@@ -229,9 +241,8 @@ async function runTrackedAsteraDashboardSync(spec: ScheduledJobSpec): Promise<vo
 }
 
 async function runTrackedAuthmatePending(spec: ScheduledJobSpec): Promise<void> {
-  if (await hasJobCompletedToday(spec.id)) {
+  if (!isManualCronRun() && (await hasJobCompletedToday(spec.id))) {
     console.log(`ℹ️ Skipping ${spec.label} — already completed today (IST)`);
-    await sendCronSkipNotification(spec.id, 'already_completed_today');
     return;
   }
   if (!shouldRunAuthmatePendingAlert()) {

@@ -71,7 +71,7 @@ export function formatIstCronScheduleTime(schedule: string): string {
 export function isIstCronDueNow(
   schedule: string,
   reference = new Date(),
-  windowMinutes = 14
+  windowMinutes = 20
 ): boolean {
   const fields = parseIstCronFields(schedule);
   if (!fields) {

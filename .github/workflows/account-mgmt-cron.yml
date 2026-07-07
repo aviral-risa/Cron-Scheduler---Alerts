@@ -100,6 +100,7 @@ jobs:
           GITHUB_ACTIONS: 'true'
           SCHEDULER_STATE_BACKEND: file
           NODE_ENV: production
+          MANUAL_CRON_RUN: ${{ github.event.inputs.job_id != '' && 'true' || '' }}
         run: |
           if [ -n "${{ github.event.inputs.job_id }}" ]; then
             npx tsx scripts/github-cron-dispatch.ts "${{ github.event.inputs.job_id }}"

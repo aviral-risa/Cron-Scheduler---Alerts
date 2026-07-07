@@ -4,6 +4,7 @@ import {
   getCurrentISTTime,
   isScheduledJobId,
   runScheduledJobById,
+  sendCronFailureNotification,
   sendCronSkipNotification,
   type ScheduledJobId,
 } from '../src/scheduler-jobs';
@@ -60,13 +61,11 @@ async function dispatchDueJobs(): Promise<number> {
 
     if (await hasJobCompletedOnDate(stateId, todayKey)) {
       console.log(`   ↷ Skipping ${job.id} — already completed today`);
-      await sendCronSkipNotification(job.id, 'already_completed_today');
       continue;
     }
 
     if (pastDueYesterday && (await hasJobCompletedOnDate(stateId, yesterdayKey))) {
       console.log(`   ↷ Skipping ${job.id} — already completed yesterday`);
-      await sendCronSkipNotification(job.id, 'already_completed_today');
       continue;
     }
 
@@ -81,8 +80,13 @@ async function dispatchDueJobs(): Promise<number> {
       console.log(`   ▶ Running ${job.id}: ${job.description}`);
     }
 
-    await runOneJob(job.id);
-    ran += 1;
+    try {
+      await runOneJob(job.id);
+      ran += 1;
+    } catch (error) {
+      console.error(`   ❌ ${job.id} failed:`, error);
+      await sendCronFailureNotification(job.id, error);
+    }
   }
 
   console.log(ran === 0 ? '   ✓ No jobs due in this window\n' : `   ✓ Finished ${ran} job(s)\n`);
@@ -94,7 +98,13 @@ async function main(): Promise<void> {
 
   if (specificJob) {
     console.log(`\n▶ Manual job run: ${specificJob}`);
-    await runOneJob(specificJob);
+    process.env.MANUAL_CRON_RUN = 'true';
+    try {
+      await runOneJob(specificJob);
+    } catch (error) {
+      await sendCronFailureNotification(specificJob, error);
+      throw error;
+    }
     return;
   }
 
