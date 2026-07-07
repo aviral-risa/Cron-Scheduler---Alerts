@@ -95,7 +95,9 @@ outcome_agg AS (
     COUNTIF(auth_status = 'auth_by_risa') AS auth_by_risa_count,
     COUNTIF(auth_status = 'no_auth_required') AS nar_count,
     COUNTIF(auth_status = 'pending') AS auth_pending_count,
-    COUNTIF(is_denial) AS denial_count
+    COUNTIF(is_denial) AS denial_count,
+    COUNTIF(auth_status = 'work_in_progress') AS wip_count,
+    COUNTIF(auth_status = 'query') AS query_count
   FROM cohort_outcomes
 )
 SELECT
@@ -109,6 +111,8 @@ SELECT
   o.nar_count,
   o.auth_pending_count,
   o.denial_count,
+  o.wip_count,
+  o.query_count,
   ROUND(
     SAFE_DIVIDE(o.auth_by_risa_count, NULLIF(o.auth_by_risa_count + o.denial_count, 0)) * 100,
     1

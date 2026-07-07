@@ -29,6 +29,8 @@ interface DailySummaryRow {
   nar_count: number;
   auth_pending_count: number;
   denial_count: number;
+  wip_count: number;
+  query_count: number;
   first_pass_approval_rate_pct: number;
 }
 
@@ -203,6 +205,8 @@ export async function syncAsteraDashboardToSheets(
       nar_count: Number(summary.nar_count ?? 0),
       auth_pending_count: Number(summary.auth_pending_count ?? 0),
       denial_count: Number(summary.denial_count ?? 0),
+      wip_count: Number(summary.wip_count ?? 0),
+      query_count: Number(summary.query_count ?? 0),
       first_pass_approval_rate_pct: Number(summary.first_pass_approval_rate_pct ?? 0),
       denial_value_usd: denialValue,
       total_scans_value_usd: totalValue,

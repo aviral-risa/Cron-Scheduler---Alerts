@@ -11,6 +11,8 @@ const DAILY_SUMMARY_HEADERS = [
   'NAR',
   'Auth Pending',
   'Denials',
+  'Work In Progress',
+  'Query',
   'First Pass Approval %',
   'Denial Value ($)',
   'Total Scan Value ($)',
@@ -47,8 +49,8 @@ const TAT_HEADERS = [
   'Last Updated',
 ];
 
-const SUMMARY_PCT_COLS = [3, 9];
-const SUMMARY_CURRENCY_COLS = [10, 11];
+const SUMMARY_PCT_COLS = [3, 11];
+const SUMMARY_CURRENCY_COLS = [12, 13];
 const ASSIGNEE_CURRENCY_COLS = [11, 12];
 const TAT_DECIMAL_COLS = [8];
 
@@ -537,6 +539,8 @@ export async function upsertAsteraDailySummaryRow(
     nar_count: number;
     auth_pending_count: number;
     denial_count: number;
+    wip_count: number;
+    query_count: number;
     first_pass_approval_rate_pct: number;
     denial_value_usd: number;
     total_scans_value_usd: number;
@@ -557,6 +561,8 @@ export async function upsertAsteraDailySummaryRow(
     data.nar_count,
     data.auth_pending_count,
     data.denial_count,
+    data.wip_count,
+    data.query_count,
     data.first_pass_approval_rate_pct,
     data.denial_value_usd,
     data.total_scans_value_usd,
