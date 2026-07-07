@@ -4,6 +4,7 @@ import {
   getCurrentISTTime,
   isScheduledJobId,
   runScheduledJobById,
+  sendCronSkipNotification,
   type ScheduledJobId,
 } from '../src/scheduler-jobs';
 import {
@@ -11,7 +12,11 @@ import {
   hasJobCompletedToday,
   markJobCompletedToday,
 } from '../src/scheduler-job-state';
-import { isIstCronDueNow } from './cron-ist-utils';
+import {
+  formatIstCronScheduleTime,
+  isCronPastDueToday,
+  isIstCronDueNow,
+} from './cron-ist-utils';
 import { shouldSkipAsteraJobForHoliday } from '../src/alerts/utils/astera-workday';
 
 function githubJobStateId(jobId: string): string {
@@ -24,6 +29,7 @@ async function runOneJob(jobId: string): Promise<void> {
   }
   if (await shouldSkipAsteraJobForHoliday(jobId)) {
     await markJobCompletedToday(githubJobStateId(jobId));
+    await sendCronSkipNotification(jobId, 'holiday_skip');
     return;
   }
   await runScheduledJobById(jobId);
@@ -37,17 +43,29 @@ async function dispatchDueJobs(): Promise<number> {
   let ran = 0;
 
   for (const job of CLOUD_SCHEDULER_JOBS) {
-    if (!isIstCronDueNow(job.schedule)) {
+    const dueNow = isIstCronDueNow(job.schedule);
+    const pastDueCatchUp = !dueNow && isCronPastDueToday(job.schedule);
+
+    if (!dueNow && !pastDueCatchUp) {
       continue;
     }
 
     const stateId = githubJobStateId(job.id);
     if (await hasJobCompletedToday(stateId)) {
       console.log(`   ↷ Skipping ${job.id} — already completed today`);
+      await sendCronSkipNotification(job.id, 'already_completed_today');
       continue;
     }
 
-    console.log(`   ▶ Running ${job.id}: ${job.description}`);
+    if (pastDueCatchUp) {
+      console.log(`   ↳ Catch-up ${job.id}: ${job.description}`);
+      await sendCronSkipNotification(job.id, 'catch_up_missed', {
+        scheduledTime: formatIstCronScheduleTime(job.schedule),
+      });
+    } else {
+      console.log(`   ▶ Running ${job.id}: ${job.description}`);
+    }
+
     await runOneJob(job.id);
     ran += 1;
   }

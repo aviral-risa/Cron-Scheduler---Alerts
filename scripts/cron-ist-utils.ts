@@ -38,23 +38,47 @@ function matchesDayOfWeek(dowField: string, dow: number): boolean {
   return false;
 }
 
+function parseIstCronFields(schedule: string): {
+  minute: number;
+  hour: number;
+  dowStr: string;
+} | null {
+  const parts = schedule.trim().split(/\s+/);
+  if (parts.length < 5) {
+    return null;
+  }
+  const [minuteStr, hourStr, , , dowStr] = parts;
+  const minute = parseInt(minuteStr, 10);
+  const hour = parseInt(hourStr, 10);
+  if (Number.isNaN(minute) || Number.isNaN(hour)) {
+    return null;
+  }
+  return { minute, hour, dowStr };
+}
+
+/** Human-readable IST time from cron minute/hour fields (e.g. "11:00 AM"). */
+export function formatIstCronScheduleTime(schedule: string): string {
+  const fields = parseIstCronFields(schedule);
+  if (!fields) {
+    return schedule;
+  }
+  const { hour, minute } = fields;
+  const h12 = hour % 12 || 12;
+  const ampm = hour < 12 ? 'AM' : 'PM';
+  return `${h12}:${minute.toString().padStart(2, '0')} ${ampm}`;
+}
+
 export function isIstCronDueNow(
   schedule: string,
   reference = new Date(),
   windowMinutes = 14
 ): boolean {
-  const parts = schedule.trim().split(/\s+/);
-  if (parts.length < 5) {
+  const fields = parseIstCronFields(schedule);
+  if (!fields) {
     return false;
   }
 
-  const [minuteStr, hourStr, , , dowStr] = parts;
-  const minute = parseInt(minuteStr, 10);
-  const hour = parseInt(hourStr, 10);
-  if (Number.isNaN(minute) || Number.isNaN(hour)) {
-    return false;
-  }
-
+  const { minute, hour, dowStr } = fields;
   const dow = getIstDayOfWeek(reference);
   if (!matchesDayOfWeek(dowStr, dow)) {
     return false;
@@ -64,4 +88,26 @@ export function isIstCronDueNow(
   const nowMinutes = getIstMinutesSinceMidnight(reference);
   const diff = nowMinutes - scheduledMinutes;
   return diff >= 0 && diff < windowMinutes;
+}
+
+/**
+ * True when today's IST scheduled time has passed, the job matches today's DOW,
+ * and it has not yet run (caller should still check completion state).
+ * Used for catch-up when GHA ticks arrive late.
+ */
+export function isCronPastDueToday(schedule: string, reference = new Date()): boolean {
+  const fields = parseIstCronFields(schedule);
+  if (!fields) {
+    return false;
+  }
+
+  const { minute, hour, dowStr } = fields;
+  const dow = getIstDayOfWeek(reference);
+  if (!matchesDayOfWeek(dowStr, dow)) {
+    return false;
+  }
+
+  const scheduledMinutes = hour * 60 + minute;
+  const nowMinutes = getIstMinutesSinceMidnight(reference);
+  return nowMinutes >= scheduledMinutes;
 }

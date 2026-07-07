@@ -74,6 +74,11 @@ export class SlackConfig {
     return channelId;
   }
 
+  /** test_alerts channel for cron skip / catch-up notifications */
+  static getTestAlertsChannelId(): string {
+    return process.env.SLACK_CHANNEL_TEST_ALERTS ?? 'C0A7LHVNF5M';
+  }
+
   /**
    * Get organization configuration by ID
    * @param orgId Organization ID (e.g., 'nycbs', 'chc')

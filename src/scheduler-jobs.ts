@@ -51,6 +51,42 @@ export async function sendSlackNotification(text: string): Promise<void> {
   }
 }
 
+export type CronSkipReason =
+  | 'already_completed_today'
+  | 'holiday_skip'
+  | 'authmate_weekend_skip'
+  | 'catch_up_missed';
+
+export async function sendCronSkipNotification(
+  jobId: string,
+  reason: CronSkipReason,
+  extra?: { scheduledTime?: string }
+): Promise<void> {
+  const reasonMessages: Record<CronSkipReason, string> = {
+    already_completed_today: 'Skipped — already completed today',
+    holiday_skip: 'Skipped — Astera holiday (no allotment)',
+    authmate_weekend_skip: 'Skipped — EST weekend (AuthMate pending)',
+    catch_up_missed: extra?.scheduledTime
+      ? `Missed scheduled window — running catch-up (was due ${extra.scheduledTime} IST)`
+      : 'Missed scheduled window — running catch-up',
+  };
+
+  const heading = reason === 'catch_up_missed' ? 'Cron catch-up' : 'Cron skip';
+  const text =
+    `↷ *${heading}*: \`${jobId}\`\n` +
+    `${reasonMessages[reason]}\n` +
+    `_${getCurrentISTTime()} IST_`;
+
+  try {
+    const botToken = SlackConfig.getBotToken();
+    const channelId = SlackConfig.getTestAlertsChannelId();
+    const web = new WebClient(botToken);
+    await web.chat.postMessage({ channel: channelId, text });
+  } catch (error) {
+    console.error(`Failed to send cron skip notification (${jobId}, ${reason}):`, error);
+  }
+}
+
 function isWeekend(date: Date): boolean {
   const day = date.getDay();
   return day === 0 || day === 6;
@@ -165,10 +201,12 @@ async function runAsteraDashboardSync(): Promise<void> {
 async function runTrackedAsteraJob(spec: ScheduledJobSpec, fn: () => Promise<void>): Promise<void> {
   if (await hasJobCompletedToday(spec.id)) {
     console.log(`ℹ️ Skipping ${spec.label} — already completed today (IST)`);
+    await sendCronSkipNotification(spec.id, 'already_completed_today');
     return;
   }
   if (await shouldSkipAsteraJobForHoliday(spec.id as ScheduledJobId)) {
     await markJobCompletedToday(spec.id);
+    await sendCronSkipNotification(spec.id, 'holiday_skip');
     return;
   }
   await runAsteraAlertJob(spec.label, fn);
@@ -178,10 +216,12 @@ async function runTrackedAsteraJob(spec: ScheduledJobSpec, fn: () => Promise<voi
 async function runTrackedAsteraDashboardSync(spec: ScheduledJobSpec): Promise<void> {
   if (await hasJobCompletedToday(spec.id)) {
     console.log(`ℹ️ Skipping ${spec.label} — already completed today (IST)`);
+    await sendCronSkipNotification(spec.id, 'already_completed_today');
     return;
   }
   if (await shouldSkipAsteraJobForHoliday(spec.id as ScheduledJobId)) {
     await markJobCompletedToday(spec.id);
+    await sendCronSkipNotification(spec.id, 'holiday_skip');
     return;
   }
   await runAsteraDashboardSync();
@@ -191,15 +231,18 @@ async function runTrackedAsteraDashboardSync(spec: ScheduledJobSpec): Promise<vo
 async function runTrackedAuthmatePending(spec: ScheduledJobSpec): Promise<void> {
   if (await hasJobCompletedToday(spec.id)) {
     console.log(`ℹ️ Skipping ${spec.label} — already completed today (IST)`);
+    await sendCronSkipNotification(spec.id, 'already_completed_today');
     return;
   }
   if (!shouldRunAuthmatePendingAlert()) {
     console.log('ℹ️ Skipping AuthMate-Pending alert — today is an EST weekend');
     await markJobCompletedToday(spec.id);
+    await sendCronSkipNotification(spec.id, 'authmate_weekend_skip');
     return;
   }
   if (await shouldSkipAsteraJobForHoliday(spec.id as ScheduledJobId)) {
     await markJobCompletedToday(spec.id);
+    await sendCronSkipNotification(spec.id, 'holiday_skip');
     return;
   }
   await runAsteraAlertJob(spec.label, sendAsteraAuthmatePendingMissedNotesAlert);
