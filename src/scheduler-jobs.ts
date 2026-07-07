@@ -60,14 +60,14 @@ export type CronSkipReason =
 export async function sendCronSkipNotification(
   jobId: string,
   reason: CronSkipReason,
-  extra?: { scheduledTime?: string }
+  extra?: { scheduledTime?: string; catchUpFor?: string }
 ): Promise<void> {
   const reasonMessages: Record<CronSkipReason, string> = {
     already_completed_today: 'Skipped — already completed today',
     holiday_skip: 'Skipped — Astera holiday (no allotment)',
     authmate_weekend_skip: 'Skipped — EST weekend (AuthMate pending)',
     catch_up_missed: extra?.scheduledTime
-      ? `Missed scheduled window — running catch-up (was due ${extra.scheduledTime} IST)`
+      ? `Missed scheduled window — running catch-up (was due ${extra.scheduledTime} IST${extra.catchUpFor ? `, for ${extra.catchUpFor}` : ''})`
       : 'Missed scheduled window — running catch-up',
   };
 

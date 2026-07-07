@@ -89,6 +89,14 @@ export function getTodayIstDateKey(reference = new Date()): string {
   }).format(reference);
 }
 
+export function getYesterdayIstDateKey(reference = new Date()): string {
+  const todayKey = getTodayIstDateKey(reference);
+  const [year, month, day] = todayKey.split('-').map(Number);
+  const date = new Date(Date.UTC(year, month - 1, day));
+  date.setUTCDate(date.getUTCDate() - 1);
+  return date.toISOString().slice(0, 10);
+}
+
 export function getIstMinutesSinceMidnight(reference = new Date()): number {
   const parts = new Intl.DateTimeFormat('en-GB', {
     timeZone: 'Asia/Kolkata',
@@ -101,14 +109,17 @@ export function getIstMinutesSinceMidnight(reference = new Date()): number {
   return hour * 60 + minute;
 }
 
-export async function hasJobCompletedToday(jobId: string, reference = new Date()): Promise<boolean> {
-  const today = getTodayIstDateKey(reference);
+export async function hasJobCompletedOnDate(jobId: string, dateKey: string): Promise<boolean> {
   if (getStateBackend() === 'firestore') {
     const completed = await readFirestoreCompletedDate(jobId);
-    return completed === today;
+    return completed === dateKey;
   }
   const state = loadFileState();
-  return state[jobId] === today;
+  return state[jobId] === dateKey;
+}
+
+export async function hasJobCompletedToday(jobId: string, reference = new Date()): Promise<boolean> {
+  return hasJobCompletedOnDate(jobId, getTodayIstDateKey(reference));
 }
 
 export async function markJobCompletedToday(jobId: string, reference = new Date()): Promise<void> {

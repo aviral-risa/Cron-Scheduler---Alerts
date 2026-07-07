@@ -9,12 +9,14 @@ import {
 } from '../src/scheduler-jobs';
 import {
   getTodayIstDateKey,
-  hasJobCompletedToday,
+  getYesterdayIstDateKey,
+  hasJobCompletedOnDate,
   markJobCompletedToday,
 } from '../src/scheduler-job-state';
 import {
   formatIstCronScheduleTime,
   isCronPastDueToday,
+  isCronPastDueYesterday,
   isIstCronDueNow,
 } from './cron-ist-utils';
 import { shouldSkipAsteraJobForHoliday } from '../src/alerts/utils/astera-workday';
@@ -44,23 +46,36 @@ async function dispatchDueJobs(): Promise<number> {
 
   for (const job of CLOUD_SCHEDULER_JOBS) {
     const dueNow = isIstCronDueNow(job.schedule);
-    const pastDueCatchUp = !dueNow && isCronPastDueToday(job.schedule);
+    const pastDueToday = !dueNow && isCronPastDueToday(job.schedule);
+    const pastDueYesterday = !dueNow && !pastDueToday && isCronPastDueYesterday(job.schedule);
+    const pastDueCatchUp = pastDueToday || pastDueYesterday;
 
     if (!dueNow && !pastDueCatchUp) {
       continue;
     }
 
     const stateId = githubJobStateId(job.id);
-    if (await hasJobCompletedToday(stateId)) {
+    const todayKey = getTodayIstDateKey();
+    const yesterdayKey = getYesterdayIstDateKey();
+
+    if (await hasJobCompletedOnDate(stateId, todayKey)) {
       console.log(`   ↷ Skipping ${job.id} — already completed today`);
       await sendCronSkipNotification(job.id, 'already_completed_today');
       continue;
     }
 
+    if (pastDueYesterday && (await hasJobCompletedOnDate(stateId, yesterdayKey))) {
+      console.log(`   ↷ Skipping ${job.id} — already completed yesterday`);
+      await sendCronSkipNotification(job.id, 'already_completed_today');
+      continue;
+    }
+
     if (pastDueCatchUp) {
-      console.log(`   ↳ Catch-up ${job.id}: ${job.description}`);
+      const catchUpDay = pastDueYesterday ? yesterdayKey : todayKey;
+      console.log(`   ↳ Catch-up ${job.id} (${catchUpDay}): ${job.description}`);
       await sendCronSkipNotification(job.id, 'catch_up_missed', {
         scheduledTime: formatIstCronScheduleTime(job.schedule),
+        catchUpFor: catchUpDay,
       });
     } else {
       console.log(`   ▶ Running ${job.id}: ${job.description}`);

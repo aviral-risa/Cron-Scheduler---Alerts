@@ -111,3 +111,28 @@ export function isCronPastDueToday(schedule: string, reference = new Date()): bo
   const nowMinutes = getIstMinutesSinceMidnight(reference);
   return nowMinutes >= scheduledMinutes;
 }
+
+/**
+ * True in the first hours after IST midnight when the job was scheduled yesterday
+ * (matched DOW) but GHA ticked into the new calendar day before catch-up ran.
+ */
+export function isCronPastDueYesterday(
+  schedule: string,
+  reference = new Date(),
+  graceHoursAfterMidnight = 6
+): boolean {
+  const fields = parseIstCronFields(schedule);
+  if (!fields) {
+    return false;
+  }
+
+  const nowMinutes = getIstMinutesSinceMidnight(reference);
+  if (nowMinutes >= graceHoursAfterMidnight * 60) {
+    return false;
+  }
+
+  const yesterday = new Date(reference.getTime() - 24 * 60 * 60 * 1000);
+  const { dowStr } = fields;
+  const yesterdayDow = getIstDayOfWeek(yesterday);
+  return matchesDayOfWeek(dowStr, yesterdayDow);
+}
