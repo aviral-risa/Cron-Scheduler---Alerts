@@ -1,6 +1,72 @@
 import { google } from 'googleapis';
 import { getSheetsClient } from '../sheets-dual';
 
+const SHEETS_MIN_INTERVAL_MS = Number(process.env.SHEETS_API_MIN_INTERVAL_MS ?? 2800);
+const SHEETS_MAX_RETRIES = Number(process.env.SHEETS_API_MAX_RETRIES ?? 6);
+let lastSheetsApiAt = 0;
+
+type SpreadsheetMetaCache = {
+  spreadsheetId: string;
+  sheetIdsByTitle: Map<string, number>;
+};
+
+let spreadsheetMetaCache: SpreadsheetMetaCache | null = null;
+
+export function clearAsteraSheetsApiCache(): void {
+  spreadsheetMetaCache = null;
+}
+
+async function throttleSheetsApi(): Promise<void> {
+  const wait = SHEETS_MIN_INTERVAL_MS - (Date.now() - lastSheetsApiAt);
+  if (wait > 0) {
+    await new Promise((resolve) => setTimeout(resolve, wait));
+  }
+  lastSheetsApiAt = Date.now();
+}
+
+async function withSheetsRetry<T>(label: string, fn: () => Promise<T>): Promise<T> {
+  let attempt = 0;
+  while (true) {
+    try {
+      await throttleSheetsApi();
+      return await fn();
+    } catch (error: unknown) {
+      attempt += 1;
+      const message = error instanceof Error ? error.message : String(error);
+      const quotaHit =
+        message.includes('Quota exceeded') ||
+        message.includes('429') ||
+        message.includes('rateLimitExceeded');
+      if (!quotaHit || attempt >= SHEETS_MAX_RETRIES) {
+        throw error;
+      }
+      const backoffMs = Math.min(60_000, 2000 * 2 ** attempt);
+      console.warn(`[Astera Sheets] ${label} quota/rate limit — retry ${attempt}/${SHEETS_MAX_RETRIES} in ${backoffMs}ms`);
+      await new Promise((resolve) => setTimeout(resolve, backoffMs));
+    }
+  }
+}
+
+async function getSpreadsheetMeta(spreadsheetId: string): Promise<SpreadsheetMetaCache> {
+  if (spreadsheetMetaCache?.spreadsheetId === spreadsheetId) {
+    return spreadsheetMetaCache;
+  }
+  const sheets = getSheetsClient();
+  const meta = await withSheetsRetry('spreadsheets.get', () =>
+    sheets.spreadsheets.get({ spreadsheetId })
+  );
+  const sheetIdsByTitle = new Map<string, number>();
+  for (const sheet of meta.data.sheets ?? []) {
+    const title = sheet.properties?.title;
+    const sheetId = sheet.properties?.sheetId;
+    if (title && sheetId != null) {
+      sheetIdsByTitle.set(title, sheetId);
+    }
+  }
+  spreadsheetMetaCache = { spreadsheetId, sheetIdsByTitle };
+  return spreadsheetMetaCache;
+}
+
 /** Visible + store summary tab columns (keep in sync with upsertAsteraDailySummaryRow). */
 export const DAILY_SUMMARY_HEADERS = [
   'Report Date (IST)',
@@ -175,13 +241,12 @@ export function shouldSyncDashboardDate(casesAdded: number, dateStr: string): bo
 }
 
 async function getSheetId(spreadsheetId: string, title: string): Promise<number> {
-  const sheets = getSheetsClient();
-  const meta = await sheets.spreadsheets.get({ spreadsheetId });
-  const sheet = meta.data.sheets?.find((s) => s.properties?.title === title);
-  if (sheet?.properties?.sheetId == null) {
+  const meta = await getSpreadsheetMeta(spreadsheetId);
+  const sheetId = meta.sheetIdsByTitle.get(title);
+  if (sheetId == null) {
     throw new Error(`Sheet tab not found: ${title}`);
   }
-  return sheet.properties.sheetId;
+  return sheetId;
 }
 
 async function ensureTab(
@@ -191,51 +256,49 @@ async function ensureTab(
   options?: { hidden?: boolean }
 ): Promise<void> {
   const sheets = getSheetsClient();
-  const meta = await sheets.spreadsheets.get({ spreadsheetId });
-  const existing = meta.data.sheets?.find((s) => s.properties?.title === title);
+  let meta = await getSpreadsheetMeta(spreadsheetId);
+  let existing = meta.sheetIdsByTitle.has(title);
 
   if (!existing) {
-    await sheets.spreadsheets.batchUpdate({
-      spreadsheetId,
-      requestBody: {
-        requests: [
-          {
-            addSheet: {
-              properties: {
-                title,
-                hidden: options?.hidden ?? false,
-                gridProperties: { frozenRowCount: 1 },
+    await withSheetsRetry('addSheet', () =>
+      sheets.spreadsheets.batchUpdate({
+        spreadsheetId,
+        requestBody: {
+          requests: [
+            {
+              addSheet: {
+                properties: {
+                  title,
+                  hidden: options?.hidden ?? false,
+                  gridProperties: { frozenRowCount: 1 },
+                },
               },
             },
-          },
-        ],
-      },
-    });
-    await sheets.spreadsheets.values.update({
-      spreadsheetId,
-      range: `${title}!A1`,
-      valueInputOption: 'RAW',
-      requestBody: { values: [headers] },
-    });
-  } else {
-    await sheets.spreadsheets.values.update({
-      spreadsheetId,
-      range: `${title}!A1`,
-      valueInputOption: 'RAW',
-      requestBody: { values: [headers] },
-    });
-    if (options?.hidden && !existing.properties?.hidden) {
-      const sheetId = existing.properties?.sheetId;
-      if (sheetId != null) {
-        await sheets.spreadsheets.batchUpdate({
-          spreadsheetId,
-          requestBody: {
-            requests: [{ updateSheetProperties: { properties: { sheetId, hidden: true }, fields: 'hidden' } }],
-          },
-        });
-      }
-    }
+          ],
+        },
+      })
+    );
+    clearAsteraSheetsApiCache();
+    meta = await getSpreadsheetMeta(spreadsheetId);
+    await withSheetsRetry('header-init', () =>
+      sheets.spreadsheets.values.update({
+        spreadsheetId,
+        range: `${title}!A1`,
+        valueInputOption: 'RAW',
+        requestBody: { values: [headers] },
+      })
+    );
+    return;
   }
+
+  await withSheetsRetry('header-refresh', () =>
+    sheets.spreadsheets.values.update({
+      spreadsheetId,
+      range: `${title}!A1`,
+      valueInputOption: 'RAW',
+      requestBody: { values: [headers] },
+    })
+  );
 }
 
 async function applyTabFormatting(
@@ -346,10 +409,12 @@ async function upsertRowByDate(
   row: (string | number)[]
 ): Promise<void> {
   const sheets = getSheetsClient();
-  const response = await sheets.spreadsheets.values.get({
-    spreadsheetId,
-    range: `${tab}!A:A`,
-  });
+  const response = await withSheetsRetry(`values.get ${tab}`, () =>
+    sheets.spreadsheets.values.get({
+      spreadsheetId,
+      range: `${tab}!A:A`,
+    })
+  );
   const rows = response.data.values ?? [];
   let targetRow = -1;
   for (let i = 1; i < rows.length; i++) {
@@ -386,35 +451,43 @@ async function replaceRowsForDate(
   defaultHeader: string[]
 ): Promise<void> {
   const sheets = getSheetsClient();
-  const response = await sheets.spreadsheets.values.get({
-    spreadsheetId,
-    range: `${tab}!A:Z`,
-  });
+  const response = await withSheetsRetry(`replaceRowsForDate get ${tab}`, () =>
+    sheets.spreadsheets.values.get({
+      spreadsheetId,
+      range: `${tab}!A:Z`,
+    })
+  );
   const all = response.data.values ?? [];
   const header = all[0] ?? defaultHeader;
   const kept = [header, ...all.slice(1).filter((r) => normalizeSheetDate(r[0]) !== reportDate)];
   const combined = [...kept, ...newRows];
 
-  await sheets.spreadsheets.values.clear({ spreadsheetId, range: `${tab}!A:Z` });
-  await sheets.spreadsheets.values.update({
-    spreadsheetId,
-    range: `${tab}!A1`,
-    valueInputOption: 'RAW',
-    requestBody: { values: combined },
-  });
+  await withSheetsRetry(`replaceRowsForDate clear ${tab}`, () =>
+    sheets.spreadsheets.values.clear({ spreadsheetId, range: `${tab}!A:Z` })
+  );
+  await withSheetsRetry(`replaceRowsForDate update ${tab}`, () =>
+    sheets.spreadsheets.values.update({
+      spreadsheetId,
+      range: `${tab}!A1`,
+      valueInputOption: 'RAW',
+      requestBody: { values: combined },
+    })
+  );
 }
 
 async function removeDateFromTab(spreadsheetId: string, tab: string, reportDate: string): Promise<void> {
-  const sheets = getSheetsClient();
-  const meta = await sheets.spreadsheets.get({ spreadsheetId });
-  if (!meta.data.sheets?.some((s) => s.properties?.title === tab)) {
+  const meta = await getSpreadsheetMeta(spreadsheetId);
+  if (!meta.sheetIdsByTitle.has(tab)) {
     return;
   }
 
-  const response = await sheets.spreadsheets.values.get({
-    spreadsheetId,
-    range: `${tab}!A:Z`,
-  });
+  const sheets = getSheetsClient();
+  const response = await withSheetsRetry(`removeDateFromTab get ${tab}`, () =>
+    sheets.spreadsheets.values.get({
+      spreadsheetId,
+      range: `${tab}!A:Z`,
+    })
+  );
   const all = response.data.values ?? [];
   if (all.length <= 1) {
     return;
@@ -426,26 +499,47 @@ async function removeDateFromTab(spreadsheetId: string, tab: string, reportDate:
     return;
   }
 
-  await sheets.spreadsheets.values.clear({ spreadsheetId, range: `${tab}!A:Z` });
-  await sheets.spreadsheets.values.update({
-    spreadsheetId,
-    range: `${tab}!A1`,
-    valueInputOption: 'RAW',
-    requestBody: { values: kept },
+  await withSheetsRetry(`removeDateFromTab clear ${tab}`, () =>
+    sheets.spreadsheets.values.clear({ spreadsheetId, range: `${tab}!A:Z` })
+  );
+  await withSheetsRetry(`removeDateFromTab update ${tab}`, () =>
+    sheets.spreadsheets.values.update({
+      spreadsheetId,
+      range: `${tab}!A1`,
+      valueInputOption: 'RAW',
+      requestBody: { values: kept },
+    })
+  );
+}
+
+async function batchReadTabRows(
+  spreadsheetId: string,
+  tabs: string[]
+): Promise<Map<string, string[][]>> {
+  const meta = await getSpreadsheetMeta(spreadsheetId);
+  const existingTabs = tabs.filter((t) => meta.sheetIdsByTitle.has(t));
+  const result = new Map<string, string[][]>();
+  for (const t of tabs) {
+    result.set(t, []);
+  }
+  if (existingTabs.length === 0) {
+    return result;
+  }
+  const sheets = getSheetsClient();
+  const ranges = existingTabs.map((t) => `${t}!A:Z`);
+  const response = await withSheetsRetry(`batchGet ${existingTabs.join(',')}`, () =>
+    sheets.spreadsheets.values.batchGet({ spreadsheetId, ranges })
+  );
+  const valueRanges = response.data.valueRanges ?? [];
+  existingTabs.forEach((tab, i) => {
+    result.set(tab, valueRanges[i]?.values ?? []);
   });
+  return result;
 }
 
 async function readTabRows(spreadsheetId: string, tab: string): Promise<string[][]> {
-  const sheets = getSheetsClient();
-  const meta = await sheets.spreadsheets.get({ spreadsheetId });
-  if (!meta.data.sheets?.some((s) => s.properties?.title === tab)) {
-    return [];
-  }
-  const response = await sheets.spreadsheets.values.get({
-    spreadsheetId,
-    range: `${tab}!A:Z`,
-  });
-  return response.data.values ?? [];
+  const batch = await batchReadTabRows(spreadsheetId, [tab]);
+  return batch.get(tab) ?? [];
 }
 
 function displayDatesFromStoreSummary(storeRows: string[][]): Set<string> {
@@ -509,34 +603,42 @@ export async function publishVisibleDashboardMonth(reportDate: string): Promise<
   const visibleAssignees = monthTabName(reportDate, 'assignees');
   const visibleTat = monthTabName(reportDate, 'tat');
 
-  const summaryStoreRows = await readTabRows(spreadsheetId, storeSummary);
-  if (summaryStoreRows.length <= 1) {
+  const summaryStoreRows = (
+    await batchReadTabRows(spreadsheetId, [storeSummary, storeAssignees, storeTat])
+  );
+  const summaryRows = summaryStoreRows.get(storeSummary) ?? [];
+  if (summaryRows.length <= 1) {
     return;
   }
 
-  const displayDates = displayDatesFromStoreSummary(summaryStoreRows);
-  const header = summaryStoreRows[0];
+  const displayDates = displayDatesFromStoreSummary(summaryRows);
+  const header = summaryRows[0];
+  const sheets = getSheetsClient();
 
   await ensureTab(spreadsheetId, visibleSummary, DAILY_SUMMARY_HEADERS);
   const visibleSummaryRows = [
     header,
-    ...summaryStoreRows.slice(1).filter((row) => {
+    ...summaryRows.slice(1).filter((row) => {
       const d = normalizeSheetDate(row[0]);
       return d != null && displayDates.has(d);
     }),
   ];
-  await getSheetsClient().spreadsheets.values.clear({
-    spreadsheetId,
-    range: `${visibleSummary}!A:${columnLetter(DAILY_SUMMARY_HEADERS.length)}`,
-  });
-  await getSheetsClient().spreadsheets.values.update({
-    spreadsheetId,
-    range: `${visibleSummary}!A1`,
-    valueInputOption: 'RAW',
-    requestBody: { values: visibleSummaryRows },
-  });
+  await withSheetsRetry(`clear ${visibleSummary}`, () =>
+    sheets.spreadsheets.values.clear({
+      spreadsheetId,
+      range: `${visibleSummary}!A:${columnLetter(DAILY_SUMMARY_HEADERS.length)}`,
+    })
+  );
+  await withSheetsRetry(`update ${visibleSummary}`, () =>
+    sheets.spreadsheets.values.update({
+      spreadsheetId,
+      range: `${visibleSummary}!A1`,
+      valueInputOption: 'RAW',
+      requestBody: { values: visibleSummaryRows },
+    })
+  );
 
-  const assigneeStoreRows = await readTabRows(spreadsheetId, storeAssignees);
+  const assigneeStoreRows = summaryStoreRows.get(storeAssignees) ?? [];
   await ensureTab(spreadsheetId, visibleAssignees, ASSIGNEE_HEADERS);
   const assigneeHeader = assigneeStoreRows[0] ?? ASSIGNEE_HEADERS;
   const visibleAssigneeRows = [
@@ -554,7 +656,7 @@ export async function publishVisibleDashboardMonth(reportDate: string): Promise<
     requestBody: { values: visibleAssigneeRows },
   });
 
-  const tatStoreRows = await readTabRows(spreadsheetId, storeTat);
+  const tatStoreRows = summaryStoreRows.get(storeTat) ?? [];
   if (tatStoreRows.length > 0) {
     await ensureTab(spreadsheetId, visibleTat, TAT_HEADERS);
     const tatHeader = tatStoreRows[0] ?? TAT_HEADERS;
@@ -584,8 +686,8 @@ export async function publishVisibleDashboardMonth(reportDate: string): Promise<
     currencyCols: ASSIGNEE_CURRENCY_COLS,
     tabColor: { red: 0.55, green: 0.35, blue: 0.75 },
   });
-  const meta = await getSheetsClient().spreadsheets.get({ spreadsheetId });
-  if (meta.data.sheets?.some((s) => s.properties?.title === visibleTat)) {
+  const meta = await getSpreadsheetMeta(spreadsheetId);
+  if (meta.sheetIdsByTitle.has(visibleTat)) {
     await applyTabFormatting(spreadsheetId, visibleTat, TAT_HEADERS.length, {
       pctCols: [],
       currencyCols: [],

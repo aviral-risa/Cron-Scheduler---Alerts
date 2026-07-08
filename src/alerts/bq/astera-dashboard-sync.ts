@@ -18,6 +18,7 @@ import {
   publishVisibleDashboardMonth,
   publishVisibleDashboardMonthsInRange,
   formatAsteraDashboardMonth,
+  clearAsteraSheetsApiCache,
 } from '../../services/sheets/astera-dashboard-sheets';
 
 interface DailySummaryRow {
@@ -118,6 +119,7 @@ export async function syncAsteraDashboardRollingWindow(
   windowDays = SUMMARY_RE_SYNC_WINDOW_DAYS,
   options?: { skipFormatting?: boolean }
 ): Promise<void> {
+  clearAsteraSheetsApiCache();
   const dates = istDatesRollingBack(new Date(), windowDays);
   console.log(`\n📊 Astera dashboard rolling re-sync (${dates.length} IST weekdays in last ${windowDays} days)...`);
 
@@ -126,17 +128,20 @@ export async function syncAsteraDashboardRollingWindow(
   for (const date of dates) {
     try {
       await syncAsteraDashboardToSheets(date, sheetOptions);
-      await sleep(3000);
+      await sleep(Number(process.env.ASTERA_DASHBOARD_SYNC_DELAY_MS ?? 8000));
     } catch (error) {
       failures.push(`${date}: ${error}`);
       console.error(`❌ Rolling sync failed for ${date}:`, error);
+      await sleep(10_000);
     }
   }
 
   if (dates.length > 0) {
     const start = dates[0];
     const end = dates[dates.length - 1];
-    await publishVisibleDashboardMonthsInRange(start, end, options);
+    await publishVisibleDashboardMonthsInRange(start, end, {
+      skipFormatting: options?.skipFormatting ?? true,
+    });
   }
 
   if (failures.length > 0) {

@@ -251,7 +251,8 @@ async function runAsteraAlertJob(name: string, fn: () => Promise<void>): Promise
 async function runAsteraDashboardSync(): Promise<void> {
   console.log(`\n⏰ Astera dashboard Sheets sync (${getCurrentISTTime()} IST)`);
   try {
-    await syncAsteraDashboardRollingWindow();
+  const cronWindowDays = Number(process.env.ASTERA_DASHBOARD_CRON_WINDOW_DAYS ?? 3);
+    await syncAsteraDashboardRollingWindow(cronWindowDays, { skipFormatting: true });
     console.log('✓ Astera dashboard sync completed\n');
   } catch (error) {
     console.error('❌ Astera dashboard Sheets sync failed:', error);
