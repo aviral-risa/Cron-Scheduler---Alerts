@@ -1,23 +1,24 @@
 import { google } from 'googleapis';
 import { getSheetsClient } from '../sheets-dual';
 
-const DAILY_SUMMARY_HEADERS = [
-  'Report Date',
+/** Visible + store summary tab columns (keep in sync with upsertAsteraDailySummaryRow). */
+export const DAILY_SUMMARY_HEADERS = [
+  'Report Date (IST)',
   'Cases Added',
-  'Unique Cases Added',
-  'Allotted Cases %',
+  'Unique Cases (New vs 30d)',
+  'Allotted %',
   'Non-Allotted MRNs',
-  'Auth by RISA',
-  'NAR',
-  'Auth Pending',
-  'Denials',
-  'Work In Progress',
-  'Query',
+  'Auth by RISA (Current)',
+  'NAR (Current)',
+  'Auth Pending (Current)',
+  'Denials (Current)',
+  'Work In Progress (Current)',
+  'Query (Current)',
   'First Pass Approval %',
   'Denial Value ($)',
-  'Total Scan Value ($)',
-  'Last Updated',
-];
+  'Total Processed Value ($)',
+  'Last Updated (UTC)',
+] as const;
 
 const ASSIGNEE_HEADERS = [
   'Report Date',
@@ -75,9 +76,37 @@ function getSpreadsheetId(): string {
   return id;
 }
 
-function monthTabName(reportDate: string, suffix: string): string {
+export function monthTabName(reportDate: string, suffix: string): string {
   const [year, month] = reportDate.split('-');
   return `${year}-${month}_${suffix}`;
+}
+
+export async function readSummaryRowFromTab(
+  reportDate: string,
+  tabSuffix: 'summary' | 'summary_store'
+): Promise<Record<string, string | number> | null> {
+  const spreadsheetId = getSpreadsheetId();
+  const tab = monthTabName(reportDate, tabSuffix);
+  const rows = await readTabRows(spreadsheetId, tab);
+  if (rows.length <= 1) {
+    return null;
+  }
+  const header = rows[0];
+  for (const row of rows.slice(1)) {
+    const rowDate = normalizeSheetDate(row[0]);
+    if (rowDate === reportDate) {
+      const record: Record<string, string | number> = {};
+      header.forEach((key, i) => {
+        if (i === 0) {
+          record[key] = rowDate ?? reportDate;
+        } else {
+          record[key] = row[i] ?? '';
+        }
+      });
+      return record;
+    }
+  }
+  return null;
 }
 
 function columnLetter(count: number): string {
@@ -188,15 +217,23 @@ async function ensureTab(
       valueInputOption: 'RAW',
       requestBody: { values: [headers] },
     });
-  } else if (options?.hidden && !existing.properties?.hidden) {
-    const sheetId = existing.properties?.sheetId;
-    if (sheetId != null) {
-      await sheets.spreadsheets.batchUpdate({
-        spreadsheetId,
-        requestBody: {
-          requests: [{ updateSheetProperties: { properties: { sheetId, hidden: true }, fields: 'hidden' } }],
-        },
-      });
+  } else {
+    await sheets.spreadsheets.values.update({
+      spreadsheetId,
+      range: `${title}!A1`,
+      valueInputOption: 'RAW',
+      requestBody: { values: [headers] },
+    });
+    if (options?.hidden && !existing.properties?.hidden) {
+      const sheetId = existing.properties?.sheetId;
+      if (sheetId != null) {
+        await sheets.spreadsheets.batchUpdate({
+          spreadsheetId,
+          requestBody: {
+            requests: [{ updateSheetProperties: { properties: { sheetId, hidden: true }, fields: 'hidden' } }],
+          },
+        });
+      }
     }
   }
 }
@@ -425,6 +462,43 @@ function displayDatesFromStoreSummary(storeRows: string[][]): Set<string> {
   return dates;
 }
 
+function monthAnchorFromDate(reportDate: string): string {
+  const [year, month] = reportDate.split('-');
+  return `${year}-${month}-15`;
+}
+
+/** Unique YYYY-MM-15 anchors for every calendar month touched by [startDate, endDate]. */
+export function monthAnchorsBetween(startDate: string, endDate: string): string[] {
+  const anchors = new Set<string>();
+  const [sy, sm] = startDate.split('-').map(Number);
+  const [ey, em] = endDate.split('-').map(Number);
+  let y = sy;
+  let m = sm;
+  while (y < ey || (y === ey && m <= em)) {
+    anchors.add(`${y}-${String(m).padStart(2, '0')}-15`);
+    m += 1;
+    if (m > 12) {
+      m = 1;
+      y += 1;
+    }
+  }
+  return [...anchors].sort();
+}
+
+/** Rebuild visible tabs from store for each month in range (backfill / rolling sync). */
+export async function publishVisibleDashboardMonthsInRange(
+  startDate: string,
+  endDate: string,
+  options?: { skipFormatting?: boolean }
+): Promise<void> {
+  for (const anchor of monthAnchorsBetween(startDate, endDate)) {
+    await publishVisibleDashboardMonth(anchor);
+    if (!options?.skipFormatting) {
+      await formatAsteraDashboardMonth(anchor);
+    }
+  }
+}
+
 /** Rebuild visible tabs from hidden store tabs (allotted % > 0 only) */
 export async function publishVisibleDashboardMonth(reportDate: string): Promise<void> {
   const spreadsheetId = getSpreadsheetId();
@@ -451,7 +525,10 @@ export async function publishVisibleDashboardMonth(reportDate: string): Promise<
       return d != null && displayDates.has(d);
     }),
   ];
-  await getSheetsClient().spreadsheets.values.clear({ spreadsheetId, range: `${visibleSummary}!A:M` });
+  await getSheetsClient().spreadsheets.values.clear({
+    spreadsheetId,
+    range: `${visibleSummary}!A:${columnLetter(DAILY_SUMMARY_HEADERS.length)}`,
+  });
   await getSheetsClient().spreadsheets.values.update({
     spreadsheetId,
     range: `${visibleSummary}!A1`,

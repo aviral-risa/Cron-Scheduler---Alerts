@@ -16,6 +16,7 @@ import {
   shouldStoreDashboardDate,
   isWeekendIst,
   publishVisibleDashboardMonth,
+  publishVisibleDashboardMonthsInRange,
   formatAsteraDashboardMonth,
 } from '../../services/sheets/astera-dashboard-sheets';
 
@@ -133,10 +134,9 @@ export async function syncAsteraDashboardRollingWindow(
   }
 
   if (dates.length > 0) {
-    await publishVisibleDashboardMonth(dates[dates.length - 1]);
-    if (!options?.skipFormatting) {
-      await formatAsteraDashboardMonth(dates[dates.length - 1]);
-    }
+    const start = dates[0];
+    const end = dates[dates.length - 1];
+    await publishVisibleDashboardMonthsInRange(start, end, options);
   }
 
   if (failures.length > 0) {
@@ -273,8 +273,7 @@ export async function backfillAsteraDashboard(startDate: string, endDate: string
   }
 
   if (dates.length > 0) {
-    await publishVisibleDashboardMonth(endDate);
-    await formatAsteraDashboardMonth(endDate);
+    await publishVisibleDashboardMonthsInRange(startDate, endDate, sheetOptions);
   }
 
   if (failures.length > 0) {

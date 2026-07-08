@@ -1,5 +1,6 @@
--- Astera Daily Summary Metrics V2
+-- Astera Daily Summary Metrics V3
 -- Creation cohort (orders created @report_date IST), current status as-of sync.
+-- unique_cases_added: orders whose (regimen|mrn|dos) key was NOT seen in prior 30 IST calendar days.
 -- First pass approval: auth / (auth + denials), pending excluded from denominator.
 -- Denials: denial comment OR current denied_by_risa status (count once per order).
 -- Parameters: @report_date DATE, @org_id STRING
@@ -51,19 +52,46 @@ auth_comments AS (
   )
   WHERE _cdc_rank = 1 AND COALESCE(_change_type, '') != 'DELETE'
 ),
-orders_on_day AS (
+orders_in_30d_window AS (
   SELECT
     o.order_id,
     COALESCE(d.patient_id, o.patient_id) AS mrn,
     o.regimen_name,
     o.date_of_service,
-    o.assigned_to_name,
-    LOWER(TRIM(COALESCE(s.master_auth_status, ''))) AS auth_status
+    DATE(o.created_at, 'Asia/Kolkata') AS created_ist,
+    CONCAT(
+      COALESCE(o.regimen_name, ''),
+      '|',
+      COALESCE(d.patient_id, o.patient_id),
+      '|',
+      COALESCE(CAST(o.date_of_service AS STRING), '')
+    ) AS case_key
   FROM latest_order AS o
-  LEFT JOIN latest_status AS s ON s.order_id = o.order_id
   LEFT JOIN latest_demo AS d ON d.order_id = o.order_id
   CROSS JOIN params AS p
-  WHERE DATE(o.created_at, 'Asia/Kolkata') = p.report_date
+  WHERE DATE(o.created_at, 'Asia/Kolkata') BETWEEN DATE_SUB(p.report_date, INTERVAL 30 DAY)
+    AND p.report_date
+),
+prior_30d_case_keys AS (
+  SELECT DISTINCT w.case_key
+  FROM orders_in_30d_window AS w
+  CROSS JOIN params AS p
+  WHERE w.created_ist < p.report_date
+),
+orders_on_day AS (
+  SELECT
+    w.order_id,
+    w.mrn,
+    w.regimen_name,
+    w.date_of_service,
+    o.assigned_to_name,
+    w.case_key,
+    LOWER(TRIM(COALESCE(s.master_auth_status, ''))) AS auth_status
+  FROM orders_in_30d_window AS w
+  JOIN latest_order AS o ON o.order_id = w.order_id
+  LEFT JOIN latest_status AS s ON s.order_id = w.order_id
+  CROSS JOIN params AS p
+  WHERE w.created_ist = p.report_date
 ),
 orders_with_denial_comment AS (
   SELECT DISTINCT c.order_id
@@ -85,10 +113,11 @@ cohort_outcomes AS (
 day_agg AS (
   SELECT
     COUNT(*) AS cases_added,
-    COUNT(DISTINCT CONCAT(COALESCE(regimen_name, ''), '|', mrn, '|', COALESCE(CAST(date_of_service AS STRING), ''))) AS unique_cases_added,
-    COUNTIF(LOWER(TRIM(COALESCE(assigned_to_name, ''))) NOT IN ('', 'unassigned')) AS allotted_cases,
-    STRING_AGG(DISTINCT IF(LOWER(TRIM(COALESCE(assigned_to_name, ''))) IN ('', 'unassigned'), mrn, NULL), ', ') AS non_allotted_mrns
-  FROM orders_on_day
+    COUNTIF(pk.case_key IS NULL) AS unique_cases_added,
+    COUNTIF(LOWER(TRIM(COALESCE(od.assigned_to_name, ''))) NOT IN ('', 'unassigned')) AS allotted_cases,
+    STRING_AGG(DISTINCT IF(LOWER(TRIM(COALESCE(od.assigned_to_name, ''))) IN ('', 'unassigned'), od.mrn, NULL), ', ') AS non_allotted_mrns
+  FROM orders_on_day AS od
+  LEFT JOIN prior_30d_case_keys AS pk ON pk.case_key = od.case_key
 ),
 outcome_agg AS (
   SELECT

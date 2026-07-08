@@ -31,13 +31,13 @@ on:
         type: string
 
 concurrency:
-  group: account-mgmt-cron
-  cancel-in-progress: false
+  group: account-mgmt-cron-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   dispatch:
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 45
     defaults:
       run:
         working-directory: .

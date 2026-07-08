@@ -122,15 +122,33 @@ export async function hasJobCompletedToday(jobId: string, reference = new Date()
   return hasJobCompletedOnDate(jobId, getTodayIstDateKey(reference));
 }
 
-export async function markJobCompletedToday(jobId: string, reference = new Date()): Promise<void> {
-  const today = getTodayIstDateKey(reference);
+export async function markJobCompletedOnDate(jobId: string, dateKey: string): Promise<void> {
   if (getStateBackend() === 'firestore') {
-    await writeFirestoreCompletedDate(jobId, today);
+    await writeFirestoreCompletedDate(jobId, dateKey);
     return;
   }
   const state = loadFileState();
-  state[jobId] = today;
+  state[jobId] = dateKey;
   saveFileState(state);
+}
+
+export async function markJobCompletedToday(jobId: string, reference = new Date()): Promise<void> {
+  await markJobCompletedOnDate(jobId, getTodayIstDateKey(reference));
+}
+
+export async function hasCatchUpNotified(jobId: string, dateKey: string): Promise<boolean> {
+  const key = `${jobId}::catchup::${dateKey}`;
+  if (getStateBackend() === 'firestore') {
+    const completed = await readFirestoreCompletedDate(key);
+    return completed === dateKey;
+  }
+  const state = loadFileState();
+  return state[key] === dateKey;
+}
+
+export async function markCatchUpNotified(jobId: string, dateKey: string): Promise<void> {
+  const key = `${jobId}::catchup::${dateKey}`;
+  await markJobCompletedOnDate(key, dateKey);
 }
 
 export interface ScheduledJobSpec {

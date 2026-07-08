@@ -19,8 +19,11 @@ import { shouldRunAuthmatePendingAlert } from './alerts/utils/report-dates';
 import { shouldSkipAsteraJobForHoliday } from './alerts/utils/astera-workday';
 import {
   getTodayIstDateKey,
+  getYesterdayIstDateKey,
+  hasJobCompletedOnDate,
   hasJobCompletedToday,
   isPastScheduledTimeToday,
+  markJobCompletedOnDate,
   markJobCompletedToday,
   type ScheduledJobSpec,
 } from './scheduler-job-state';
@@ -90,7 +93,37 @@ export async function sendCronSkipNotification(
     const web = new WebClient(botToken);
     await web.chat.postMessage({ channel: channelId, text });
   } catch (error) {
+    const errMsg = error instanceof Error ? error.message : String(error);
     console.error(`Failed to send cron skip notification (${jobId}, ${reason}):`, error);
+    if (errMsg.includes('channel_not_found') || errMsg.includes('not_in_channel')) {
+      try {
+        const web = new WebClient(SlackConfig.getBotToken());
+        await web.chat.postMessage({
+          channel: SlackConfig.getDefaultChannelId(),
+          text: `[test_alerts unreachable — fallback]\n${text}`,
+        });
+      } catch (fallbackErr) {
+        console.error('Cron notification fallback also failed:', fallbackErr);
+      }
+    }
+  }
+}
+
+/** Post operational message to test_alerts (with fallback to default channel). */
+export async function sendTestAlertsMessage(text: string): Promise<void> {
+  try {
+    const web = new WebClient(SlackConfig.getBotToken());
+    await web.chat.postMessage({ channel: SlackConfig.getTestAlertsChannelId(), text });
+  } catch (error) {
+    const errMsg = error instanceof Error ? error.message : String(error);
+    console.error('Failed to send test_alerts message:', error);
+    if (errMsg.includes('channel_not_found') || errMsg.includes('not_in_channel')) {
+      const web = new WebClient(SlackConfig.getBotToken());
+      await web.chat.postMessage({
+        channel: SlackConfig.getDefaultChannelId(),
+        text: `[test_alerts unreachable — fallback]\n${text}`,
+      });
+    }
   }
 }
 
@@ -99,9 +132,28 @@ export async function sendCronFailureNotification(jobId: string, error: unknown)
   await sendCronSkipNotification(jobId, 'job_failed', { scheduledTime: message.slice(0, 500) });
 }
 
-function isWeekend(date: Date): boolean {
-  const day = date.getDay();
-  return day === 0 || day === 6;
+function isWeekendIstYmd(ymd: string): boolean {
+  const [y, m, d] = ymd.split('-').map(Number);
+  const noonUtc = new Date(Date.UTC(y, m - 1, d, 12, 0, 0));
+  const weekday = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'Asia/Kolkata',
+    weekday: 'short',
+  }).format(noonUtc);
+  return weekday === 'Sat' || weekday === 'Sun';
+}
+
+function isWeekendIst(reference = new Date()): boolean {
+  return isWeekendIstYmd(getTodayIstDateKey(reference));
+}
+
+export interface RunJobOptions {
+  completionDateKey?: string;
+}
+
+let activeJobOptions: RunJobOptions = {};
+
+function getCompletionDateKey(): string {
+  return activeJobOptions.completionDateKey ?? getTodayIstDateKey();
 }
 
 export async function runDailyMetricsSync(usePreviousDay: boolean = false): Promise<void> {
@@ -110,24 +162,20 @@ export async function runDailyMetricsSync(usePreviousDay: boolean = false): Prom
 
   let targetDate: Date;
   if (usePreviousDay) {
-    targetDate = new Date();
-    targetDate.setDate(targetDate.getDate() - 1);
-
-    if (isWeekend(targetDate)) {
-      console.log(`   Skipped - Previous day (${format(targetDate, 'yyyy-MM-dd')}) was a weekend`);
+    const prevYmd = getYesterdayIstDateKey();
+    if (isWeekendIstYmd(prevYmd)) {
+      console.log(`   Skipped - Previous day (${prevYmd}) was a weekend (IST)`);
       return;
     }
-
-    console.log(`   Syncing PREVIOUS day's orders: ${format(targetDate, 'yyyy-MM-dd')}`);
+    targetDate = new Date(`${prevYmd}T12:00:00Z`);
+    console.log(`   Syncing PREVIOUS day's orders: ${prevYmd}`);
   } else {
-    targetDate = new Date();
-
-    if (isWeekend(targetDate)) {
-      console.log(`   Skipped - Current day (${format(targetDate, 'yyyy-MM-dd')}) is a weekend`);
+    if (isWeekendIst()) {
+      console.log(`   Skipped - Current day (${getTodayIstDateKey()}) is a weekend (IST)`);
       return;
     }
-
-    console.log(`   Syncing CURRENT day's orders: ${format(targetDate, 'yyyy-MM-dd')}`);
+    targetDate = new Date();
+    console.log(`   Syncing CURRENT day's orders: ${getTodayIstDateKey()}`);
   }
 
   const dateStr = format(targetDate, 'yyyy-MM-dd');
@@ -158,6 +206,7 @@ export async function runDailyMetricsSync(usePreviousDay: boolean = false): Prom
     await sendSlackNotification(
       `❌ *Daily Metrics Sync Failed* (${getCurrentISTTime()} IST)\nDate: *${dateStr}*\nError: ${error}`
     );
+    throw error;
   }
 
   console.log('✓ Daily Metrics sync completed\n');
@@ -169,8 +218,8 @@ export async function runQueueDataSync(): Promise<void> {
 
   const today = new Date();
 
-  if (isWeekend(today)) {
-    console.log(`   Skipped - Current day (${format(today, 'yyyy-MM-dd')}) is a weekend`);
+  if (isWeekendIst()) {
+    console.log(`   Skipped - Current day (${getTodayIstDateKey()}) is a weekend (IST)`);
     return;
   }
 
@@ -183,6 +232,7 @@ export async function runQueueDataSync(): Promise<void> {
   } catch (error) {
     console.error('❌ Error running Queue Data sync:', error);
     await sendSlackNotification(`❌ *Queue Data Sync Failed* (${getCurrentISTTime()} IST)\nError: ${error}`);
+    throw error;
   }
 }
 
@@ -213,51 +263,54 @@ async function runAsteraDashboardSync(): Promise<void> {
 }
 
 async function runTrackedAsteraJob(spec: ScheduledJobSpec, fn: () => Promise<void>): Promise<void> {
-  if (!isManualCronRun() && (await hasJobCompletedToday(spec.id))) {
-    console.log(`ℹ️ Skipping ${spec.label} — already completed today (IST)`);
+  const completionKey = getCompletionDateKey();
+  if (!isManualCronRun() && (await hasJobCompletedOnDate(spec.id, completionKey))) {
+    console.log(`ℹ️ Skipping ${spec.label} — already completed for ${completionKey} (IST)`);
     return;
   }
   if (await shouldSkipAsteraJobForHoliday(spec.id as ScheduledJobId)) {
-    await markJobCompletedToday(spec.id);
+    await markJobCompletedOnDate(spec.id, completionKey);
     await sendCronSkipNotification(spec.id, 'holiday_skip');
     return;
   }
   await runAsteraAlertJob(spec.label, fn);
-  await markJobCompletedToday(spec.id);
+  await markJobCompletedOnDate(spec.id, completionKey);
 }
 
 async function runTrackedAsteraDashboardSync(spec: ScheduledJobSpec): Promise<void> {
-  if (!isManualCronRun() && (await hasJobCompletedToday(spec.id))) {
-    console.log(`ℹ️ Skipping ${spec.label} — already completed today (IST)`);
+  const completionKey = getCompletionDateKey();
+  if (!isManualCronRun() && (await hasJobCompletedOnDate(spec.id, completionKey))) {
+    console.log(`ℹ️ Skipping ${spec.label} — already completed for ${completionKey} (IST)`);
     return;
   }
   if (await shouldSkipAsteraJobForHoliday(spec.id as ScheduledJobId)) {
-    await markJobCompletedToday(spec.id);
+    await markJobCompletedOnDate(spec.id, completionKey);
     await sendCronSkipNotification(spec.id, 'holiday_skip');
     return;
   }
   await runAsteraDashboardSync();
-  await markJobCompletedToday(spec.id);
+  await markJobCompletedOnDate(spec.id, completionKey);
 }
 
 async function runTrackedAuthmatePending(spec: ScheduledJobSpec): Promise<void> {
-  if (!isManualCronRun() && (await hasJobCompletedToday(spec.id))) {
-    console.log(`ℹ️ Skipping ${spec.label} — already completed today (IST)`);
+  const completionKey = getCompletionDateKey();
+  if (!isManualCronRun() && (await hasJobCompletedOnDate(spec.id, completionKey))) {
+    console.log(`ℹ️ Skipping ${spec.label} — already completed for ${completionKey} (IST)`);
     return;
   }
   if (!shouldRunAuthmatePendingAlert()) {
     console.log('ℹ️ Skipping AuthMate-Pending alert — today is an EST weekend');
-    await markJobCompletedToday(spec.id);
+    await markJobCompletedOnDate(spec.id, completionKey);
     await sendCronSkipNotification(spec.id, 'authmate_weekend_skip');
     return;
   }
   if (await shouldSkipAsteraJobForHoliday(spec.id as ScheduledJobId)) {
-    await markJobCompletedToday(spec.id);
+    await markJobCompletedOnDate(spec.id, completionKey);
     await sendCronSkipNotification(spec.id, 'holiday_skip');
     return;
   }
   await runAsteraAlertJob(spec.label, sendAsteraAuthmatePendingMissedNotesAlert);
-  await markJobCompletedToday(spec.id);
+  await markJobCompletedOnDate(spec.id, completionKey);
 }
 
 export const ASTERA_JOB_SPECS: ScheduledJobSpec[] = [
@@ -602,10 +655,18 @@ export function isScheduledJobId(jobId: string): jobId is ScheduledJobId {
   return jobId in JOB_HANDLERS;
 }
 
-export async function runScheduledJobById(jobId: ScheduledJobId): Promise<void> {
+export async function runScheduledJobById(
+  jobId: ScheduledJobId,
+  options?: RunJobOptions
+): Promise<void> {
   const handler = JOB_HANDLERS[jobId];
   if (!handler) {
     throw new Error(`Unknown job id: ${jobId}`);
   }
-  await handler();
+  activeJobOptions = options ?? {};
+  try {
+    await handler();
+  } finally {
+    activeJobOptions = {};
+  }
 }

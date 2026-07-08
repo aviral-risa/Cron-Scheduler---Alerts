@@ -113,26 +113,43 @@ export function isCronPastDueToday(schedule: string, reference = new Date()): bo
 }
 
 /**
- * True in the first hours after IST midnight when the job was scheduled yesterday
- * (matched DOW) but GHA ticked into the new calendar day before catch-up ran.
+ * True when the job was scheduled yesterday (IST DOW) and we're on the next IST day.
+ * No time-boxed grace window — relies on yesterday completion check in dispatcher.
  */
-export function isCronPastDueYesterday(
-  schedule: string,
-  reference = new Date(),
-  graceHoursAfterMidnight = 6
-): boolean {
+export function isCronMissedForYesterday(schedule: string, reference = new Date()): boolean {
   const fields = parseIstCronFields(schedule);
   if (!fields) {
-    return false;
-  }
-
-  const nowMinutes = getIstMinutesSinceMidnight(reference);
-  if (nowMinutes >= graceHoursAfterMidnight * 60) {
     return false;
   }
 
   const yesterday = new Date(reference.getTime() - 24 * 60 * 60 * 1000);
   const { dowStr } = fields;
   const yesterdayDow = getIstDayOfWeek(yesterday);
-  return matchesDayOfWeek(dowStr, yesterdayDow);
+  if (!matchesDayOfWeek(dowStr, yesterdayDow)) {
+    return false;
+  }
+
+  const todayKey = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Asia/Kolkata',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(reference);
+  const yesterdayKey = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Asia/Kolkata',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(yesterday);
+  return todayKey !== yesterdayKey;
+}
+
+/** @deprecated Use isCronMissedForYesterday — kept for compatibility */
+export function isCronPastDueYesterday(
+  schedule: string,
+  reference = new Date(),
+  graceHoursAfterMidnight = 6
+): boolean {
+  void graceHoursAfterMidnight;
+  return isCronMissedForYesterday(schedule, reference);
 }
