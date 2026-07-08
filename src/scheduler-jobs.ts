@@ -99,8 +99,8 @@ export async function sendCronSkipNotification(
       try {
         const web = new WebClient(SlackConfig.getBotToken());
         await web.chat.postMessage({
-          channel: SlackConfig.getDefaultChannelId(),
-          text: `[test_alerts unreachable — fallback]\n${text}`,
+          channel: SlackConfig.getAsteraAlertsChannelId(),
+          text: `[test_alerts (${SlackConfig.getTestAlertsChannelId()}) unreachable — posted to Astera channel]\n${text}`,
         });
       } catch (fallbackErr) {
         console.error('Cron notification fallback also failed:', fallbackErr);
@@ -120,8 +120,8 @@ export async function sendTestAlertsMessage(text: string): Promise<void> {
     if (errMsg.includes('channel_not_found') || errMsg.includes('not_in_channel')) {
       const web = new WebClient(SlackConfig.getBotToken());
       await web.chat.postMessage({
-        channel: SlackConfig.getDefaultChannelId(),
-        text: `[test_alerts unreachable — fallback]\n${text}`,
+        channel: SlackConfig.getAsteraAlertsChannelId(),
+        text: `[test_alerts (${SlackConfig.getTestAlertsChannelId()}) unreachable — posted to Astera channel]\n${text}`,
       });
     }
   }

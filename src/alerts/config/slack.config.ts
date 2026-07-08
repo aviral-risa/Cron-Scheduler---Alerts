@@ -74,9 +74,22 @@ export class SlackConfig {
     return channelId;
   }
 
-  /** test_alerts channel for cron skip / catch-up notifications */
+  /** test_alerts channel for cron skip / catch-up / ops notifications */
   static getTestAlertsChannelId(): string {
-    return process.env.SLACK_CHANNEL_TEST_ALERTS ?? 'C0A7LHVNF5M';
+    return (
+      process.env.SLACK_CHANNEL_TEST_ALERTS ??
+      process.env.SLACK_CHANNEL ??
+      'C0BEP0W1WAK'
+    );
+  }
+
+  /** Astera Radiology production alerts channel */
+  static getAsteraAlertsChannelId(): string {
+    return (
+      process.env.SLACK_CHANNEL_ASTERA_RADIOLOGY_INTERNAL ??
+      process.env.SLACK_CHANNEL_ASTERA_RADIOLOGY ??
+      'C09K4FFGV7H'
+    );
   }
 
   /**

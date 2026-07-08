@@ -7,7 +7,8 @@
 #
 # Optional (include in DASHBOARD_ENV_FILE or as repo secrets):
 #   SLACK_BOT_TOKEN, SLACK_CHANNEL, etc. — from .env
-#   SLACK_CHANNEL_TEST_ALERTS — cron skip/catch-up notifications (default C0A7LHVNF5M = test_alerts)
+#   SLACK_CHANNEL_TEST_ALERTS=C0BEP0W1WAK — cron ops notes (#test_alerts)
+#   SLACK_CHANNEL_ASTERA_RADIOLOGY_INTERNAL=C09K4FFGV7H — Astera alert posts
 #
 # Manual test: Actions → Account Management Cron → Run workflow → optional job_id
 #   e.g. astera-dashboard-sync (30-day rolling summary re-sync at 11:00 AM IST)
