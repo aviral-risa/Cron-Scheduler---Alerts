@@ -1,24 +1,19 @@
 # Radiology Cron — Astera only (dedicated bot + service account)
 #
+# Uses */15 dispatcher (same pattern as MedOnc — proven to fire on GHA).
+# IST job times are in src/radiology-scheduler-registry.ts
+#
 # Secrets: RADIOLOGY_ENV_FILE (or DASHBOARD_ENV_FILE), GCP_SA_KEY
-# Channels: SLACK_CHANNEL_ASTERA_RADIOLOGY_INTERNAL=C09K4FFGV7H
-#           SLACK_CHANNEL_TEST_ALERTS=C0BEP0W1WAK
 
 name: Radiology Cron (Astera)
 
 on:
   schedule:
-    - cron: '30 5 * * *'   # 11:00 AM IST — dashboard sync
-    - cron: '0 10 * * *'   # 3:30 PM IST — yesterday unworked
-    - cron: '30 10 * * *'  # 4:00 PM IST — denial internal
-    - cron: '30 11 * * *'  # 5:00 PM IST — assigned unworked
-    - cron: '45 11 * * *'  # 5:15 PM IST — query return
-    - cron: '30 16 * * *'  # 10:00 PM IST — WIP stale
-    - cron: '30 17 * * *'  # 11:00 PM IST — authmate pending
+    - cron: '*/15 * * * *'
   workflow_dispatch:
     inputs:
       job_id:
-        description: 'Astera job id (e.g. astera-denial-internal). Leave empty to use schedule mapping.'
+        description: 'Force a job (e.g. astera-authmate-pending). Leave empty to dispatch due jobs.'
         required: false
         type: string
 
@@ -52,6 +47,8 @@ jobs:
         with:
           path: .scheduler-runs-radiology.json
           key: scheduler-runs-radiology-${{ github.repository }}
+          restore-keys: |
+            scheduler-runs-radiology-
 
       - name: Configure environment
         env:
@@ -76,7 +73,7 @@ jobs:
           printf '%s' "$GCP_SA_KEY" > gcp-sa.json
           echo "GOOGLE_APPLICATION_CREDENTIALS=${{ github.workspace }}/gcp-sa.json" >> "$GITHUB_ENV"
 
-      - name: Run radiology job
+      - name: Run radiology dispatch
         env:
           GITHUB_ACTIONS: 'true'
           SCHEDULER_STATE_BACKEND: file
@@ -84,24 +81,11 @@ jobs:
           CRON_REGISTRY: radiology
           CRON_MAX_JOBS_PER_DISPATCH: 1
           NODE_ENV: production
-          MANUAL_CRON_RUN: 'true'
+          MANUAL_CRON_RUN: ${{ github.event.inputs.job_id != '' && 'true' || '' }}
         run: |
-          JOB_ID="${{ github.event.inputs.job_id }}"
-          if [ -z "$JOB_ID" ] && [ "${{ github.event_name }}" = "schedule" ]; then
-            case "${{ github.event.schedule }}" in
-              "30 5 * * *") JOB_ID="astera-dashboard-sync" ;;
-              "0 10 * * *") JOB_ID="astera-yesterday-unworked" ;;
-              "30 10 * * *") JOB_ID="astera-denial-internal" ;;
-              "30 11 * * *") JOB_ID="astera-assigned-unworked" ;;
-              "45 11 * * *") JOB_ID="astera-query-return" ;;
-              "30 16 * * *") JOB_ID="astera-wip-stale" ;;
-              "30 17 * * *") JOB_ID="astera-authmate-pending" ;;
-              *) echo "::error::Unknown schedule: ${{ github.event.schedule }}"; exit 1 ;;
-            esac
-          fi
-          if [ -n "$JOB_ID" ]; then
-            echo "Running radiology job: $JOB_ID"
-            npx tsx scripts/github-cron-dispatch.ts "$JOB_ID"
+          if [ -n "${{ github.event.inputs.job_id }}" ]; then
+            echo "Force-running: ${{ github.event.inputs.job_id }}"
+            npx tsx scripts/github-cron-dispatch.ts "${{ github.event.inputs.job_id }}"
           else
             npx tsx scripts/github-cron-dispatch.ts
           fi
