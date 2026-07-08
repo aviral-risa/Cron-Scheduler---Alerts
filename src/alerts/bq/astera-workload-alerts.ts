@@ -16,6 +16,7 @@ import {
   buildAssigneeGroupedBlocks,
   groupRowsBy,
 } from '../utils/slack-copyable-table';
+import { postAsteraZeroCaseAlert, recordAsteraRowOutcome } from '../utils/astera-empty-alert';
 
 async function postCompactAlert(options: {
   channelId: string;
@@ -105,7 +106,12 @@ export async function sendAsteraAssignedUnworkedStreakAlert(
   );
 
   if (rows.length === 0) {
-    console.log('✓ No assigned-unworked streak cases — skipping Slack post');
+    await postAsteraZeroCaseAlert({
+      jobId: 'astera-assigned-unworked',
+      title: `${ASTERA_RADIOLOGY_NAME} — Assigned but Not Worked (2+ Days)`,
+      emoji: '🟠',
+      reportDate: date,
+    });
     return;
   }
 
@@ -129,6 +135,7 @@ export async function sendAsteraAssignedUnworkedStreakAlert(
     fallbackText: `Assigned unworked: ${rows.length} case(s)`,
   });
 
+  recordAsteraRowOutcome('astera-assigned-unworked', rows.length, date, getAsteraInternalChannelId());
   console.log(`✓ Posted ${rows.length} assigned-unworked row(s)`);
 }
 
@@ -142,7 +149,12 @@ export async function sendAsteraWipOverOneDayAlert(reportDate?: string): Promise
   });
 
   if (rows.length === 0) {
-    console.log('✓ No WIP >1 day cases — skipping Slack post');
+    await postAsteraZeroCaseAlert({
+      jobId: 'astera-wip-stale',
+      title: `${ASTERA_RADIOLOGY_NAME} — Work In Progress > 1 Day`,
+      emoji: '🟡',
+      reportDate: date,
+    });
     return;
   }
 
@@ -165,6 +177,7 @@ export async function sendAsteraWipOverOneDayAlert(reportDate?: string): Promise
     fallbackText: `WIP >1 day: ${rows.length} case(s)`,
   });
 
+  recordAsteraRowOutcome('astera-wip-stale', rows.length, date, getAsteraInternalChannelId());
   console.log(`✓ Posted ${rows.length} WIP row(s)`);
 }
 
@@ -180,7 +193,12 @@ export async function sendAsteraYesterdayAssignedUnworkedAlert(
   );
 
   if (rows.length === 0) {
-    console.log('✓ No yesterday-assigned unworked cases — skipping Slack post');
+    await postAsteraZeroCaseAlert({
+      jobId: 'astera-yesterday-unworked',
+      title: `${ASTERA_RADIOLOGY_NAME} — Yesterday's Assigned, Still Unworked`,
+      emoji: '🔵',
+      reportDate: date,
+    });
     return;
   }
 
@@ -202,6 +220,7 @@ export async function sendAsteraYesterdayAssignedUnworkedAlert(
     fallbackText: `Yesterday unworked: ${rows.length} case(s)`,
   });
 
+  recordAsteraRowOutcome('astera-yesterday-unworked', rows.length, date, getAsteraInternalChannelId());
   console.log(`✓ Posted ${rows.length} yesterday-assigned unworked row(s)`);
 }
 
@@ -215,7 +234,12 @@ export async function sendAsteraQueryReturnReallotAlert(reportDate?: string): Pr
   );
 
   if (rows.length === 0) {
-    console.log('✓ No query-return cases — skipping Slack post');
+    await postAsteraZeroCaseAlert({
+      jobId: 'astera-query-return',
+      title: `${ASTERA_RADIOLOGY_NAME} — Query Returned, Re-allot to Initial Assignee`,
+      emoji: '🟣',
+      reportDate: date,
+    });
     return;
   }
 
@@ -243,6 +267,7 @@ export async function sendAsteraQueryReturnReallotAlert(reportDate?: string): Pr
     fallbackText: `Query return re-allot: ${rows.length} case(s)`,
   });
 
+  recordAsteraRowOutcome('astera-query-return', rows.length, date, getAsteraInternalChannelId());
   console.log(`✓ Posted ${rows.length} query-return row(s)`);
 }
 

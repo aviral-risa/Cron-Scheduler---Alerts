@@ -27,6 +27,7 @@ import {
   isIstCronDueNow,
 } from './cron-ist-utils';
 import { shouldSkipAsteraJobForHoliday } from '../src/alerts/utils/astera-workday';
+import { takeJobOutcome } from '../src/cron-job-outcome';
 
 const MAX_JOBS_PER_DISPATCH = Number(process.env.CRON_MAX_JOBS_PER_DISPATCH ?? 4);
 
@@ -147,12 +148,17 @@ async function postDispatchSummary(result: {
   registry: string;
   jobId?: string;
 }): Promise<void> {
+  const outcome = takeJobOutcome();
   const lines = [
     `*Cron dispatch summary* [${result.registry}] (${getCurrentISTTime()} IST)`,
     result.jobId ? `Manual job: \`${result.jobId}\`` : '',
     result.ran > 0 ? `✅ Ran: ${result.ran} job(s)` : 'ℹ️ Ran: 0 jobs',
+    outcome ? `📋 ${outcome}` : '',
     result.failed.length > 0 ? `❌ Failed: ${result.failed.join(', ')}` : '',
     result.skipped.length > 0 ? `↷ Skipped (already done): ${result.skipped.join(', ')}` : '',
+    !outcome && result.ran > 0 && result.jobId?.startsWith('astera-')
+      ? '_Job finished — check #astera-radiology for post._'
+      : '',
     result.ran === 0 && result.failed.length === 0 && result.skipped.length === 0
       ? '_No jobs were due this window — check registry/schedule._'
       : '',

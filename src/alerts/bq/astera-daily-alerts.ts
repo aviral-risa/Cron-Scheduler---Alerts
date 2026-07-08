@@ -19,6 +19,7 @@ import {
 import { analyzeDenial, formatDenialChecklistForSlack } from '../utils/denial-analyzer';
 import { alertContextBlock, alertHeaderBlock } from '../utils/slack-visual-blocks';
 import { buildAssigneeGroupedBlocks, buildCaseListBlocks, groupRowsBy, truncateCell } from '../utils/slack-copyable-table';
+import { postAsteraZeroCaseAlert, recordAsteraRowOutcome } from '../utils/astera-empty-alert';
 
 interface DenialInternalRow {
   order_id: string;
@@ -226,6 +227,12 @@ export async function sendAsteraDenialInternalAlert(reportDate?: string): Promis
     emptyMessage: 'No denial notes logged for this IST date.',
   });
 
+  recordAsteraRowOutcome(
+    'astera-denial-internal',
+    rows.length,
+    date,
+    getAsteraInternalChannelId()
+  );
   console.log(`✓ Posted ${rows.length} denial row(s) to internal channel`);
 }
 
@@ -265,8 +272,16 @@ export async function sendAsteraAuthmatePendingMissedNotesAlert(
     }
   );
 
+  const channelId = channelIdOverride ?? getAsteraInternalChannelId();
+
   if (rows.length === 0) {
-    console.log('✓ No missed-note cases for this EST business day — skipping Slack post');
+    await postAsteraZeroCaseAlert({
+      jobId: 'astera-authmate-pending',
+      title: `${ASTERA_RADIOLOGY_NAME} — AuthMate-Pending Missed Notes`,
+      emoji: '🟣',
+      reportDate: date,
+      channelId,
+    });
     return;
   }
 
@@ -282,7 +297,6 @@ export async function sendAsteraAuthmatePendingMissedNotesAlert(
     }))
   );
 
-  const channelId = channelIdOverride ?? getAsteraInternalChannelId();
   await postSlackMessage({
     channelId,
     text: `${ASTERA_RADIOLOGY_NAME} AuthMate-Pending | ${rows.length} case(s)`,
@@ -296,6 +310,7 @@ export async function sendAsteraAuthmatePendingMissedNotesAlert(
     ],
   });
 
+  recordAsteraRowOutcome('astera-authmate-pending', rows.length, date, channelId);
   console.log(`✓ Posted ${rows.length} missed-note row(s)`);
 }
 
