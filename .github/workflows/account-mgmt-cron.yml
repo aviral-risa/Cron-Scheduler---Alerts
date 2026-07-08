@@ -21,9 +21,9 @@
 name: Account Management Cron
 
 on:
-  schedule:
-    # Every 15 minutes; dispatcher picks IST jobs due in the current window
-    - cron: '*/15 * * * *'
+  # DEPRECATED: use radiology-cron.yml + medonc-cron.yml instead.
+  # schedule:
+  #   - cron: '*/15 * * * *'
   workflow_dispatch:
     inputs:
       job_id:
@@ -33,7 +33,7 @@ on:
 
 concurrency:
   group: account-mgmt-cron-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   dispatch:

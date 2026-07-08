@@ -4,7 +4,7 @@ import puppeteer from 'puppeteer';
 import path from 'path';
 import { getBusinessMetricsForRange, getWorkingDaysInRange } from '../services/sheets-dual';
 import { filterByWorkingDays } from '../utils/businessMetrics';
-import { FACILITY_IDS } from '../config/organizations';
+import { getMedOncFacilityIds } from '../config/organizations';
 import { uploadImageToSlack } from './utils/slack-uploader';
 import type { BusinessMetricsDaily } from '../types/orders';
 
@@ -30,7 +30,7 @@ async function fetchApprovalRateData(): Promise<ApprovalRateTrendingRow[]> {
   console.log(`Fetching business_metrics_daily from ${startDate} to ${endDate}...`);
 
   const [metrics, workingDayConfigs] = await Promise.all([
-    getBusinessMetricsForRange(FACILITY_IDS, startDate, endDate),
+    getBusinessMetricsForRange(getMedOncFacilityIds(), startDate, endDate),
     getWorkingDaysInRange(startDate, endDate),
   ]);
 

@@ -8,7 +8,7 @@ import 'dotenv/config';
 import puppeteer from 'puppeteer';
 import path from 'path';
 import { getBusinessMetricsForRange } from '../services/sheets-dual';
-import { ORGANIZATIONS, type Organization } from '../config/organizations';
+import { getMedOncOrganizations, type Organization } from '../config/organizations';
 import { toISTDate } from '../utils/timezone';
 import { uploadImageToSlack } from './utils/slack-uploader';
 
@@ -273,23 +273,24 @@ export async function sendOpenOrdersSummaryAlertForOrg(
 export async function sendOpenOrdersSummaryAlerts(date: Date = new Date()): Promise<void> {
   console.log('🚀 Starting Open Orders Summary alerts...');
   console.log(`   Period: Jan 1 to ${date.toISOString().split('T')[0]}`);
+  const orgs = getMedOncOrganizations();
 
   const results = await Promise.allSettled(
-    ORGANIZATIONS.map((org) => sendOpenOrdersSummaryAlertForOrg(org, date))
+    orgs.map((org) => sendOpenOrdersSummaryAlertForOrg(org, date))
   );
 
   const successful = results.filter((r) => r.status === 'fulfilled').length;
   const failed = results.filter((r) => r.status === 'rejected').length;
 
   console.log('\n📊 Open Orders Summary Alerts Summary:');
-  console.log(`   ✓ Successful: ${successful}/${ORGANIZATIONS.length}`);
+  console.log(`   ✓ Successful: ${successful}/${orgs.length}`);
   if (failed > 0) {
-    console.log(`   ❌ Failed: ${failed}/${ORGANIZATIONS.length}`);
+    console.log(`   ❌ Failed: ${failed}/${orgs.length}`);
   }
 
   results.forEach((result, index) => {
     if (result.status === 'rejected') {
-      console.error(`   Failed for ${ORGANIZATIONS[index].name}:`, result.reason);
+      console.error(`   Failed for ${orgs[index].name}:`, result.reason);
     }
   });
 }

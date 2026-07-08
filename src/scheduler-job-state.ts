@@ -1,7 +1,10 @@
 import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { resolve } from 'path';
 
-const STATE_PATH = resolve(process.cwd(), '.scheduler-runs.json');
+const STATE_PATH = resolve(
+  process.cwd(),
+  process.env.SCHEDULER_STATE_FILE ?? '.scheduler-runs.json'
+);
 const FIRESTORE_COLLECTION = 'scheduler_job_state';
 
 type RunState = Record<string, string>;

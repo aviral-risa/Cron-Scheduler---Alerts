@@ -2,7 +2,7 @@ import 'dotenv/config';
 import { subDays, format } from 'date-fns';
 import { getBusinessMetricsForRange, getWorkingDaysInRange } from '../services/sheets-dual';
 import { filterByWorkingDays } from '../utils/businessMetrics';
-import { FACILITY_IDS } from '../config/organizations';
+import { getMedOncFacilityIds } from '../config/organizations';
 import puppeteer from 'puppeteer';
 import { uploadImageToSlack } from './utils/slack-uploader';
 import type { BusinessMetricsDaily } from '../types/orders';
@@ -33,7 +33,7 @@ async function fetchL0Data(): Promise<L0OutputRow[]> {
   console.log(`Fetching business_metrics_daily from ${startDate} to ${endDate}...`);
 
   const [metrics, workingDayConfigs] = await Promise.all([
-    getBusinessMetricsForRange(FACILITY_IDS, startDate, endDate),
+    getBusinessMetricsForRange(getMedOncFacilityIds(), startDate, endDate),
     getWorkingDaysInRange(startDate, endDate),
   ]);
 

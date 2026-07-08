@@ -60,6 +60,38 @@ export const ORGANIZATIONS: Organization[] = [
 
 export const FACILITY_IDS = ORGANIZATIONS.map((org) => org.facilityId);
 
+/** Astera Radiology — radiology-cron.yml only */
+export const ASTERA_ORG_ID = 'astera';
+export const ASTERA_FACILITY_ID = 'rf5w1cNTGVfH9ZAJoLCF';
+
+/**
+ * MedOnc cron scope: all orgs except Astera, or exactly one when MEDONC_ORG_ID is set.
+ * Set MEDONC_ORG_ID=nycbs (etc.) in MEDONC_ENV_FILE for single-org plug-and-play deploys.
+ */
+export function getMedOncOrganizations(): Organization[] {
+  const medoncOrgs = ORGANIZATIONS.filter((o) => o.id !== ASTERA_ORG_ID);
+  const orgId = process.env.MEDONC_ORG_ID?.trim().toLowerCase();
+  if (!orgId) {
+    return medoncOrgs;
+  }
+  const org = medoncOrgs.find((o) => o.id === orgId);
+  if (!org) {
+    throw new Error(
+      `MEDONC_ORG_ID '${orgId}' not found. Available: ${medoncOrgs.map((o) => o.id).join(', ')}`
+    );
+  }
+  return [org];
+}
+
+export function getMedOncFacilityIds(): string[] {
+  return getMedOncOrganizations().map((org) => org.facilityId);
+}
+
+export function getRadiologyOrganizations(): Organization[] {
+  const org = ORGANIZATIONS.find((o) => o.id === ASTERA_ORG_ID);
+  return org ? [org] : [];
+}
+
 export function getOrganizationByFacilityId(facilityId: string): Organization | undefined {
   return ORGANIZATIONS.find((org) => org.facilityId === facilityId);
 }

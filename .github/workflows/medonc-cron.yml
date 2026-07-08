@@ -1,0 +1,87 @@
+# MedOnc Cron — all non-Astera jobs (separate state + registry)
+#
+# Secrets: MEDONC_ENV_FILE (or DASHBOARD_ENV_FILE), GCP_SA_KEY
+# Per-org Slack webhooks in env — one org_id per webhook
+
+name: MedOnc Cron
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+    inputs:
+      job_id:
+        description: 'Optional MedOnc job id. Leave empty to dispatch due jobs.'
+        required: false
+        type: string
+
+concurrency:
+  group: medonc-cron-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Install system dependencies (canvas)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Restore scheduler state
+        uses: actions/cache@v4
+        with:
+          path: .scheduler-runs-medonc.json
+          key: scheduler-runs-medonc-${{ github.repository }}
+
+      - name: Configure environment
+        env:
+          MEDONC_ENV_FILE: ${{ secrets.MEDONC_ENV_FILE }}
+          DASHBOARD_ENV_FILE: ${{ secrets.DASHBOARD_ENV_FILE }}
+        run: |
+          ENV_CONTENT="${MEDONC_ENV_FILE:-$DASHBOARD_ENV_FILE}"
+          if [ -z "$ENV_CONTENT" ]; then
+            echo "::error::Missing MEDONC_ENV_FILE or DASHBOARD_ENV_FILE secret"
+            exit 1
+          fi
+          printf '%s' "$ENV_CONTENT" > .env
+
+      - name: Configure GCP credentials
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+        run: |
+          if [ -z "$GCP_SA_KEY" ]; then
+            echo "::error::Missing GCP_SA_KEY"
+            exit 1
+          fi
+          printf '%s' "$GCP_SA_KEY" > gcp-sa.json
+          echo "GOOGLE_APPLICATION_CREDENTIALS=${{ github.workspace }}/gcp-sa.json" >> "$GITHUB_ENV"
+
+      - name: Run MedOnc dispatch
+        env:
+          GITHUB_ACTIONS: 'true'
+          SCHEDULER_STATE_BACKEND: file
+          SCHEDULER_STATE_FILE: .scheduler-runs-medonc.json
+          CRON_REGISTRY: medonc
+          CRON_MAX_JOBS_PER_DISPATCH: 2
+          NODE_ENV: production
+          # MEDONC_ORG_ID set in .env from MEDONC_ENV_FILE secret (one org per deploy)
+          MANUAL_CRON_RUN: ${{ github.event.inputs.job_id != '' && 'true' || '' }}
+        run: |
+          if [ -n "${{ github.event.inputs.job_id }}" ]; then
+            npx tsx scripts/github-cron-dispatch.ts "${{ github.event.inputs.job_id }}"
+          else
+            npx tsx scripts/github-cron-dispatch.ts
+          fi

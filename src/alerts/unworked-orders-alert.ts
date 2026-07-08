@@ -8,7 +8,7 @@ import 'dotenv/config';
 import puppeteer from 'puppeteer';
 import path from 'path';
 import { algoliaFetchService, type AlgoliaOrder } from '../services/algolia/fetch.service';
-import { ORGANIZATIONS, type Organization } from '../config/organizations';
+import { getMedOncOrganizations, ORGANIZATIONS, type Organization } from '../config/organizations';
 import { toISTDate } from '../utils/timezone';
 import { uploadImageToSlack } from './utils/slack-uploader';
 
@@ -266,21 +266,22 @@ export async function sendUnworkedOrdersAlerts(
 ): Promise<void> {
   console.log('🚀 Starting unworked orders alerts...');
   console.log(`   Date: ${toISTDate(date)}`);
+  const orgs = getMedOncOrganizations();
 
   const results = await Promise.allSettled(
-    ORGANIZATIONS.map((org) => sendUnworkedOrdersAlertForOrg(org, date, channelOverride))
+    orgs.map((org) => sendUnworkedOrdersAlertForOrg(org, date, channelOverride))
   );
 
   const successful = results.filter((r) => r.status === 'fulfilled').length;
   const failed = results.filter((r) => r.status === 'rejected').length;
 
   console.log('\n📊 Unworked Orders Alerts Summary:');
-  console.log(`   ✓ Successful: ${successful}/${ORGANIZATIONS.length}`);
+  console.log(`   ✓ Successful: ${successful}/${orgs.length}`);
   if (failed > 0) {
-    console.log(`   ❌ Failed: ${failed}/${ORGANIZATIONS.length}`);
+    console.log(`   ❌ Failed: ${failed}/${orgs.length}`);
     results.forEach((result, index) => {
       if (result.status === 'rejected') {
-        console.error(`   Failed for ${ORGANIZATIONS[index].name}:`, result.reason);
+        console.error(`   Failed for ${orgs[index].name}:`, result.reason);
       }
     });
   }

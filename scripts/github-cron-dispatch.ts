@@ -1,11 +1,15 @@
 import 'dotenv/config';
 import { CLOUD_SCHEDULER_JOBS } from '../src/cloud-scheduler-registry';
+import { MEDONC_SCHEDULER_JOBS } from '../src/medonc-scheduler-registry';
+import { RADIOLOGY_SCHEDULER_JOBS } from '../src/radiology-scheduler-registry';
+import type { CloudSchedulerJobDef } from '../src/cloud-scheduler-registry';
 import {
   getCurrentISTTime,
   isScheduledJobId,
   runScheduledJobById,
   sendCronFailureNotification,
   sendCronSkipNotification,
+  sendTestAlertsMessage,
   type ScheduledJobId,
 } from '../src/scheduler-jobs';
 import {
@@ -24,8 +28,18 @@ import {
 } from './cron-ist-utils';
 import { shouldSkipAsteraJobForHoliday } from '../src/alerts/utils/astera-workday';
 
-/** Max jobs per scheduled GHA tick — prevents 90-min workflow timeout on backlog catch-up */
 const MAX_JOBS_PER_DISPATCH = Number(process.env.CRON_MAX_JOBS_PER_DISPATCH ?? 4);
+
+function resolveJobRegistry(): CloudSchedulerJobDef[] {
+  const registry = process.env.CRON_REGISTRY?.toLowerCase();
+  if (registry === 'radiology') {
+    return RADIOLOGY_SCHEDULER_JOBS;
+  }
+  if (registry === 'medonc') {
+    return MEDONC_SCHEDULER_JOBS;
+  }
+  return CLOUD_SCHEDULER_JOBS;
+}
 
 function githubJobStateId(jobId: string): string {
   return jobId.startsWith('astera-') ? jobId : `gha-${jobId}`;
@@ -47,16 +61,24 @@ async function runOneJob(jobId: string, completionDateKey: string): Promise<void
   }
 }
 
-async function dispatchDueJobs(): Promise<{ ran: number; failed: string[] }> {
-  console.log(`\n🔄 GitHub cron dispatch — IST ${getTodayIstDateKey()} ${getCurrentISTTime()}`);
+async function dispatchDueJobs(): Promise<{
+  ran: number;
+  failed: string[];
+  skipped: string[];
+  registry: string;
+}> {
+  const jobs = resolveJobRegistry();
+  const registry = process.env.CRON_REGISTRY ?? 'all';
+  console.log(`\n🔄 GitHub cron dispatch [${registry}] — IST ${getTodayIstDateKey()} ${getCurrentISTTime()}`);
   let ran = 0;
   const failed: string[] = [];
+  const skipped: string[] = [];
   const todayKey = getTodayIstDateKey();
   const yesterdayKey = getYesterdayIstDateKey();
 
-  for (const job of CLOUD_SCHEDULER_JOBS) {
+  for (const job of jobs) {
     if (ran >= MAX_JOBS_PER_DISPATCH) {
-      console.log(`   ⏸ Reached cap of ${MAX_JOBS_PER_DISPATCH} jobs this tick — remaining catch-up on next run`);
+      console.log(`   ⏸ Reached cap of ${MAX_JOBS_PER_DISPATCH} jobs this tick`);
       break;
     }
 
@@ -74,11 +96,13 @@ async function dispatchDueJobs(): Promise<{ ran: number; failed: string[] }> {
 
     if (await hasJobCompletedOnDate(stateId, completionDateKey)) {
       console.log(`   ↷ Skipping ${job.id} — already completed for ${completionDateKey}`);
+      skipped.push(job.id);
       continue;
     }
 
     if (pastDueYesterday && (await hasJobCompletedOnDate(stateId, yesterdayKey))) {
       console.log(`   ↷ Skipping ${job.id} — already completed yesterday`);
+      skipped.push(job.id);
       continue;
     }
 
@@ -113,7 +137,27 @@ async function dispatchDueJobs(): Promise<{ ran: number; failed: string[] }> {
         : `   ✓ Finished ${ran} job(s)\n`
       : `   ⚠ Finished ${ran} job(s), ${failed.length} failed: ${failed.join(', ')}\n`
   );
-  return { ran, failed };
+  return { ran, failed, skipped, registry };
+}
+
+async function postDispatchSummary(result: {
+  ran: number;
+  failed: string[];
+  skipped: string[];
+  registry: string;
+  jobId?: string;
+}): Promise<void> {
+  const lines = [
+    `*Cron dispatch summary* [${result.registry}] (${getCurrentISTTime()} IST)`,
+    result.jobId ? `Manual job: \`${result.jobId}\`` : '',
+    result.ran > 0 ? `✅ Ran: ${result.ran} job(s)` : 'ℹ️ Ran: 0 jobs',
+    result.failed.length > 0 ? `❌ Failed: ${result.failed.join(', ')}` : '',
+    result.skipped.length > 0 ? `↷ Skipped (already done): ${result.skipped.join(', ')}` : '',
+    result.ran === 0 && result.failed.length === 0 && result.skipped.length === 0
+      ? '_No jobs were due this window — check registry/schedule._'
+      : '',
+  ].filter(Boolean);
+  await sendTestAlertsMessage(lines.join('\n'));
 }
 
 async function main(): Promise<void> {
@@ -124,15 +168,30 @@ async function main(): Promise<void> {
     process.env.MANUAL_CRON_RUN = 'true';
     try {
       await runOneJob(specificJob, getTodayIstDateKey());
+      await postDispatchSummary({
+        ran: 1,
+        failed: [],
+        skipped: [],
+        registry: process.env.CRON_REGISTRY ?? 'all',
+        jobId: specificJob,
+      });
     } catch (error) {
       await sendCronFailureNotification(specificJob, error);
+      await postDispatchSummary({
+        ran: 0,
+        failed: [specificJob],
+        skipped: [],
+        registry: process.env.CRON_REGISTRY ?? 'all',
+        jobId: specificJob,
+      });
       throw error;
     }
     return;
   }
 
-  const { failed } = await dispatchDueJobs();
-  if (failed.length > 0) {
+  const result = await dispatchDueJobs();
+  await postDispatchSummary({ ...result, registry: process.env.CRON_REGISTRY ?? 'all' });
+  if (result.failed.length > 0) {
     process.exit(1);
   }
 }

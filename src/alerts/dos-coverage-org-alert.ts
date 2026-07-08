@@ -7,7 +7,7 @@
 import 'dotenv/config';
 import { subDays, format } from 'date-fns';
 import { getPayerTreatmentAgingForRange } from '../services/sheets-dual';
-import { ORGANIZATIONS, type Organization } from '../config/organizations';
+import { getMedOncOrganizations, type Organization } from '../config/organizations';
 import puppeteer from 'puppeteer';
 import { uploadImageToSlack } from './utils/slack-uploader';
 import type { DosCoverageRow } from '../types/dosCoverage';
@@ -278,23 +278,24 @@ export async function sendDosCoverageOrgAlert(org: Organization): Promise<void> 
  */
 export async function sendDosCoverageOrgAlerts(): Promise<void> {
   console.log('🚀 Starting DoS Coverage Org-Level alerts...');
+  const orgs = getMedOncOrganizations();
 
   const results = await Promise.allSettled(
-    ORGANIZATIONS.map((org) => sendDosCoverageOrgAlert(org))
+    orgs.map((org) => sendDosCoverageOrgAlert(org))
   );
 
   const successful = results.filter((r) => r.status === 'fulfilled').length;
   const failed = results.filter((r) => r.status === 'rejected').length;
 
   console.log('\n📊 DoS Coverage Org-Level Alerts Summary:');
-  console.log(`   ✓ Successful: ${successful}/${ORGANIZATIONS.length}`);
+  console.log(`   ✓ Successful: ${successful}/${orgs.length}`);
   if (failed > 0) {
-    console.log(`   ❌ Failed: ${failed}/${ORGANIZATIONS.length}`);
+    console.log(`   ❌ Failed: ${failed}/${orgs.length}`);
   }
 
   results.forEach((result, index) => {
     if (result.status === 'rejected') {
-      console.error(`   Failed for ${ORGANIZATIONS[index].name}:`, result.reason);
+      console.error(`   Failed for ${orgs[index].name}:`, result.reason);
     }
   });
 }
