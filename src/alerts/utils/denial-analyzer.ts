@@ -90,8 +90,22 @@ function loadJson<T>(filePath: string): T {
   return JSON.parse(readFileSync(filePath, 'utf8')) as T;
 }
 
+const EMPTY_CHECKLIST: CptChecklist = {
+  cpt_code: 'default',
+  modality: '',
+  body_part: '',
+  pre_submission_checklist: [],
+  common_denial_themes: [],
+  prevention_playbook: [],
+};
+
 function loadChecklist(fileName: string): CptChecklist {
-  return loadJson<CptChecklist>(resolve(PLAYBOOK_ROOT, fileName));
+  const filePath = resolve(PLAYBOOK_ROOT, fileName);
+  if (!existsSync(filePath)) {
+    console.warn(`[denial-analyzer] Checklist not found: ${filePath} — using empty default`);
+    return EMPTY_CHECKLIST;
+  }
+  return loadJson<CptChecklist>(filePath);
 }
 
 function resolveChecklistFile(cptCodes: string | null | undefined, denialNote: string): string {
