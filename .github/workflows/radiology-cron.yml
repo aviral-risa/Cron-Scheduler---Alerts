@@ -1,9 +1,6 @@
 # Radiology Cron — Astera only (dedicated bot + service account)
 #
-# Uses */15 dispatcher (same pattern as MedOnc — proven to fire on GHA).
-# IST job times are in src/radiology-scheduler-registry.ts
-#
-# Secrets: RADIOLOGY_ENV_FILE (or DASHBOARD_ENV_FILE), GCP_SA_KEY
+# Secrets: RADIOLOGY_ENV_FILE + DASHBOARD_ENV_FILE (merged) + GCP_SA_KEY
 
 name: Radiology Cron (Astera)
 
@@ -13,7 +10,7 @@ on:
   workflow_dispatch:
     inputs:
       job_id:
-        description: 'Force a job (e.g. astera-authmate-pending). Leave empty to dispatch due jobs.'
+        description: 'Force a job (e.g. astera-dashboard-sync). Leave empty to dispatch due jobs.'
         required: false
         type: string
 
@@ -43,6 +40,7 @@ jobs:
         run: npm ci
 
       - name: Restore scheduler state
+        id: scheduler-cache
         uses: actions/cache@v4
         with:
           path: .scheduler-runs-radiology.json
@@ -56,12 +54,20 @@ jobs:
           RADIOLOGY_ENV_FILE: ${{ secrets.RADIOLOGY_ENV_FILE }}
           DASHBOARD_ENV_FILE: ${{ secrets.DASHBOARD_ENV_FILE }}
         run: |
-          ENV_CONTENT="${RADIOLOGY_ENV_FILE:-$DASHBOARD_ENV_FILE}"
-          if [ -z "$ENV_CONTENT" ]; then
+          : > .env
+          if [ -n "$DASHBOARD_ENV_FILE" ]; then
+            printf '%s\n' "$DASHBOARD_ENV_FILE" >> .env
+          fi
+          if [ -n "$RADIOLOGY_ENV_FILE" ]; then
+            printf '%s\n' "$RADIOLOGY_ENV_FILE" >> .env
+          fi
+          if [ ! -s .env ]; then
             echo "::error::Missing RADIOLOGY_ENV_FILE or DASHBOARD_ENV_FILE secret"
             exit 1
           fi
-          printf '%s' "$ENV_CONTENT" > .env
+
+      - name: Validate radiology environment
+        run: npx tsx scripts/validate-radiology-env.ts
 
       - name: Configure GCP credentials
         env:
@@ -75,6 +81,8 @@ jobs:
           echo "GOOGLE_APPLICATION_CREDENTIALS=${{ github.workspace }}/gcp-sa.json" >> "$GITHUB_ENV"
 
       - name: Run radiology dispatch
+        id: dispatch
+        continue-on-error: true
         env:
           GITHUB_ACTIONS: 'true'
           SCHEDULER_STATE_BACKEND: file
@@ -90,3 +98,7 @@ jobs:
           else
             npx tsx scripts/github-cron-dispatch.ts
           fi
+
+      - name: Fail if dispatch failed
+        if: steps.dispatch.outcome == 'failure'
+        run: exit 1

@@ -1,4 +1,6 @@
-import 'dotenv/config';
+import dotenv from 'dotenv';
+dotenv.config({ override: true });
+
 import { CLOUD_SCHEDULER_JOBS } from '../src/cloud-scheduler-registry';
 import { MEDONC_SCHEDULER_JOBS } from '../src/medonc-scheduler-registry';
 import { RADIOLOGY_SCHEDULER_JOBS } from '../src/radiology-scheduler-registry';
@@ -30,6 +32,7 @@ import { shouldSkipAsteraJobForHoliday } from '../src/alerts/utils/astera-workda
 import { takeJobOutcome } from '../src/cron-job-outcome';
 
 const MAX_JOBS_PER_DISPATCH = Number(process.env.CRON_MAX_JOBS_PER_DISPATCH ?? 4);
+const IS_RADIOLOGY = process.env.CRON_REGISTRY?.toLowerCase() === 'radiology';
 
 function resolveJobRegistry(): CloudSchedulerJobDef[] {
   const registry = process.env.CRON_REGISTRY?.toLowerCase();
@@ -57,8 +60,57 @@ async function runOneJob(jobId: string, completionDateKey: string): Promise<void
     return;
   }
   await runScheduledJobById(jobId, { completionDateKey });
-  // Astera jobs mark complete inside runTrackedAstera*; mirror here so dispatcher state persists.
   await markJobCompletedOnDate(stateId, completionDateKey);
+}
+
+interface DueJob {
+  job: CloudSchedulerJobDef;
+  dueNow: boolean;
+  pastDueCatchUp: boolean;
+  completionDateKey: string;
+}
+
+function collectDueJobs(
+  jobs: CloudSchedulerJobDef[],
+  todayKey: string,
+  yesterdayKey: string
+): DueJob[] {
+  const due: DueJob[] = [];
+
+  for (const job of jobs) {
+    const dueNow = isIstCronDueNow(job.schedule);
+    const pastDueToday = !dueNow && isCronPastDueToday(job.schedule);
+    const pastDueYesterday = !dueNow && !pastDueToday && isCronMissedForYesterday(job.schedule);
+    const pastDueCatchUp = pastDueToday || pastDueYesterday;
+
+    // Radiology: only fire in the scheduled 14-minute window — no all-day catch-up storm.
+    if (IS_RADIOLOGY && !dueNow) {
+      continue;
+    }
+
+    if (!dueNow && !pastDueCatchUp) {
+      continue;
+    }
+
+    due.push({
+      job,
+      dueNow,
+      pastDueCatchUp,
+      completionDateKey: pastDueYesterday ? yesterdayKey : todayKey,
+    });
+  }
+
+  // Prefer on-time jobs, then earlier schedule (dashboard before alerts).
+  due.sort((a, b) => {
+    if (a.dueNow !== b.dueNow) {
+      return a.dueNow ? -1 : 1;
+    }
+    const [aMin, aHour] = a.job.schedule.split(/\s+/).slice(0, 2).map(Number);
+    const [bMin, bHour] = b.job.schedule.split(/\s+/).slice(0, 2).map(Number);
+    return aHour * 60 + aMin - (bHour * 60 + bMin);
+  });
+
+  return due;
 }
 
 async function dispatchDueJobs(): Promise<{
@@ -71,28 +123,22 @@ async function dispatchDueJobs(): Promise<{
   const registry = process.env.CRON_REGISTRY ?? 'all';
   console.log(`\n🔄 GitHub cron dispatch [${registry}] — IST ${getTodayIstDateKey()} ${getCurrentISTTime()}`);
   let ran = 0;
+  let attempts = 0;
   const failed: string[] = [];
   const skipped: string[] = [];
   const todayKey = getTodayIstDateKey();
   const yesterdayKey = getYesterdayIstDateKey();
 
-  for (const job of jobs) {
-    if (ran >= MAX_JOBS_PER_DISPATCH) {
-      console.log(`   ⏸ Reached cap of ${MAX_JOBS_PER_DISPATCH} jobs this tick`);
+  const dueJobs = collectDueJobs(jobs, todayKey, yesterdayKey);
+
+  for (const entry of dueJobs) {
+    if (attempts >= MAX_JOBS_PER_DISPATCH) {
+      console.log(`   ⏸ Reached cap of ${MAX_JOBS_PER_DISPATCH} job attempt(s) this tick`);
       break;
     }
 
-    const dueNow = isIstCronDueNow(job.schedule);
-    const pastDueToday = !dueNow && isCronPastDueToday(job.schedule);
-    const pastDueYesterday = !dueNow && !pastDueToday && isCronMissedForYesterday(job.schedule);
-    const pastDueCatchUp = pastDueToday || pastDueYesterday;
-
-    if (!dueNow && !pastDueCatchUp) {
-      continue;
-    }
-
+    const { job, pastDueCatchUp, completionDateKey } = entry;
     const stateId = githubJobStateId(job.id);
-    const completionDateKey = pastDueYesterday ? yesterdayKey : todayKey;
 
     if (await hasJobCompletedOnDate(stateId, completionDateKey)) {
       console.log(`   ↷ Skipping ${job.id} — already completed for ${completionDateKey}`);
@@ -100,14 +146,8 @@ async function dispatchDueJobs(): Promise<{
       continue;
     }
 
-    if (pastDueYesterday && (await hasJobCompletedOnDate(stateId, yesterdayKey))) {
-      console.log(`   ↷ Skipping ${job.id} — already completed yesterday`);
-      skipped.push(job.id);
-      continue;
-    }
-
     if (pastDueCatchUp) {
-      const catchUpDay = pastDueYesterday ? yesterdayKey : todayKey;
+      const catchUpDay = completionDateKey;
       console.log(`   ↳ Catch-up ${job.id} (${catchUpDay}): ${job.description}`);
       if (!(await hasCatchUpNotified(stateId, catchUpDay))) {
         await sendCronSkipNotification(job.id, 'catch_up_missed', {
@@ -120,13 +160,20 @@ async function dispatchDueJobs(): Promise<{
       console.log(`   ▶ Running ${job.id}: ${job.description}`);
     }
 
+    attempts += 1;
     try {
       await runOneJob(job.id, completionDateKey);
       ran += 1;
+      if (IS_RADIOLOGY || ran >= MAX_JOBS_PER_DISPATCH) {
+        break;
+      }
     } catch (error) {
       console.error(`   ❌ ${job.id} failed:`, error);
       failed.push(job.id);
       await sendCronFailureNotification(job.id, error);
+      if (IS_RADIOLOGY) {
+        break; // Do not cascade to other jobs when one fails
+      }
     }
   }
 
@@ -159,7 +206,7 @@ async function postDispatchSummary(result: {
       ? '_Job finished — check #astera-radiology for post._'
       : '',
     result.ran === 0 && result.failed.length === 0 && result.skipped.length === 0
-      ? '_No jobs were due this window — check registry/schedule._'
+      ? '_No jobs due in this window — check registry/schedule._'
       : '',
   ].filter(Boolean);
   await sendTestAlertsMessage(lines.join('\n'));
@@ -196,9 +243,6 @@ async function main(): Promise<void> {
 
   const result = await dispatchDueJobs();
   await postDispatchSummary({ ...result, registry: process.env.CRON_REGISTRY ?? 'all' });
-  if (result.failed.length > 0) {
-    process.exit(1);
-  }
 }
 
 main().catch((error) => {

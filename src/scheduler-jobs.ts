@@ -256,8 +256,8 @@ async function runAsteraDashboardSync(): Promise<void> {
     console.log('✓ Astera dashboard sync completed\n');
   } catch (error) {
     console.error('❌ Astera dashboard Sheets sync failed:', error);
-    await sendSlackNotification(
-      `⚠️ *Astera Dashboard Sheets sync failed* (${getCurrentISTTime()} IST)\n${error}`
+    await sendTestAlertsMessage(
+      `❌ *Astera Dashboard Sheets sync failed* (${getCurrentISTTime()} IST)\n${error}`
     );
     throw error;
   }

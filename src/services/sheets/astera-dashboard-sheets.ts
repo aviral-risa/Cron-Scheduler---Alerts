@@ -132,14 +132,29 @@ const ALT_ROW_STYLE = {
 };
 
 function getSpreadsheetId(): string {
-  const id =
-    process.env.ASTERA_DASHBOARD_SHEETS_ID ||
-    process.env.VITE_ASTERA_DASHBOARD_SHEETS_ID ||
-    process.env.DASHBOARD_SHEETS_ID;
+  const id = firstEnv(
+    'ASTERA_DASHBOARD_SHEETS_ID',
+    'VITE_ASTERA_DASHBOARD_SHEETS_ID',
+    'VITE_DASHBOARD_SHEETS_ID',
+    'DASHBOARD_SHEETS_ID',
+    'DASHBOARD_SPREADSHEET_ID'
+  );
   if (!id) {
-    throw new Error('Set ASTERA_DASHBOARD_SHEETS_ID in .env');
+    throw new Error(
+      'Set ASTERA_DASHBOARD_SHEETS_ID (or VITE_DASHBOARD_SHEETS_ID) in RADIOLOGY_ENV_FILE'
+    );
   }
   return id;
+}
+
+function firstEnv(...keys: string[]): string | undefined {
+  for (const key of keys) {
+    const value = process.env[key]?.trim();
+    if (value) {
+      return value;
+    }
+  }
+  return undefined;
 }
 
 export function monthTabName(reportDate: string, suffix: string): string {
