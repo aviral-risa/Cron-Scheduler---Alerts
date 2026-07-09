@@ -71,7 +71,7 @@ export function formatIstCronScheduleTime(schedule: string): string {
 export function isIstCronDueNow(
   schedule: string,
   reference = new Date(),
-  windowMinutes = 20
+  windowMinutes = 14
 ): boolean {
   const fields = parseIstCronFields(schedule);
   if (!fields) {
@@ -95,7 +95,11 @@ export function isIstCronDueNow(
  * and it has not yet run (caller should still check completion state).
  * Used for catch-up when GHA ticks arrive late.
  */
-export function isCronPastDueToday(schedule: string, reference = new Date()): boolean {
+export function isCronPastDueToday(
+  schedule: string,
+  reference = new Date(),
+  maxCatchUpMinutes = 60
+): boolean {
   const fields = parseIstCronFields(schedule);
   if (!fields) {
     return false;
@@ -109,7 +113,9 @@ export function isCronPastDueToday(schedule: string, reference = new Date()): bo
 
   const scheduledMinutes = hour * 60 + minute;
   const nowMinutes = getIstMinutesSinceMidnight(reference);
-  return nowMinutes >= scheduledMinutes;
+  const diff = nowMinutes - scheduledMinutes;
+  // Catch-up only within maxCatchUpMinutes after scheduled time (prevents re-firing all evening).
+  return diff >= 0 && diff < maxCatchUpMinutes;
 }
 
 /**

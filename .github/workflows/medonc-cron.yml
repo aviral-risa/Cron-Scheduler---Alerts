@@ -45,6 +45,9 @@ jobs:
         with:
           path: .scheduler-runs-medonc.json
           key: scheduler-runs-medonc-${{ github.repository }}
+          restore-keys: |
+            scheduler-runs-medonc-
+          save-always: true
 
       - name: Configure environment
         env:

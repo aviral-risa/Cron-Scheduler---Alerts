@@ -57,9 +57,8 @@ async function runOneJob(jobId: string, completionDateKey: string): Promise<void
     return;
   }
   await runScheduledJobById(jobId, { completionDateKey });
-  if (!jobId.startsWith('astera-')) {
-    await markJobCompletedOnDate(stateId, completionDateKey);
-  }
+  // Astera jobs mark complete inside runTrackedAstera*; mirror here so dispatcher state persists.
+  await markJobCompletedOnDate(stateId, completionDateKey);
 }
 
 async function dispatchDueJobs(): Promise<{

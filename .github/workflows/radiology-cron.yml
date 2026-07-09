@@ -49,6 +49,7 @@ jobs:
           key: scheduler-runs-radiology-${{ github.repository }}
           restore-keys: |
             scheduler-runs-radiology-
+          save-always: true
 
       - name: Configure environment
         env:
