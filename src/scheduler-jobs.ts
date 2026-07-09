@@ -9,6 +9,7 @@ import {
   sendAsteraDenialInternalAlert,
   sendAsteraAuthmatePendingMissedNotesAlert,
 } from './alerts/bq/astera-daily-alerts';
+import { sendAsteraDenialFreeDaysWithHealth } from './alerts/bq/astera-denial-free-days-alert';
 import {
   sendAsteraAssignedUnworkedStreakAlert,
   sendAsteraWipOverOneDayAlert,
@@ -315,6 +316,7 @@ async function runTrackedAuthmatePending(spec: ScheduledJobSpec): Promise<void> 
 }
 
 export const ASTERA_JOB_SPECS: ScheduledJobSpec[] = [
+  { id: 'astera-denial-free-days', hour: 4, minute: 0, label: 'Denial free days streak' },
   { id: 'astera-yesterday-unworked', hour: 15, minute: 30, label: 'Yesterday assigned unworked' },
   { id: 'astera-denial-internal', hour: 16, minute: 0, label: 'Denial list (internal)' },
   { id: 'astera-dashboard-sync', hour: 11, minute: 0, label: 'Dashboard Sheets sync' },
@@ -330,6 +332,9 @@ export async function dispatchAsteraJob(jobId: string): Promise<void> {
     return;
   }
   switch (jobId) {
+    case 'astera-denial-free-days':
+      await runTrackedAsteraJob(spec, sendAsteraDenialFreeDaysWithHealth);
+      break;
     case 'astera-yesterday-unworked':
       await runTrackedAsteraJob(spec, sendAsteraYesterdayAssignedUnworkedAlert);
       break;
@@ -618,6 +623,7 @@ export type ScheduledJobId =
   | 'capacity-check'
   | 'open-orders-refresh'
   | 'astera-yesterday-unworked'
+  | 'astera-denial-free-days'
   | 'astera-denial-internal'
   | 'astera-dashboard-sync'
   | 'astera-assigned-unworked'
@@ -644,6 +650,7 @@ const JOB_HANDLERS: Record<ScheduledJobId, () => Promise<void>> = {
   'capacity-check': runCapacityCheck,
   'open-orders-refresh': runOpenOrdersRefresh,
   'astera-yesterday-unworked': () => dispatchAsteraJob('astera-yesterday-unworked'),
+  'astera-denial-free-days': () => dispatchAsteraJob('astera-denial-free-days'),
   'astera-denial-internal': () => dispatchAsteraJob('astera-denial-internal'),
   'astera-dashboard-sync': () => dispatchAsteraJob('astera-dashboard-sync'),
   'astera-assigned-unworked': () => dispatchAsteraJob('astera-assigned-unworked'),

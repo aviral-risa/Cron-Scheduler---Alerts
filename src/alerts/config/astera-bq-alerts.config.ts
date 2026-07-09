@@ -46,4 +46,5 @@ export const ASTERA_BQ_SQL_FILES = {
   scanValueRows: 'astera-scan-value-rows-v1.sql',
   assigneeTat: 'astera-assignee-tat-v1.sql',
   queryReturnReallot: 'astera-query-return-reallot-v1.sql',
+  denialFreeDaysStreak: 'astera-denial-free-days-streak-v1.sql',
 } as const;

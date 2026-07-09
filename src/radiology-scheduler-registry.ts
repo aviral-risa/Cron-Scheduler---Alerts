@@ -9,6 +9,7 @@ export interface CloudSchedulerJobDef {
 
 /** Astera Radiology only — runs on radiology-cron.yml */
 export const RADIOLOGY_SCHEDULER_JOBS: CloudSchedulerJobDef[] = [
+  { id: 'astera-denial-free-days', schedule: '0 4 * * *', description: 'Denial free days streak (4 AM IST)' },
   { id: 'astera-dashboard-sync', schedule: '0 11 * * *', description: 'Dashboard Sheets sync (11 AM IST)' },
   { id: 'astera-yesterday-unworked', schedule: '30 15 * * *', description: 'Yesterday assigned unworked (3:30 PM IST)' },
   { id: 'astera-denial-internal', schedule: '0 16 * * *', description: 'Daily denial list internal (4 PM IST)' },
