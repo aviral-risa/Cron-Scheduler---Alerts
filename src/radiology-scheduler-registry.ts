@@ -1,31 +1,108 @@
 import type { ScheduledJobId } from './scheduler-jobs';
 
+/**
+ * Radiology GHA schedules — one UTC cron expression per job (IST times in comments).
+ * Each schedule triggers exactly one workflow run → one job. No shared dispatcher.
+ */
+export interface RadiologyGhaSchedule {
+  id: ScheduledJobId;
+  /** GitHub Actions cron (UTC) */
+  utcCron: string;
+  /** Human label (IST) */
+  istTime: string;
+  description: string;
+}
+
+export const RADIOLOGY_GHA_SCHEDULES: RadiologyGhaSchedule[] = [
+  {
+    id: 'astera-denial-free-days',
+    utcCron: '30 22 * * *',
+    istTime: '4:00 AM',
+    description: 'Denial free days streak + cron health digest',
+  },
+  {
+    id: 'astera-dashboard-sync',
+    utcCron: '30 5 * * *',
+    istTime: '11:00 AM',
+    description: 'Dashboard Sheets sync',
+  },
+  {
+    id: 'astera-yesterday-unworked',
+    utcCron: '0 10 * * *',
+    istTime: '3:30 PM',
+    description: 'Yesterday assigned still unworked',
+  },
+  {
+    id: 'astera-denial-internal',
+    utcCron: '30 10 * * *',
+    istTime: '4:00 PM',
+    description: 'Daily denial list (internal)',
+  },
+  {
+    id: 'astera-assigned-unworked',
+    utcCron: '30 11 * * *',
+    istTime: '5:00 PM',
+    description: 'Assigned unworked 2+ days',
+  },
+  {
+    id: 'astera-query-return',
+    utcCron: '45 11 * * *',
+    istTime: '5:15 PM',
+    description: 'Query return re-allotment',
+  },
+  {
+    id: 'astera-wip-stale',
+    utcCron: '30 16 * * *',
+    istTime: '10:00 PM',
+    description: 'WIP > 1 day',
+  },
+  {
+    id: 'astera-authmate-pending',
+    utcCron: '30 17 * * *',
+    istTime: '11:00 PM',
+    description: 'AuthMate pending missed notes',
+  },
+];
+
+/** Resolve job id from GHA scheduled event cron string. */
+export function resolveRadiologyJobFromUtcCron(utcCron: string): ScheduledJobId | null {
+  const normalized = utcCron.trim().replace(/\s+/g, ' ');
+  const entry = RADIOLOGY_GHA_SCHEDULES.find((s) => s.utcCron === normalized);
+  return entry?.id ?? null;
+}
+
+export function getRadiologySchedule(jobId: ScheduledJobId): RadiologyGhaSchedule | undefined {
+  return RADIOLOGY_GHA_SCHEDULES.find((s) => s.id === jobId);
+}
+
+/** @deprecated Use RADIOLOGY_GHA_SCHEDULES — kept for medonc-style registry consumers */
 export interface CloudSchedulerJobDef {
   id: ScheduledJobId;
-  /** Cron minute hour dom month dow (interpreted as IST) */
   schedule: string;
   description: string;
 }
 
-/** Astera Radiology only — runs on radiology-cron.yml */
-export const RADIOLOGY_SCHEDULER_JOBS: CloudSchedulerJobDef[] = [
-  { id: 'astera-denial-free-days', schedule: '0 4 * * *', description: 'Denial free days streak (4 AM IST)' },
-  { id: 'astera-dashboard-sync', schedule: '0 11 * * *', description: 'Dashboard Sheets sync (11 AM IST)' },
-  { id: 'astera-yesterday-unworked', schedule: '30 15 * * *', description: 'Yesterday assigned unworked (3:30 PM IST)' },
-  { id: 'astera-denial-internal', schedule: '0 16 * * *', description: 'Daily denial list internal (4 PM IST)' },
-  { id: 'astera-assigned-unworked', schedule: '0 17 * * *', description: 'Assigned unworked 2+ days (5 PM IST)' },
-  { id: 'astera-query-return', schedule: '15 17 * * *', description: 'Query return re-allotment (5:15 PM IST)' },
-  { id: 'astera-wip-stale', schedule: '0 22 * * *', description: 'WIP > 1 day (10 PM IST)' },
-  { id: 'astera-authmate-pending', schedule: '0 23 * * *', description: 'AuthMate pending missed notes (11 PM IST)' },
-];
+export const RADIOLOGY_SCHEDULER_JOBS: CloudSchedulerJobDef[] = RADIOLOGY_GHA_SCHEDULES.map(
+  (s) => ({
+    id: s.id,
+    schedule: utcCronToIstCron(s.utcCron),
+    description: `${s.description} (${s.istTime} IST)`,
+  })
+);
 
-/** Map GHA UTC cron expression → radiology job id (IST schedules converted to UTC). */
-export const RADIOLOGY_UTC_CRON_TO_JOB: Record<string, ScheduledJobId> = {
-  '30 5 * * *': 'astera-dashboard-sync', // 11:00 AM IST
-  '0 10 * * *': 'astera-yesterday-unworked', // 3:30 PM IST
-  '30 10 * * *': 'astera-denial-internal', // 4:00 PM IST
-  '30 11 * * *': 'astera-assigned-unworked', // 5:00 PM IST
-  '45 11 * * *': 'astera-query-return', // 5:15 PM IST
-  '30 16 * * *': 'astera-wip-stale', // 10:00 PM IST
-  '30 17 * * *': 'astera-authmate-pending', // 11:00 PM IST
-};
+function utcCronToIstCron(utcCron: string): string {
+  const parts = utcCron.trim().split(/\s+/);
+  const utcMin = parseInt(parts[0] ?? '0', 10);
+  const utcHour = parseInt(parts[1] ?? '0', 10);
+  let totalMin = utcHour * 60 + utcMin + 330; // +5:30 IST
+  if (totalMin >= 24 * 60) {
+    totalMin -= 24 * 60;
+  }
+  const istHour = Math.floor(totalMin / 60);
+  const istMin = totalMin % 60;
+  return `${istMin} ${istHour} * * *`;
+}
+
+export const RADIOLOGY_UTC_CRON_TO_JOB = Object.fromEntries(
+  RADIOLOGY_GHA_SCHEDULES.map((s) => [s.utcCron, s.id])
+) as Record<string, ScheduledJobId>;

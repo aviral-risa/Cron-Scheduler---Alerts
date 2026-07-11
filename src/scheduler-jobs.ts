@@ -268,6 +268,7 @@ async function runTrackedAsteraJob(spec: ScheduledJobSpec, fn: () => Promise<voi
   const completionKey = getCompletionDateKey();
   if (!isManualCronRun() && (await hasJobCompletedOnDate(spec.id, completionKey))) {
     console.log(`ℹ️ Skipping ${spec.label} — already completed for ${completionKey} (IST)`);
+    await sendCronSkipNotification(spec.id, 'already_completed_today');
     return;
   }
   if (await shouldSkipAsteraJobForHoliday(spec.id as ScheduledJobId)) {
@@ -283,6 +284,7 @@ async function runTrackedAsteraDashboardSync(spec: ScheduledJobSpec): Promise<vo
   const completionKey = getCompletionDateKey();
   if (!isManualCronRun() && (await hasJobCompletedOnDate(spec.id, completionKey))) {
     console.log(`ℹ️ Skipping ${spec.label} — already completed for ${completionKey} (IST)`);
+    await sendCronSkipNotification(spec.id, 'already_completed_today');
     return;
   }
   if (await shouldSkipAsteraJobForHoliday(spec.id as ScheduledJobId)) {
@@ -298,6 +300,7 @@ async function runTrackedAuthmatePending(spec: ScheduledJobSpec): Promise<void> 
   const completionKey = getCompletionDateKey();
   if (!isManualCronRun() && (await hasJobCompletedOnDate(spec.id, completionKey))) {
     console.log(`ℹ️ Skipping ${spec.label} — already completed for ${completionKey} (IST)`);
+    await sendCronSkipNotification(spec.id, 'already_completed_today');
     return;
   }
   if (!shouldRunAuthmatePendingAlert()) {

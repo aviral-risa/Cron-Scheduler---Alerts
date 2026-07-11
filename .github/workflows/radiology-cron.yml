@@ -1,29 +1,74 @@
-# Radiology Cron — Astera only (dedicated bot + service account)
+# Radiology Cron v2 — one GHA schedule per job (UTC), dedicated runner, full logs.
 #
-# Secrets: RADIOLOGY_ENV_FILE + DASHBOARD_ENV_FILE (merged) + GCP_SA_KEY
+# No */15 dispatcher. Each IST time has a fixed UTC cron → exactly one job per run.
+#
+# Secrets: RADIOLOGY_ENV_FILE + DASHBOARD_ENV_FILE (merged), GCP_SA_KEY
+# Logs: JSON lines with radiology_cron:true — filter in GHA log search
+# Ops: every run posts structured summary to #test_alerts
 
 name: Radiology Cron (Astera)
 
 on:
   schedule:
-    - cron: '*/15 * * * *'
+    - cron: '30 22 * * *'   # 4:00 AM IST — denial free days
+    - cron: '30 5 * * *'    # 11:00 AM IST — dashboard sync
+    - cron: '0 10 * * *'    # 3:30 PM IST — yesterday unworked
+    - cron: '30 10 * * *'   # 4:00 PM IST — denial internal
+    - cron: '30 11 * * *'   # 5:00 PM IST — assigned unworked
+    - cron: '45 11 * * *'   # 5:15 PM IST — query return
+    - cron: '30 16 * * *'   # 10:00 PM IST — WIP stale
+    - cron: '30 17 * * *'   # 11:00 PM IST — authmate pending
   workflow_dispatch:
     inputs:
       job_id:
-        description: 'Force a job (e.g. astera-dashboard-sync). Leave empty to dispatch due jobs.'
-        required: false
-        type: string
+        description: 'Job id (e.g. astera-dashboard-sync). Required for manual runs.'
+        required: true
+        type: choice
+        options:
+          - astera-denial-free-days
+          - astera-dashboard-sync
+          - astera-yesterday-unworked
+          - astera-denial-internal
+          - astera-assigned-unworked
+          - astera-query-return
+          - astera-wip-stale
+          - astera-authmate-pending
 
+# Per-schedule concurrency — runs never cancel each other
 concurrency:
-  group: radiology-cron-${{ github.ref }}
+  group: radiology-${{ github.event.schedule || github.event.inputs.job_id }}-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
-  dispatch:
+  run:
     runs-on: ubuntu-latest
     timeout-minutes: 45
 
     steps:
+      - name: Resolve job id
+        id: meta
+        run: |
+          JOB_ID="${{ github.event.inputs.job_id }}"
+          if [ -z "$JOB_ID" ] && [ "${{ github.event_name }}" = "schedule" ]; then
+            case "${{ github.event.schedule }}" in
+              "30 22 * * *") JOB_ID="astera-denial-free-days" ;;
+              "30 5 * * *") JOB_ID="astera-dashboard-sync" ;;
+              "0 10 * * *") JOB_ID="astera-yesterday-unworked" ;;
+              "30 10 * * *") JOB_ID="astera-denial-internal" ;;
+              "30 11 * * *") JOB_ID="astera-assigned-unworked" ;;
+              "45 11 * * *") JOB_ID="astera-query-return" ;;
+              "30 16 * * *") JOB_ID="astera-wip-stale" ;;
+              "30 17 * * *") JOB_ID="astera-authmate-pending" ;;
+              *) echo "::error::Unknown schedule: ${{ github.event.schedule }}"; exit 1 ;;
+            esac
+          fi
+          if [ -z "$JOB_ID" ]; then
+            echo "::error::Could not resolve job id"
+            exit 1
+          fi
+          echo "job_id=$JOB_ID" >> "$GITHUB_OUTPUT"
+          echo "Resolved radiology job: $JOB_ID (event=${{ github.event_name }}, schedule=${{ github.event.schedule }})"
+
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
@@ -40,7 +85,6 @@ jobs:
         run: npm ci
 
       - name: Restore scheduler state
-        id: scheduler-cache
         uses: actions/cache@v4
         with:
           path: .scheduler-runs-radiology.json
@@ -62,7 +106,7 @@ jobs:
             printf '%s\n' "$RADIOLOGY_ENV_FILE" >> .env
           fi
           if [ ! -s .env ]; then
-            echo "::error::Missing RADIOLOGY_ENV_FILE or DASHBOARD_ENV_FILE secret"
+            echo "::error::Missing RADIOLOGY_ENV_FILE or DASHBOARD_ENV_FILE"
             exit 1
           fi
 
@@ -80,25 +124,38 @@ jobs:
           printf '%s' "$GCP_SA_KEY" > gcp-sa.json
           echo "GOOGLE_APPLICATION_CREDENTIALS=${{ github.workspace }}/gcp-sa.json" >> "$GITHUB_ENV"
 
-      - name: Run radiology dispatch
-        id: dispatch
-        continue-on-error: true
+      - name: Run radiology job
+        id: radiology
         env:
           GITHUB_ACTIONS: 'true'
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
+          GITHUB_RUN_ID: ${{ github.run_id }}
+          GHA_SCHEDULE_CRON: ${{ github.event.schedule }}
           SCHEDULER_STATE_BACKEND: file
           SCHEDULER_STATE_FILE: .scheduler-runs-radiology.json
-          CRON_REGISTRY: radiology
-          CRON_MAX_JOBS_PER_DISPATCH: 1
           NODE_ENV: production
-          MANUAL_CRON_RUN: ${{ github.event.inputs.job_id != '' && 'true' || '' }}
-        run: |
-          if [ -n "${{ github.event.inputs.job_id }}" ]; then
-            echo "Force-running: ${{ github.event.inputs.job_id }}"
-            npx tsx scripts/github-cron-dispatch.ts "${{ github.event.inputs.job_id }}"
-          else
-            npx tsx scripts/github-cron-dispatch.ts
-          fi
+          MANUAL_CRON_RUN: ${{ github.event_name == 'workflow_dispatch' && 'true' || '' }}
+        run: npx tsx scripts/run-radiology-job.ts "${{ steps.meta.outputs.job_id }}"
 
-      - name: Fail if dispatch failed
-        if: steps.dispatch.outcome == 'failure'
+      - name: Persist scheduler state
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: .scheduler-runs-radiology.json
+          key: scheduler-runs-radiology-${{ github.repository }}
+
+      - name: Job summary
+        if: always()
+        run: |
+          {
+            echo "### Radiology Cron"
+            echo "- **Job:** \`${{ steps.meta.outputs.job_id }}\`"
+            echo "- **Event:** ${{ github.event_name }}"
+            echo "- **Schedule (UTC):** ${{ github.event.schedule || 'manual' }}"
+            echo "- **Outcome:** ${{ steps.radiology.outcome }}"
+            echo "- **Run:** https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Fail workflow on job error
+        if: steps.radiology.outcome == 'failure'
         run: exit 1
