@@ -134,16 +134,38 @@ wip_start AS (
     AND COALESCE(prev_auth_status, '') != 'work_in_progress'
   QUALIFY ROW_NUMBER() OVER (PARTITION BY order_id ORDER BY cdc_ts DESC) = 1
 ),
-staff_working_days AS (
-  SELECT DISTINCT work_date
-  FROM (
-    SELECT DATE(day) AS work_date
-    FROM `prior--backen-prod-svc-u4g8.medical_pa_prod_med_onc.staff_working_days`
-    WHERE allotted_cases_pct > 0
-    UNION DISTINCT
-    SELECT CURRENT_DATE('Asia/Kolkata')
+wip_spine_raw AS (
+  SELECT
+    ws.order_id,
+    day AS spine_date,
+    ws.wip_start_date
+  FROM wip_start AS ws
+  CROSS JOIN params AS p
+  CROSS JOIN UNNEST(
+    GENERATE_DATE_ARRAY(ws.wip_start_date, p.report_date, INTERVAL 1 DAY)
+  ) AS day
+  WHERE EXTRACT(DAYOFWEEK FROM day) NOT IN (1, 7)
+),
+orders_created_on_spine AS (
+  SELECT
+    DATE(o.created_at, 'Asia/Kolkata') AS ist_date,
+    COUNT(*) AS cases_added,
+    COUNTIF(LOWER(TRIM(COALESCE(o.assigned_to_name, ''))) NOT IN ('', 'unassigned')) AS allotted_cases
+  FROM latest_order AS o
+  WHERE DATE(o.created_at, 'Asia/Kolkata') IN (
+    SELECT DISTINCT spine_date FROM wip_spine_raw
   )
-  WHERE EXTRACT(DAYOFWEEK FROM work_date) NOT IN (1, 7)
+  GROUP BY ist_date
+),
+staff_working_days AS (
+  SELECT ist_date AS spine_date
+  FROM orders_created_on_spine
+  WHERE cases_added > 0
+    AND SAFE_DIVIDE(allotted_cases, cases_added) > 0
+  UNION DISTINCT
+  SELECT DISTINCT wsr.spine_date
+  FROM wip_spine_raw AS wsr
+  WHERE wsr.spine_date = CURRENT_DATE('Asia/Kolkata')
 ),
 notes_on_day AS (
   SELECT
@@ -213,23 +235,25 @@ templates_on_day AS (
     rt.order_id,
     STRING_AGG(DISTINCT rt.template_text, '\n---\n' ORDER BY rt.template_text) AS template_text
   FROM report_templates AS rt
-  JOIN latest_order AS o
-    ON o.order_id = rt.order_id
+  JOIN latest_status AS s
+    ON s.order_id = rt.order_id
   CROSS JOIN params AS p
   WHERE DATE(rt.aof_updated_at, 'Asia/Kolkata') = p.report_date
-     OR DATE(o.date_of_work, 'Asia/Kolkata') = p.report_date
+     OR (
+       s.date_of_work IS NOT NULL
+       AND DATE(s.date_of_work, 'Asia/Kolkata') = p.report_date
+     )
   GROUP BY rt.order_id
 ),
 wip_business_days AS (
   SELECT
-    ws.order_id,
-    COUNTIF(sw.work_date > ws.wip_start_date AND sw.work_date <= p.report_date) AS wip_business_days
-  FROM wip_start AS ws
-  CROSS JOIN params AS p
-  JOIN staff_working_days AS sw
-    ON sw.work_date > ws.wip_start_date
-   AND sw.work_date <= p.report_date
-  GROUP BY ws.order_id, p.report_date
+    wsr.order_id,
+    COUNT(*) AS wip_business_days
+  FROM wip_spine_raw AS wsr
+  INNER JOIN staff_working_days AS swd
+    ON swd.spine_date = wsr.spine_date
+  WHERE wsr.spine_date > wsr.wip_start_date
+  GROUP BY wsr.order_id
 ),
 order_context AS (
   SELECT

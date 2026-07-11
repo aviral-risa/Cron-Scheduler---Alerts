@@ -12,7 +12,7 @@ import {
   getAsteraInternalChannelId,
 } from '../config/astera-bq-alerts.config';
 import { alertContextBlock, alertHeaderBlock } from '../utils/slack-visual-blocks';
-import { buildAssigneeGroupedBlocks, groupRowsBy } from '../utils/slack-copyable-table';
+import { buildCompactListBlocks, groupRowsBy } from '../utils/slack-copyable-table';
 import { postAsteraZeroCaseAlert, recordAsteraRowOutcome } from '../utils/astera-empty-alert';
 import {
   auditNoteRows,
@@ -63,6 +63,23 @@ function mapBqRow(raw: Record<string, unknown>): NoteAuditRow {
   };
 }
 
+function buildGroupedLines(findings: ReturnType<typeof auditNoteRows>, maxPerAssignee = 25): string[] {
+  const grouped = groupRowsBy(findings, (f) =>
+    f.row.provider_name ?? f.row.assigned_to ?? 'Unassigned'
+  );
+  const lines: string[] = [];
+  for (const [assignee, items] of grouped) {
+    lines.push(`*${assignee}* (${items.length})`);
+    for (const item of items.slice(0, maxPerAssignee)) {
+      lines.push(formatIssueLine(item));
+    }
+    if (items.length > maxPerAssignee) {
+      lines.push(`_…and ${items.length - maxPerAssignee} more_`);
+    }
+  }
+  return lines;
+}
+
 export async function sendAsteraOncoNotesQualityAlert(
   reportDate?: string,
   channelId = getAsteraInternalChannelId()
@@ -105,9 +122,6 @@ export async function sendAsteraOncoNotesQualityAlert(
   const bodyBlocks: KnownBlock[] = [];
 
   if (pastedSection.length > 0) {
-    const pastedGrouped = groupRowsBy(pastedSection, (f) =>
-      f.row.provider_name ?? f.row.assigned_to ?? 'Unassigned'
-    );
     bodyBlocks.push({
       type: 'section',
       text: {
@@ -115,23 +129,13 @@ export async function sendAsteraOncoNotesQualityAlert(
         text: `*Pasted notes with issues (${pastedIssues})*`,
       },
     });
-    bodyBlocks.push(
-      ...buildAssigneeGroupedBlocks(
-        [...pastedGrouped.entries()].map(([assignee, items]) => ({
-          assignee,
-          detailLines: items.map(formatIssueLine),
-        }))
-      )
-    );
+    bodyBlocks.push(...buildCompactListBlocks(buildGroupedLines(pastedSection)));
   }
 
   if (missingSection.length > 0) {
     if (pastedSection.length > 0) {
       bodyBlocks.push({ type: 'divider' });
     }
-    const missingGrouped = groupRowsBy(missingSection, (f) =>
-      f.row.assigned_to ?? 'Unassigned'
-    );
     bodyBlocks.push({
       type: 'section',
       text: {
@@ -139,14 +143,7 @@ export async function sendAsteraOncoNotesQualityAlert(
         text: `*Template generated but not pasted (${missingCount})*`,
       },
     });
-    bodyBlocks.push(
-      ...buildAssigneeGroupedBlocks(
-        [...missingGrouped.entries()].map(([assignee, items]) => ({
-          assignee,
-          detailLines: items.map(formatIssueLine),
-        }))
-      )
-    );
+    bodyBlocks.push(...buildCompactListBlocks(buildGroupedLines(missingSection)));
   }
 
   await postCompactAlert({
