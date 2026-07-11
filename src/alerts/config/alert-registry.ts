@@ -240,6 +240,18 @@ export const ALERT_REGISTRY: AlertMetadata[] = [
     enabled: true,
     category: 'queue',
   },
+  {
+    id: 'astera-onco-notes-quality',
+    name: 'Astera OncoEMR Notes Quality',
+    description:
+      'Audits pasted OncoEMR notes and missing pastes against Auth Status / BO mapping templates',
+    schedule: '15 16 * * *',
+    supportsOrgFilter: false,
+    supportsPreview: false,
+    functionName: 'sendAsteraOncoNotesQualityAlert',
+    enabled: true,
+    category: 'tracking',
+  },
 ];
 
 /**

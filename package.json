@@ -40,6 +40,7 @@
     "alert:astera:wip-stale": "tsx src/alerts/bq/astera-workload-alerts.ts wip-stale",
     "alert:astera:yesterday-unworked": "tsx src/alerts/bq/astera-workload-alerts.ts yesterday-unworked",
     "alert:astera:query-return": "tsx src/alerts/bq/astera-workload-alerts.ts query-return",
+    "alert:astera:notes-quality": "tsx src/alerts/bq/astera-notes-quality-alert.ts",
     "alert:astera:dashboard-sync": "tsx src/alerts/bq/astera-dashboard-sync.ts",
     "alert:astera:dashboard-prune": "tsx src/alerts/bq/astera-dashboard-sync.ts prune",
     "alert:astera:dashboard-backfill": "tsx src/alerts/bq/astera-dashboard-sync.ts backfill",

@@ -14,6 +14,7 @@ on:
     - cron: '30 5 * * *'    # 11:00 AM IST — dashboard sync
     - cron: '0 10 * * *'    # 3:30 PM IST — yesterday unworked
     - cron: '30 10 * * *'   # 4:00 PM IST — denial internal
+    - cron: '45 10 * * *'   # 4:15 PM IST — onco notes quality
     - cron: '30 11 * * *'   # 5:00 PM IST — assigned unworked
     - cron: '45 11 * * *'   # 5:15 PM IST — query return
     - cron: '30 16 * * *'   # 10:00 PM IST — WIP stale
@@ -29,6 +30,7 @@ on:
           - astera-dashboard-sync
           - astera-yesterday-unworked
           - astera-denial-internal
+          - astera-onco-notes-quality
           - astera-assigned-unworked
           - astera-query-return
           - astera-wip-stale
@@ -55,6 +57,7 @@ jobs:
               "30 5 * * *") JOB_ID="astera-dashboard-sync" ;;
               "0 10 * * *") JOB_ID="astera-yesterday-unworked" ;;
               "30 10 * * *") JOB_ID="astera-denial-internal" ;;
+              "45 10 * * *") JOB_ID="astera-onco-notes-quality" ;;
               "30 11 * * *") JOB_ID="astera-assigned-unworked" ;;
               "45 11 * * *") JOB_ID="astera-query-return" ;;
               "30 16 * * *") JOB_ID="astera-wip-stale" ;;
