@@ -188,7 +188,7 @@ export const ALERT_REGISTRY: AlertMetadata[] = [
   {
     id: 'astera-authmate-pending-notes',
     name: 'Astera AuthMate-Pending Missed Notes',
-    description: 'AuthMate-Pending cases missing required EST weekday notes for Astera Radiology',
+    description: 'AuthMate-Pending cases missing required IST staff-day notes for Astera Radiology',
     schedule: '0 23 * * *',
     supportsOrgFilter: false,
     supportsPreview: false,
@@ -210,7 +210,7 @@ export const ALERT_REGISTRY: AlertMetadata[] = [
   {
     id: 'astera-wip-over-one-day',
     name: 'Astera Work In Progress > 1 Day',
-    description: 'Cases stuck in work_in_progress auth status for more than one IST day',
+    description: 'Cases stuck in work_in_progress for >=1 IST business day (excludes holidays)',
     schedule: '0 22 * * *',
     supportsOrgFilter: false,
     supportsPreview: false,

@@ -61,7 +61,9 @@ export async function fetchIstDayAllotment(istDate: string): Promise<IstDayAllot
   return result;
 }
 
-/** IST day with cases added and >0% allotted (staff actively working). */
+/** IST day with cases added and >0% allotted (staff actively working).
+ *  BigQuery alert SQL mirrors this via staff_working_days CTE — see
+ *  sql/bigquery/fragments/astera-ist-staff-working-days-cte.sql */
 export async function isIstStaffWorkingDay(istDate: string): Promise<boolean> {
   if (isIstWeekendYmd(istDate)) {
     return false;

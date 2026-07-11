@@ -1,14 +1,16 @@
 -- AuthMate-Pending Missed Daily Notes V1
 --
 -- Org: Astera Radiology (rf5w1cNTGVfH9ZAJoLCF)
--- Note triggered: any comments row on EST date while bo_status = AuthMate-Pending
--- Missed days: EST weekdays with IST staff-allotment day (0% allotted holidays excluded)
--- Alert gate: fire only when @report_date (prior EST business day) is missed
+-- Note triggered: any comments row on IST date while bo_status = AuthMate-Pending
+-- Missed days: IST staff working days (weekends + 0% allotted holidays excluded)
+-- Alert gate: fire only when @report_date (today IST) is a missed working day
 -- Excludes stale duplicates: same case signature (mrn|regimen|dos) resolved on another order
 --
 -- Parameters:
---   @report_date DATE — prior EST business day
+--   @report_date DATE — today IST at run time
 --   @org_id STRING    — rf5w1cNTGVfH9ZAJoLCF
+--
+-- Staff working day spine: see sql/bigquery/fragments/astera-ist-staff-working-days-cte.sql
 
 WITH params AS (
   SELECT
@@ -162,7 +164,7 @@ comments_latest AS (
 note_days AS (
   SELECT
     order_id,
-    DATE(created_at, 'America/New_York') AS note_date,
+    DATE(created_at, 'Asia/Kolkata') AS note_date,
     MAX(created_at) AS last_note_at
   FROM comments_latest
   WHERE NULLIF(TRIM(comments), '') IS NOT NULL
@@ -180,7 +182,7 @@ open_pending AS (
     s.order_id,
     s.org_id,
     ps.pending_started_at,
-    DATE(ps.pending_started_at, 'America/New_York') AS pending_start_date,
+    DATE(ps.pending_started_at, 'Asia/Kolkata') AS pending_start_date,
     os.case_signature
   FROM latest_status AS s
   JOIN pending_start AS ps
@@ -208,7 +210,6 @@ weekday_spine_raw AS (
   ) AS day
   WHERE EXTRACT(DAYOFWEEK FROM day) NOT IN (1, 7)
 ),
-/** IST days where staff were actively allotting (excludes holidays e.g. 0% allotted) */
 orders_created_on_spine AS (
   SELECT
     DATE(o.created_at, 'Asia/Kolkata') AS ist_date,
@@ -226,7 +227,6 @@ staff_working_days AS (
   WHERE cases_added > 0
     AND SAFE_DIVIDE(allotted_cases, cases_added) > 0
   UNION DISTINCT
-  -- Today IST: weekday followup required even before end-of-day allotment is final
   SELECT DISTINCT wsr.spine_date
   FROM weekday_spine_raw AS wsr
   WHERE wsr.spine_date = CURRENT_DATE('Asia/Kolkata')

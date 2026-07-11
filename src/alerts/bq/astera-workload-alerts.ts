@@ -4,6 +4,7 @@ import { WebClient } from '@slack/web-api';
 import type { KnownBlock } from '@slack/web-api';
 import { runBqAlertQuery } from '../utils/bq-query-loader';
 import { getPriorIstWorkingReportDate } from '../utils/astera-workday';
+import { getTodayIstDate } from '../utils/report-dates';
 import { SlackConfig } from '../config/slack.config';
 import {
   ASTERA_BQ_SQL_FILES,
@@ -139,9 +140,19 @@ export async function sendAsteraAssignedUnworkedStreakAlert(
   console.log(`✓ Posted ${rows.length} assigned-unworked row(s)`);
 }
 
+function formatWipMovedDate(ymd: string): string {
+  const [year, month, day] = ymd.split('-');
+  return `${month}/${day}/${year}`;
+}
+
+function formatWipDetailLine(row: WipOverOneDayRow): string {
+  const daysLabel = row.days_in_wip === 1 ? 'Day' : 'Days';
+  return `${row.mrn} - Moved to WIP on ${formatWipMovedDate(row.first_wip_date)}. WIP From ${row.days_in_wip} ${daysLabel}`;
+}
+
 export async function sendAsteraWipOverOneDayAlert(reportDate?: string): Promise<void> {
-  const date = reportDate ?? (await getPriorIstWorkingReportDate());
-  console.log(`\n📤 Astera WIP >1 day alert for ${date}...`);
+  const date = reportDate ?? getTodayIstDate();
+  console.log(`\n📤 Astera WIP >=1 business day alert for ${date} (IST today)...`);
 
   const rows = await runBqAlertQuery<WipOverOneDayRow>(ASTERA_BQ_SQL_FILES.wipOverOneDay, {
     report_date: date,
@@ -159,20 +170,19 @@ export async function sendAsteraWipOverOneDayAlert(reportDate?: string): Promise
   }
 
   const grouped = groupRowsBy(rows, (r) => r.assigned_to || 'Unassigned');
-  const bodyBlocks = buildAssigneeGroupedBlocks(
-    [...grouped.entries()].map(([assignee, items]) => ({
-      assignee,
-      detailLines: items.map(
-        (r) => `• \`${r.mrn}\` · *${r.days_in_wip}d* WIP · since ${r.first_wip_date}`
-      ),
-    }))
-  );
+  const bodyBlocks: KnownBlock[] = [...grouped.entries()].map(([assignee, items]) => ({
+    type: 'section',
+    text: {
+      type: 'mrkdwn',
+      text: `*${assignee}*\n${items.map(formatWipDetailLine).join('\n')}`,
+    },
+  }));
 
   await postCompactAlert({
     channelId: getAsteraInternalChannelId(),
     title: `${ASTERA_RADIOLOGY_NAME} — Work In Progress > 1 Day`,
     emoji: '🟡',
-    subtitle: `Report date (IST): ${date} · ${rows.length} case(s)`,
+    subtitle: `Report date (IST): ${date} · ${rows.length} case(s) · business days in WIP`,
     bodyBlocks,
     fallbackText: `WIP >1 day: ${rows.length} case(s)`,
   });

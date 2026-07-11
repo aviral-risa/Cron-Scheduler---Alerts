@@ -262,7 +262,7 @@ export async function sendAsteraAuthmatePendingMissedNotesAlert(
   channelIdOverride?: string
 ): Promise<void> {
   const date = reportDate ?? getAuthmateReportDate();
-  console.log(`\n📤 Astera AuthMate-Pending missed notes alert for ${date} (EST business day)...`);
+  console.log(`\n📤 Astera AuthMate-Pending missed notes alert for ${date} (IST today)...`);
 
   const rows = await runBqAlertQuery<AuthmatePendingRow>(
     ASTERA_BQ_SQL_FILES.authmatePendingMissedNotes,
@@ -303,7 +303,7 @@ export async function sendAsteraAuthmatePendingMissedNotesAlert(
     blocks: [
       alertHeaderBlock(`${ASTERA_RADIOLOGY_NAME} — AuthMate-Pending Missed Notes`, '🟣'),
       alertContextBlock(
-        `Missed EST weekday: ${date} · ${rows.length} case(s) · weekdays since pending start`
+        `Missed IST working day: ${date} · ${rows.length} case(s) · staff days since pending start`
       ),
       { type: 'divider' },
       ...bodyBlocks,

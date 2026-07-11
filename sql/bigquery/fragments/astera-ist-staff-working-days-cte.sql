@@ -1,0 +1,37 @@
+-- Shared IST staff working day spine (inline in alert SQL — keep in sync)
+--
+-- Prerequisites upstream:
+--   - latest_order CTE
+--   - A spine_raw CTE with columns: spine_date (DATE), plus order_id if per-order
+--
+-- Pattern:
+--   1. spine_raw: GENERATE_DATE_ARRAY from episode start → @report_date, drop Sat/Sun
+--   2. orders_created_on_spine: cases_added + allotted_cases per IST date on spine
+--   3. staff_working_days: >0% allotted days UNION today IST (weekday followup before EOD allotment)
+--   4. Join spine_raw to staff_working_days for business-day touchpoints
+--
+-- Used by:
+--   - astera-wip-over-one-day-v1.sql (wip_spine_raw)
+--   - daily-authmate-pending-missed-notes-v1.sql (weekday_spine_raw → weekday_spine)
+
+-- orders_created_on_spine AS (
+--   SELECT
+--     DATE(o.created_at, 'Asia/Kolkata') AS ist_date,
+--     COUNT(*) AS cases_added,
+--     COUNTIF(LOWER(TRIM(COALESCE(o.assigned_to_name, ''))) NOT IN ('', 'unassigned')) AS allotted_cases
+--   FROM latest_order AS o
+--   WHERE DATE(o.created_at, 'Asia/Kolkata') IN (
+--     SELECT DISTINCT spine_date FROM <spine_raw_cte>
+--   )
+--   GROUP BY ist_date
+-- ),
+-- staff_working_days AS (
+--   SELECT ist_date AS spine_date
+--   FROM orders_created_on_spine
+--   WHERE cases_added > 0
+--     AND SAFE_DIVIDE(allotted_cases, cases_added) > 0
+--   UNION DISTINCT
+--   SELECT DISTINCT spine_date
+--   FROM <spine_raw_cte>
+--   WHERE spine_date = CURRENT_DATE('Asia/Kolkata')
+-- ),

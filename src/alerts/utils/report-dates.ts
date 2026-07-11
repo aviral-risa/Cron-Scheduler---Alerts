@@ -59,16 +59,11 @@ export function getPriorEstBusinessReportDate(reference = new Date()): string {
 }
 
 /**
- * EST weekday to check for missed AuthMate followups.
- * Uses today when EST is Mon–Fri (11 PM IST run checks same EST calendar day).
+ * IST reference day for AuthMate-Pending missed followup checks (11 PM IST cron).
+ * Job-level EST weekend skip remains in shouldRunAuthmatePendingAlert().
  */
 export function getAuthmateReportDate(reference = new Date()): string {
-  const todayEst = formatDateInZone(reference, EST);
-  const weekday = weekdayFromYmd(todayEst, EST);
-  if (weekday !== 0 && weekday !== 6) {
-    return todayEst;
-  }
-  return getPriorEstBusinessReportDate(reference);
+  return getTodayIstDate(reference);
 }
 
 /**
