@@ -1,6 +1,6 @@
 /**
  * Radiology cron engine — single-job runner with structured logs and Slack ops report.
- * Used exclusively by radiology-cron.yml (not the */15 medonc dispatcher).
+ * Used exclusively by radiology-cron.yml (not the 15-minute medonc dispatcher).
  */
 import {
   dispatchAsteraJob,
