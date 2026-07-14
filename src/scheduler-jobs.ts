@@ -16,7 +16,6 @@ import {
   sendAsteraYesterdayAssignedUnworkedAlert,
   sendAsteraQueryReturnReallotAlert,
 } from './alerts/bq/astera-workload-alerts';
-import { sendAsteraOncoNotesQualityAlert } from './alerts/bq/astera-notes-quality-alert';
 import { shouldRunAuthmatePendingAlert } from './alerts/utils/report-dates';
 import { shouldSkipAsteraJobForHoliday } from './alerts/utils/astera-workday';
 import {
@@ -323,7 +322,6 @@ export const ASTERA_JOB_SPECS: ScheduledJobSpec[] = [
   { id: 'astera-denial-free-days', hour: 4, minute: 0, label: 'Denial free days streak' },
   { id: 'astera-yesterday-unworked', hour: 15, minute: 30, label: 'Yesterday assigned unworked' },
   { id: 'astera-denial-internal', hour: 16, minute: 0, label: 'Denial list (internal)' },
-  { id: 'astera-onco-notes-quality', hour: 16, minute: 15, label: 'OncoEMR notes quality' },
   { id: 'astera-dashboard-sync', hour: 11, minute: 0, label: 'Dashboard Sheets sync' },
   { id: 'astera-assigned-unworked', hour: 17, minute: 0, label: 'Assigned unworked (2+ days)' },
   { id: 'astera-query-return', hour: 17, minute: 15, label: 'Query return re-allotment' },
@@ -345,9 +343,6 @@ export async function dispatchAsteraJob(jobId: string): Promise<void> {
       break;
     case 'astera-denial-internal':
       await runTrackedAsteraJob(spec, sendAsteraDenialInternalAlert);
-      break;
-    case 'astera-onco-notes-quality':
-      await runTrackedAsteraJob(spec, sendAsteraOncoNotesQualityAlert);
       break;
     case 'astera-dashboard-sync':
       await runTrackedAsteraDashboardSync(spec);
@@ -633,7 +628,6 @@ export type ScheduledJobId =
   | 'astera-yesterday-unworked'
   | 'astera-denial-free-days'
   | 'astera-denial-internal'
-  | 'astera-onco-notes-quality'
   | 'astera-dashboard-sync'
   | 'astera-assigned-unworked'
   | 'astera-query-return'
@@ -661,7 +655,6 @@ const JOB_HANDLERS: Record<ScheduledJobId, () => Promise<void>> = {
   'astera-yesterday-unworked': () => dispatchAsteraJob('astera-yesterday-unworked'),
   'astera-denial-free-days': () => dispatchAsteraJob('astera-denial-free-days'),
   'astera-denial-internal': () => dispatchAsteraJob('astera-denial-internal'),
-  'astera-onco-notes-quality': () => dispatchAsteraJob('astera-onco-notes-quality'),
   'astera-dashboard-sync': () => dispatchAsteraJob('astera-dashboard-sync'),
   'astera-assigned-unworked': () => dispatchAsteraJob('astera-assigned-unworked'),
   'astera-query-return': () => dispatchAsteraJob('astera-query-return'),

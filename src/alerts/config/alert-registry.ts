@@ -249,7 +249,7 @@ export const ALERT_REGISTRY: AlertMetadata[] = [
     supportsOrgFilter: false,
     supportsPreview: false,
     functionName: 'sendAsteraOncoNotesQualityAlert',
-    enabled: true,
+    enabled: false,
     category: 'tracking',
   },
 ];

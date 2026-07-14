@@ -27,7 +27,6 @@ export const CLOUD_SCHEDULER_JOBS: CloudSchedulerJobDef[] = [
   { id: 'capacity-check', schedule: '0 9 * * *', description: 'Sheet capacity monitoring' },
   { id: 'astera-yesterday-unworked', schedule: '30 15 * * *', description: 'Astera yesterday assigned unworked' },
   { id: 'astera-denial-internal', schedule: '0 16 * * *', description: 'Astera denial list (internal)' },
-  { id: 'astera-onco-notes-quality', schedule: '15 16 * * *', description: 'Astera OncoEMR notes quality (4:15 PM IST)' },
   { id: 'astera-dashboard-sync', schedule: '0 11 * * *', description: 'Astera dashboard Sheets sync (11 AM IST)' },
   { id: 'astera-assigned-unworked', schedule: '0 17 * * *', description: 'Astera assigned unworked 2+ days' },
   { id: 'astera-query-return', schedule: '15 17 * * *', description: 'Astera query return re-allotment' },

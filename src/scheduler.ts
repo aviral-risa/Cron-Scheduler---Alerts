@@ -122,11 +122,6 @@ const asteraDenialAlertsJob = cron.schedule(
   () => void dispatchAsteraJob('astera-denial-internal'),
   { timezone: 'Asia/Kolkata' }
 );
-const asteraOncoNotesQualityJob = cron.schedule(
-  '15 16 * * *',
-  () => void dispatchAsteraJob('astera-onco-notes-quality'),
-  { timezone: 'Asia/Kolkata' }
-);
 const asteraDashboardSyncJob = cron.schedule(
   '0 11 * * *',
   () => void dispatchAsteraJob('astera-dashboard-sync'),

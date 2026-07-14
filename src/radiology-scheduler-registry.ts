@@ -39,12 +39,6 @@ export const RADIOLOGY_GHA_SCHEDULES: RadiologyGhaSchedule[] = [
     description: 'Daily denial list (internal)',
   },
   {
-    id: 'astera-onco-notes-quality',
-    utcCron: '45 10 * * *',
-    istTime: '4:15 PM',
-    description: 'OncoEMR notes quality audit (pasted + missing)',
-  },
-  {
     id: 'astera-assigned-unworked',
     utcCron: '30 11 * * *',
     istTime: '5:00 PM',
