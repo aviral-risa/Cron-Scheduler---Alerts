@@ -16,7 +16,7 @@ import {
   sendAsteraYesterdayAssignedUnworkedAlert,
   sendAsteraQueryReturnReallotAlert,
 } from './alerts/bq/astera-workload-alerts';
-import { shouldRunAuthmatePendingAlert } from './alerts/utils/report-dates';
+import { shouldRunAuthmatePendingAlert, getAuthmateReportDate } from './alerts/utils/report-dates';
 import { shouldSkipAsteraJobForHoliday } from './alerts/utils/astera-workday';
 import {
   getTodayIstDateKey,
@@ -297,25 +297,28 @@ async function runTrackedAsteraDashboardSync(spec: ScheduledJobSpec): Promise<vo
 }
 
 async function runTrackedAuthmatePending(spec: ScheduledJobSpec): Promise<void> {
-  const completionKey = getCompletionDateKey();
-  if (!isManualCronRun() && (await hasJobCompletedOnDate(spec.id, completionKey))) {
-    console.log(`ℹ️ Skipping ${spec.label} — already completed for ${completionKey} (IST)`);
-    await sendCronSkipNotification(spec.id, 'already_completed_today');
-    return;
-  }
-  if (!shouldRunAuthmatePendingAlert()) {
-    console.log('ℹ️ Skipping AuthMate-Pending alert — today is an EST weekend');
+  const reportDateKey = getAuthmateReportDate();
+  activeJobOptions = { completionDateKey: reportDateKey };
+  try {
+    const completionKey = getCompletionDateKey();
+    if (!isManualCronRun() && (await hasJobCompletedOnDate(spec.id, completionKey))) {
+      console.log(`ℹ️ Skipping ${spec.label} — already completed for ${completionKey} (IST)`);
+      await sendCronSkipNotification(spec.id, 'already_completed_today');
+      return;
+    }
+    if (!shouldRunAuthmatePendingAlert()) {
+      console.log('ℹ️ Skipping AuthMate-Pending alert — today is an EST weekend');
+      await markJobCompletedOnDate(spec.id, completionKey);
+      await sendCronSkipNotification(spec.id, 'authmate_weekend_skip');
+      return;
+    }
+    await runAsteraAlertJob(spec.label, () =>
+      sendAsteraAuthmatePendingMissedNotesAlert(reportDateKey)
+    );
     await markJobCompletedOnDate(spec.id, completionKey);
-    await sendCronSkipNotification(spec.id, 'authmate_weekend_skip');
-    return;
+  } finally {
+    activeJobOptions = {};
   }
-  if (await shouldSkipAsteraJobForHoliday(spec.id as ScheduledJobId)) {
-    await markJobCompletedOnDate(spec.id, completionKey);
-    await sendCronSkipNotification(spec.id, 'holiday_skip');
-    return;
-  }
-  await runAsteraAlertJob(spec.label, sendAsteraAuthmatePendingMissedNotesAlert);
-  await markJobCompletedOnDate(spec.id, completionKey);
 }
 
 export const ASTERA_JOB_SPECS: ScheduledJobSpec[] = [

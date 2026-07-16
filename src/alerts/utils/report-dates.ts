@@ -58,18 +58,29 @@ export function getPriorEstBusinessReportDate(reference = new Date()): string {
   return cursor;
 }
 
-/**
- * IST reference day for AuthMate-Pending missed followup checks (11 PM IST cron).
- * Job-level EST weekend skip remains in shouldRunAuthmatePendingAlert().
- */
-export function getAuthmateReportDate(reference = new Date()): string {
-  return getTodayIstDate(reference);
+function getIstHour(reference = new Date()): number {
+  const parts = new Intl.DateTimeFormat('en-GB', {
+    timeZone: IST,
+    hour: 'numeric',
+    hour12: false,
+  }).formatToParts(reference);
+  return Number(parts.find((p) => p.type === 'hour')?.value ?? 0);
 }
 
 /**
- * Run on EST working days (Mon–Fri). Do not skip Mondays after a weekend.
- * Weekend/holiday followups are excluded inside the BQ missed-notes query.
+ * IST reference day for AuthMate-Pending missed followup checks (11 PM IST cron).
+ * GHA often fires shortly after midnight IST — attribute 00:00–05:59 runs to prior day.
+ * Holiday/weekend followups are excluded inside the BQ missed-notes query.
+ * Job-level EST weekend skip remains in shouldRunAuthmatePendingAlert().
  */
+export function getAuthmateReportDate(reference = new Date()): string {
+  const todayIst = getTodayIstDate(reference);
+  if (getIstHour(reference) < 6) {
+    return addDaysYmd(todayIst, -1);
+  }
+  return todayIst;
+}
+
 export function shouldRunAuthmatePendingAlert(reference = new Date()): boolean {
   const todayEst = formatDateInZone(reference, EST);
   const weekday = weekdayFromYmd(todayEst, EST);
