@@ -1,4 +1,10 @@
 import dotenv from 'dotenv';
+import {
+  getCredentialClientEmail,
+  getCredentialSource,
+  queryBigQuery,
+} from '../src/services/bigquery';
+
 dotenv.config({ override: true });
 
 function firstEnv(...keys: string[]): string | undefined {
@@ -50,3 +56,32 @@ if (missing.length > 0) {
 }
 
 console.log('✓ Radiology env validation passed');
+
+async function runBigQuerySmokeTest(): Promise<void> {
+  const hasExplicitCreds =
+    process.env.GOOGLE_APPLICATION_CREDENTIALS?.trim() ||
+    process.env.BIGQUERY_KEY_FILE?.trim();
+
+  if (!hasExplicitCreds) {
+    console.log('ℹ Skipping BigQuery smoke test (no GOOGLE_APPLICATION_CREDENTIALS or BIGQUERY_KEY_FILE)');
+    return;
+  }
+
+  try {
+    const rows = await queryBigQuery<{ ok: number }>('SELECT 1 AS ok');
+    const source = getCredentialSource();
+    const clientEmail = getCredentialClientEmail();
+    const identity = clientEmail ? `${source} (${clientEmail})` : source;
+    console.log(`✓ BigQuery smoke test passed via ${identity} — result: ${rows[0]?.ok ?? 'unknown'}`);
+  } catch (err) {
+    console.error('❌ BigQuery smoke test failed:');
+    console.error(err instanceof Error ? err.message : err);
+    process.exit(1);
+  }
+}
+
+runBigQuerySmokeTest().catch((err) => {
+  console.error('❌ BigQuery smoke test failed:');
+  console.error(err instanceof Error ? err.message : err);
+  process.exit(1);
+});

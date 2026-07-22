@@ -6,15 +6,23 @@ const getEnv = (key: string) => {
   return process.env[key];
 };
 
+type CredentialSource =
+  | 'GOOGLE_APPLICATION_CREDENTIALS'
+  | 'BIGQUERY_KEY_FILE'
+  | 'MEGA_ANALYTICS_KEY_FILE'
+  | 'VITE_ENV'
+  | 'ADC';
+
+interface ServiceAccountCredentials {
+  client_email: string;
+  private_key: string;
+}
+
 let bigqueryClient: BigQuery | null = null;
+let credentialSource: CredentialSource | null = null;
+let credentialClientEmail: string | undefined;
 
-function loadKeyFileCredentials():
-  | { client_email: string; private_key: string }
-  | undefined {
-  const keyPath =
-    getEnv('BIGQUERY_KEY_FILE') ||
-    resolve(process.cwd(), '../MegaAnalytics/firebase-prod.json');
-
+function parseKeyFile(keyPath: string): ServiceAccountCredentials | undefined {
   if (!existsSync(keyPath)) {
     return undefined;
   }
@@ -34,29 +42,115 @@ function loadKeyFileCredentials():
   };
 }
 
+function loadGoogleApplicationCredentials(): ServiceAccountCredentials | undefined {
+  const credPath = getEnv('GOOGLE_APPLICATION_CREDENTIALS');
+  if (!credPath) {
+    return undefined;
+  }
+
+  return parseKeyFile(credPath);
+}
+
+function loadKeyFileCredentials():
+  | { credentials: ServiceAccountCredentials; source: CredentialSource }
+  | undefined {
+  const explicitPath = getEnv('BIGQUERY_KEY_FILE');
+  if (explicitPath) {
+    const credentials = parseKeyFile(explicitPath);
+    if (credentials) {
+      return { credentials, source: 'BIGQUERY_KEY_FILE' };
+    }
+    return undefined;
+  }
+
+  // Do not silently fall back to MegaAnalytics key in CI
+  if (getEnv('GITHUB_ACTIONS') === 'true' || getEnv('CI') === 'true') {
+    return undefined;
+  }
+
+  const fallbackPath = resolve(process.cwd(), '../MegaAnalytics/firebase-prod.json');
+  const credentials = parseKeyFile(fallbackPath);
+  if (credentials) {
+    return { credentials, source: 'MEGA_ANALYTICS_KEY_FILE' };
+  }
+
+  return undefined;
+}
+
+function loadViteCredentials(): ServiceAccountCredentials | undefined {
+  const clientEmail = getEnv('VITE_GOOGLE_SERVICE_ACCOUNT_EMAIL');
+  const privateKey = getEnv('VITE_GOOGLE_PRIVATE_KEY')?.replace(/\\n/g, '\n');
+
+  if (!clientEmail || !privateKey) {
+    return undefined;
+  }
+
+  return {
+    client_email: clientEmail,
+    private_key: privateKey,
+  };
+}
+
+function resolveCredentials(): {
+  credentials?: ServiceAccountCredentials;
+  source: CredentialSource;
+  clientEmail?: string;
+} {
+  const gacCreds = loadGoogleApplicationCredentials();
+  if (gacCreds) {
+    return {
+      credentials: gacCreds,
+      source: 'GOOGLE_APPLICATION_CREDENTIALS',
+      clientEmail: gacCreds.client_email,
+    };
+  }
+
+  const keyFileResult = loadKeyFileCredentials();
+  if (keyFileResult) {
+    return {
+      credentials: keyFileResult.credentials,
+      source: keyFileResult.source,
+      clientEmail: keyFileResult.credentials.client_email,
+    };
+  }
+
+  const viteCreds = loadViteCredentials();
+  if (viteCreds) {
+    return {
+      credentials: viteCreds,
+      source: 'VITE_ENV',
+      clientEmail: viteCreds.client_email,
+    };
+  }
+
+  return { source: 'ADC' };
+}
+
+function logCredentialSource(source: CredentialSource, clientEmail?: string): void {
+  if (clientEmail) {
+    console.log(`[BigQuery] Using credentials from ${source} (${clientEmail})`);
+  } else {
+    console.log(`[BigQuery] Using credentials from ${source}`);
+  }
+}
+
 /**
  * Initialize BigQuery client.
- * Priority: BIGQUERY_KEY_FILE / MegaAnalytics key → env service account → ADC
+ * Priority: GOOGLE_APPLICATION_CREDENTIALS → BIGQUERY_KEY_FILE → MegaAnalytics (local only) → VITE_* → ADC
  */
 function getBigQueryClient(): BigQuery {
   if (!bigqueryClient) {
     const projectId = getEnv('BIGQUERY_PROJECT_ID') || 'prior--backen-prod-svc-u4g8';
-    const keyFileCreds = loadKeyFileCredentials();
-    const clientEmail = getEnv('VITE_GOOGLE_SERVICE_ACCOUNT_EMAIL');
-    const privateKey = getEnv('VITE_GOOGLE_PRIVATE_KEY')?.replace(/\\n/g, '\n');
+    const resolved = resolveCredentials();
 
-    if (keyFileCreds) {
+    credentialSource = resolved.source;
+    credentialClientEmail = resolved.clientEmail;
+    logCredentialSource(resolved.source, resolved.clientEmail);
+
+    if (resolved.credentials) {
       bigqueryClient = new BigQuery({
         projectId,
-        credentials: keyFileCreds,
-      });
-    } else if (clientEmail && privateKey) {
-      bigqueryClient = new BigQuery({
-        projectId,
-        credentials: {
-          client_email: clientEmail,
-          private_key: privateKey,
-        },
+        credentials: resolved.credentials,
       });
     } else {
       bigqueryClient = new BigQuery({ projectId });
@@ -72,8 +166,24 @@ function getBigQueryClient(): BigQuery {
 function resetToADC(): BigQuery {
   const projectId = getEnv('BIGQUERY_PROJECT_ID') || 'prior--backen-prod-svc-u4g8';
   bigqueryClient = new BigQuery({ projectId });
+  credentialSource = 'ADC';
+  credentialClientEmail = undefined;
   console.log('[BigQuery] Switched to Application Default Credentials');
   return bigqueryClient;
+}
+
+export function getCredentialSource(): CredentialSource {
+  if (!credentialSource) {
+    getBigQueryClient();
+  }
+  return credentialSource ?? 'ADC';
+}
+
+export function getCredentialClientEmail(): string | undefined {
+  if (!credentialSource) {
+    getBigQueryClient();
+  }
+  return credentialClientEmail;
 }
 
 function normalizeQueryParams(

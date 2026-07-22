@@ -110,9 +110,6 @@ jobs:
             exit 1
           fi
 
-      - name: Validate radiology environment
-        run: npx tsx scripts/validate-radiology-env.ts
-
       - name: Configure GCP credentials
         env:
           GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
@@ -123,6 +120,10 @@ jobs:
           fi
           printf '%s' "$GCP_SA_KEY" > gcp-sa.json
           echo "GOOGLE_APPLICATION_CREDENTIALS=${{ github.workspace }}/gcp-sa.json" >> "$GITHUB_ENV"
+          echo "BIGQUERY_KEY_FILE=${{ github.workspace }}/gcp-sa.json" >> "$GITHUB_ENV"
+
+      - name: Validate radiology environment
+        run: npx tsx scripts/validate-radiology-env.ts
 
       - name: Run radiology job
         id: radiology

@@ -25,6 +25,8 @@ gcp-sa.json
 serviceAccount*.json
 *-service-account.json
 credentials.json
+credentials/
+credentials/*.json
 firebase-adminsdk*.json
 pa-orders-analytics-*.json
 
